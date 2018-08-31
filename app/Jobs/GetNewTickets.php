@@ -16,6 +16,7 @@ class GetNewTickets implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     protected $root_url;
+    protected $app_id;
     private $auth_token;
 
     /**
@@ -26,6 +27,7 @@ class GetNewTickets implements ShouldQueue
     public function __construct()
     {
         $this->root_url = 'https://ecu.teamdynamix.com/TDWebApi';
+        $this->app_id = '217';
     }
 
     /**
@@ -53,6 +55,12 @@ class GetNewTickets implements ShouldQueue
      */
     public function handle()
     {
-        get_auth_token();
+        self::get_auth_token();
+        $client = new Client();
+        $response = $client->request('GET', $this->root_url . '/tickets', [
+            'headers' => [ 'Authorization' => 'Bearer ' . $this->auth_token ]
+        ]);
+
+        Log::info($response->getBody());
     }
 }
