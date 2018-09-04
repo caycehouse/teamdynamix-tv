@@ -58,7 +58,8 @@ class GetNewTickets implements ShouldQueue
         self::get_auth_token();
         $client = new Client();
         $response = $client->request('POST', $this->root_url . '/api/' . $this->app_id . '/tickets/search', [
-            'headers' => [ 'Authorization' => 'Bearer ' . $this->auth_token ]
+            'headers' => [ 'Authorization' => 'Bearer ' . $this->auth_token ],
+            'json' => ['PrimaryResponsibilityGroupIDs' => [ 4137 ] ]
         ]);
 
         Log::info($response->getBody());
