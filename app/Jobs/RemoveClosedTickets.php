@@ -21,6 +21,6 @@ class RemoveClosedTickets implements ShouldQueue
      */
     public function handle()
     {
-        $tickets = Ticket::whereIn('status', ['Closed', 'Cancelled'])->delete();
+        Ticket::whereIn('status', ['Closed', 'Cancelled'])->delete();
     }
 }
