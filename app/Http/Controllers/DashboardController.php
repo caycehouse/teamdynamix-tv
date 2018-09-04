@@ -14,7 +14,7 @@ class DashboardController extends Controller
      */
     public function __invoke()
     {
-        $tickets = Ticket::whereNotIn('status', ['Closed', 'Cancelled'])->orderBy('ticket_created_at', 'desc')->get();
+        $tickets = Ticket::orderBy('ticket_created_at', 'desc')->get();
 
         return view('dashboard.index', ['tickets' => $tickets]);
     }

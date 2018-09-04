@@ -14,16 +14,14 @@ class TicketSaved implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    protected $ticket;
-
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct(Ticket $ticket)
+    public function __construct()
     {
-        $this->ticket = $ticket;
+        //
     }
 
     /**
@@ -34,7 +32,7 @@ class TicketSaved implements ShouldBroadcast
     public function broadcastWith()
     {
         return [
-            'ticket' => $this->ticket,
+            'ticket' => Ticket::all(),
         ];
     }
 

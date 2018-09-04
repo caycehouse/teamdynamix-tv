@@ -14,41 +14,16 @@
   <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
-  <div class="container-fluid">
+  <div class="container-fluid" id="app">
     <div class="row">
       <div class="col">
       </div>
       <div class="col">
-        <table class="table table-sm">
-          <thead>
-            <th>ID</th>
-            <th>Title</th>
-            <th>Lab</th>
-            <th>Status</th>
-            <th>Created</th>
-          </thead>
-          <tbody>
-            @foreach($tickets as $ticket)
-              <tr>
-                <td>{{ $ticket->ticket_id }}</td>
-                <td>{{ $ticket->title }}</td>
-                <td>{{ $ticket->lab }}</td>
-                <td>{{ $ticket->status }}</td>
-                <td>{{ $ticket->ticket_created_at }}</td>
-              </tr>
-            @endforeach
-          </tbody>
-        </table>
+        <tickets :tickets-list="{{ $tickets }}"></tickets>
       </div>
     </div>
   </div>
   <!-- Scripts -->
   <script src="{{ asset('js/app.js') }}"></script>
-  <script>
-    Echo.channel('tickets')
-      .listen('.TicketCreated', (e) => {
-          console.log(e);
-      })
-  </script>
 </body>
 </html>
