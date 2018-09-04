@@ -19,7 +19,6 @@ class GetNewTickets implements ShouldQueue
 
     protected $root_url;
     protected $app_id;
-    private $auth_token;
 
     /**
      * Create a new job instance.
@@ -45,9 +44,9 @@ class GetNewTickets implements ShouldQueue
                 'username' => env('TD_USERNAME'),
                 'password' => env('TD_PASSWORD')
             ]
-        ]);
+        ])->getBody();
 
-        $this->auth_token = $response->getBody();
+        return $response;
     }
 
     /**
@@ -57,10 +56,9 @@ class GetNewTickets implements ShouldQueue
      */
     public function handle()
     {
-        self::get_auth_token();
         $client = new Client();
         $response = $client->request('POST', $this->root_url . '/api/' . $this->app_id . '/tickets/search', [
-            'headers' => [ 'Authorization' => 'Bearer ' . $this->auth_token ],
+            'headers' => [ 'Authorization' => 'Bearer ' . self::get_auth_token() ],
             'json' => ['PrimaryResponsibilityGroupIDs' => [ 4137 ] ]
         ])->getBody();
 
@@ -68,7 +66,7 @@ class GetNewTickets implements ShouldQueue
 
         foreach($json_response as $jr) {
             if($jr->TypeCategoryID === 2056) {
-                Ticket::updateOrCreate(
+                $ticket = Ticket::updateOrCreate(
                     [
                         'ticket_id' => $jr->ID
                     ],

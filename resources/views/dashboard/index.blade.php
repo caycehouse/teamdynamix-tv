@@ -44,5 +44,11 @@
   </div>
   <!-- Scripts -->
   <script src="{{ asset('js/app.js') }}"></script>
+  <script>
+    Echo.channel('tickets')
+      .listen('.TicketCreated', (e) => {
+          console.log(e);
+      })
+  </script>
 </body>
 </html>
