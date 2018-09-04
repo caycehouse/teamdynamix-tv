@@ -4,6 +4,7 @@ namespace App;
 
 use App\Events\PrintersChanged;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Notifications\Notifiable;
 
 class Printer extends Model
@@ -26,4 +27,19 @@ class Printer extends Model
      * @var array
      */
     protected $fillable = ['name', 'status'];
+
+    /**
+     * The "booting" method of the model.
+     *
+     * @return void
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope('open', function (Builder $builder) {
+            $builder->whereNotIn('status', ['OK'])
+                ->orderBy('name', 'desc');
+        });
+    }
 }

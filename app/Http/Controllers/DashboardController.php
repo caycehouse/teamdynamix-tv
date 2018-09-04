@@ -16,7 +16,7 @@ class DashboardController extends Controller
     public function __invoke()
     {
         $tickets = Ticket::all();
-        $printers = Printer::orderBy('name', 'desc')->get();
+        $printers = Printer::all();
 
         return view('dashboard.index', ['tickets' => $tickets, 'printers' => $printers]);
     }

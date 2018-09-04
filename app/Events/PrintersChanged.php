@@ -32,7 +32,7 @@ class PrintersChanged implements ShouldBroadcast
     public function broadcastWith()
     {
         return [
-            'printer' => Printer::orderBy('name', 'desc')->get()
+            'printer' => Printer::all()
         ];
     }
 
