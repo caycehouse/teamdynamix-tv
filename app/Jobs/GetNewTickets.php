@@ -65,7 +65,7 @@ class GetNewTickets implements ShouldQueue
         $json_response = json_decode($response);
 
         foreach($json_response as $jr) {
-            if($jr->TypeCategoryID === 2056 && $jr->StatusName !== "Closed" && $jr->StatusName !== "Cancelled") {
+            if($jr->StatusName !== "Closed" && $jr->StatusName !== "Cancelled") {
                 $ticket = Ticket::updateOrCreate(
                     [
                         'ticket_id' => $jr->ID
