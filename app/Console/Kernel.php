@@ -8,6 +8,7 @@ use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use App\Jobs\GetNewTickets;
 use App\Jobs\RemoveClosedTickets;
 use App\Jobs\GetPrinterStatus;
+use App\Jobs\RemoveFixedPrinters;
 
 class Kernel extends ConsoleKernel
 {
@@ -31,6 +32,7 @@ class Kernel extends ConsoleKernel
         $schedule->job(new GetNewTickets)->everyMinute();
         $schedule->job(new RemoveClosedTickets)->everyMinute();
         //$schedule->job(new GetPrinterStatus)->everyFiveMinutes();
+        $schedule->job(new RemoveFixedPrinters)->everyFiveMinutes();
     }
 
     /**
