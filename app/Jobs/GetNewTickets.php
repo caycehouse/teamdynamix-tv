@@ -65,19 +65,17 @@ class GetNewTickets implements ShouldQueue
         $json_response = json_decode($response);
 
         foreach($json_response as $jr) {
-            if($jr->StatusName !== "Closed" && $jr->StatusName !== "Cancelled") {
-                Ticket::updateOrCreate(
-                    [
-                        'ticket_id' => $jr->ID
-                    ],
-                    [
-                        'title' => $jr->Title,
-                        'status' => $jr->StatusName,
-                        'lab' => $jr->LocationName,
-                        'ticket_created_at' => date('Y-m-d H:i:s', strtotime($jr->CreatedDate))
-                    ]
-                );
-            }
+            Ticket::updateOrCreate(
+                [
+                    'ticket_id' => $jr->ID
+                ],
+                [
+                    'title' => $jr->Title,
+                    'status' => $jr->StatusName,
+                    'lab' => $jr->LocationName,
+                    'ticket_created_at' => date('Y-m-d H:i:s', strtotime($jr->CreatedDate))
+                ]
+            );
         }
     }
 }

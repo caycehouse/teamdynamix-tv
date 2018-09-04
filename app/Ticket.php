@@ -4,6 +4,7 @@ namespace App;
 
 use App\Events\TicketsChanged;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Notifications\Notifiable;
 
 class Ticket extends Model
@@ -26,4 +27,19 @@ class Ticket extends Model
      * @var array
      */
     protected $fillable = ['ticket_id', 'title', 'status', 'lab', 'ticket_created_at'];
+
+    /**
+     * The "booting" method of the model.
+     *
+     * @return void
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope('open', function (Builder $builder) {
+            $builder->whereNotIn('status', ['Closed', 'Cancelled'])
+                ->orderBy('ticket_created_at', 'desc');
+        });
+    }
 }
