@@ -34,8 +34,7 @@
 
         mounted() {
             Echo.channel('tickets')
-                .listen('.TicketCreated', (e) => {
-                    console.log(e.ticket);
+                .listen('.TicketsChanged', (e) => {
                     this.tickets = e.ticket
                 });
         }

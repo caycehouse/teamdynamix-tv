@@ -6,6 +6,7 @@ use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
 use App\Jobs\GetNewTickets;
+use App\Jobs\RemoveClosedTickets;
 
 class Kernel extends ConsoleKernel
 {
@@ -26,7 +27,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->job(new GetNewTickets)->everyFiveMinutes();
+        $schedule->job(new GetNewTickets)->everyMinute();
+        $schedule->job(new RemoveClosedTickets)->everyMinute();
     }
 
     /**

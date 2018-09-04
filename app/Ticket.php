@@ -2,7 +2,7 @@
 
 namespace App;
 
-use App\Events\TicketSaved;
+use App\Events\TicketsChanged;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 
@@ -16,7 +16,8 @@ class Ticket extends Model
      * @var array
      */
     protected $dispatchesEvents = [
-        'saved' => TicketSaved::class
+        'saved' => TicketsChanged::class,
+        'deleted' => TicketsChanged::class
     ];
 
     /**

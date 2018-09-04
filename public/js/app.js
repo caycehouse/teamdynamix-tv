@@ -38427,8 +38427,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     mounted: function mounted() {
         var _this = this;
 
-        Echo.channel('tickets').listen('.TicketCreated', function (e) {
-            console.log(e.ticket);
+        Echo.channel('tickets').listen('.TicketsChanged', function (e) {
             _this.tickets = e.ticket;
         });
     }

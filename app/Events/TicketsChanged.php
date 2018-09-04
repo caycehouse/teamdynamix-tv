@@ -10,7 +10,7 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class TicketSaved implements ShouldBroadcast
+class TicketsChanged implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -43,7 +43,7 @@ class TicketSaved implements ShouldBroadcast
      */
     public function broadcastAs()
     {
-        return 'TicketCreated';
+        return 'TicketsChanged';
     }
 
     /**
