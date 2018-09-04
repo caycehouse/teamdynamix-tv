@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Log;
 
 use GuzzleHttp\Client;
 
+use App\Ticket;
+
 class GetNewTickets implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
@@ -60,8 +62,24 @@ class GetNewTickets implements ShouldQueue
         $response = $client->request('POST', $this->root_url . '/api/' . $this->app_id . '/tickets/search', [
             'headers' => [ 'Authorization' => 'Bearer ' . $this->auth_token ],
             'json' => ['PrimaryResponsibilityGroupIDs' => [ 4137 ] ]
-        ]);
+        ])->getBody();
 
-        Log::info($response->getBody());
+        $json_response = json_decode($response);
+
+        foreach($json_response as $jr) {
+            if($jr->TypeCategoryID === 2056) {
+                Ticket::updateOrCreate(
+                    [
+                        'ticket_id' => $jr->ID
+                    ],
+                    [
+                        'title' => $jr->Title,
+                        'status' => $jr->StatusName,
+                        'lab' => $jr->LocationName,
+                        'ticket_created_at' => date('Y-m-d H:i:s', strtotime($jr->CreatedDate))
+                    ]
+                );
+            }
+        }
     }
 }
