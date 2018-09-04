@@ -17,6 +17,7 @@
   <div class="container-fluid" id="app">
     <div class="row">
       <div class="col">
+      <printers :printers-list="{{ $printers }}"></printers>
       </div>
       <div class="col">
         <tickets :tickets-list="{{ $tickets }}"></tickets>
