@@ -17,6 +17,7 @@ window.Vue = require('vue');
 
 Vue.component('tickets', require('./components/Tickets.vue'));
 Vue.component('printers', require('./components/Printers.vue'));
+Vue.component('stats', require('./components/Stats.vue'));
 
 const app = new Vue({
     el: '#app'

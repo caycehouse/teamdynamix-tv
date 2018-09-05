@@ -17,7 +17,8 @@
   <div class="container-fluid mt-3" id="app">
     <div class="row">
       <div class="col-3">
-      <printers :printers-list="{{ $printers }}"></printers>
+        <printers :printers-list="{{ $printers }}"></printers>
+        <stats :stats-list="{{ $stats }}"></stats>
       </div>
       <div class="col">
         <tickets :tickets-list="{{ $tickets }}"></tickets>

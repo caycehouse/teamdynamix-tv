@@ -17,7 +17,8 @@ class DashboardController extends Controller
     {
         $tickets = Ticket::all();
         $printers = Printer::all();
+        $stats = 'stats';
 
-        return view('dashboard.index', ['tickets' => $tickets, 'printers' => $printers]);
+        return view('dashboard.index', ['tickets' => $tickets, 'printers' => $printers, 'stats' => $stats]);
     }
 }
