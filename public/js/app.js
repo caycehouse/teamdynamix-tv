@@ -38425,6 +38425,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             ticket: ''
         };
     },
+
+
+    methods: {
+        openTicket: function openTicket(ticket_id) {
+            window.open('https://ecu.teamdynamix.com/TDNext/Apps/217/Tickets/TicketDet.aspx?TicketID=' + ticket_id);
+        }
+    },
+
     mounted: function mounted() {
         var _this = this;
 
@@ -38454,17 +38462,28 @@ var render = function() {
         var lab = ref.lab
         var status = ref.status
         var ticket_created_at = ref.ticket_created_at
-        return _c("tr", { key: id }, [
-          _c("td", [_vm._v(_vm._s(ticket_id))]),
-          _vm._v(" "),
-          _c("td", [_vm._v(_vm._s(title))]),
-          _vm._v(" "),
-          _c("td", [_vm._v(_vm._s(lab))]),
-          _vm._v(" "),
-          _c("td", [_vm._v(_vm._s(status))]),
-          _vm._v(" "),
-          _c("td", [_vm._v(_vm._s(ticket_created_at))])
-        ])
+        return _c(
+          "tr",
+          {
+            key: id,
+            on: {
+              click: function($event) {
+                _vm.openTicket(ticket_id)
+              }
+            }
+          },
+          [
+            _c("td", [_vm._v(_vm._s(ticket_id))]),
+            _vm._v(" "),
+            _c("td", [_vm._v(_vm._s(title))]),
+            _vm._v(" "),
+            _c("td", [_vm._v(_vm._s(lab))]),
+            _vm._v(" "),
+            _c("td", [_vm._v(_vm._s(status))]),
+            _vm._v(" "),
+            _c("td", [_vm._v(_vm._s(ticket_created_at))])
+          ]
+        )
       })
     )
   ])

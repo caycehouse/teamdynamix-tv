@@ -8,7 +8,7 @@
             <th>Created</th>
           </thead>
           <tbody>
-              <tr v-for="{id, ticket_id, title, lab, status, ticket_created_at} in tickets" :key="id">
+              <tr v-for="{id, ticket_id, title, lab, status, ticket_created_at} in tickets" :key="id" v-on:click="openTicket(ticket_id)">
                 <td>{{ ticket_id }}</td>
                 <td>{{ title }}</td>
                 <td>{{ lab }}</td>
@@ -29,6 +29,12 @@
             return {
                 tickets: this.TicketsList,
                 ticket: '',
+            }
+        },
+
+        methods: {
+            openTicket: function(ticket_id) {
+                window.open(`https://ecu.teamdynamix.com/TDNext/Apps/217/Tickets/TicketDet.aspx?TicketID=${ticket_id}`);
             }
         },
 
