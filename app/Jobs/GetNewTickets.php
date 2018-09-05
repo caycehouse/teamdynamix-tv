@@ -65,6 +65,19 @@ class GetNewTickets implements ShouldQueue
         $json_response = json_decode($response);
 
         foreach($json_response as $jr) {
+            $dateTime = strtotime($jr->CreatedDate);
+
+            $colorCode = '';
+            if($jr->StatusName === 'New') {
+                if($dateTime <= strtotime('-12 hours')) {
+                    $colorCode = 'text-warning';
+                }
+                
+                if($dateTime <= strtotime('-24 hours')) {
+                    $colorCode = 'text-danger';
+                }
+            }
+
             Ticket::updateOrCreate(
                 [
                     'ticket_id' => $jr->ID
@@ -73,7 +86,8 @@ class GetNewTickets implements ShouldQueue
                     'title' => $jr->Title,
                     'status' => $jr->StatusName,
                     'lab' => $jr->LocationName,
-                    'ticket_created_at' => date('Y-m-d H:i:s', strtotime($jr->CreatedDate))
+                    'ticket_created_at' => date('Y-m-d H:i:s', $dateTime),
+                    'color_code' => $colorCode
                 ]
             );
         }

@@ -38462,10 +38462,12 @@ var render = function() {
         var lab = ref.lab
         var status = ref.status
         var ticket_created_at = ref.ticket_created_at
+        var color_code = ref.color_code
         return _c(
           "tr",
           {
             key: id,
+            class: color_code,
             on: {
               click: function($event) {
                 _vm.openTicket(ticket_id)

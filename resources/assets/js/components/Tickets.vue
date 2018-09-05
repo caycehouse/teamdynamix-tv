@@ -8,7 +8,7 @@
             <th>Created</th>
           </thead>
           <tbody>
-              <tr v-for="{id, ticket_id, title, lab, status, ticket_created_at} in tickets" :key="id" v-on:click="openTicket(ticket_id)">
+              <tr v-for="{id, ticket_id, title, lab, status, ticket_created_at, color_code} in tickets" :key="id" v-on:click="openTicket(ticket_id)" :class="color_code">
                 <td>{{ ticket_id }}</td>
                 <td>{{ title }}</td>
                 <td>{{ lab }}</td>
