@@ -11,6 +11,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use GuzzleHttp\Client;
 
 use App\Printer;
+use App\Events\PrintersChanged;
 
 class GetPrinterStatus implements ShouldQueue
 {
@@ -54,5 +55,7 @@ class GetPrinterStatus implements ShouldQueue
                 );
             }
         }
+
+        event(new PrintersChanged);
     }
 }

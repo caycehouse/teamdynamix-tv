@@ -11,6 +11,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use GuzzleHttp\Client;
 
 use App\Ticket;
+use App\Events\TicketsChanged;
 
 class GetNewTickets implements ShouldQueue
 {
@@ -76,5 +77,7 @@ class GetNewTickets implements ShouldQueue
                 ]
             );
         }
+        
+        event(new TicketsChanged);
     }
 }
