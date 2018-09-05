@@ -14,7 +14,7 @@
   <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
-  <div class="container-fluid" id="app">
+  <div class="container-fluid mt-3" id="app">
     <div class="row">
       <div class="col-3">
       <printers :printers-list="{{ $printers }}"></printers>
