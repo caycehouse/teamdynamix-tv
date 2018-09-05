@@ -10,6 +10,8 @@ use Illuminate\Foundation\Bus\Dispatchable;
 
 use GuzzleHttp\Client;
 
+use App\Printer;
+
 class GetPrinterStatus implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
@@ -40,8 +42,8 @@ class GetPrinterStatus implements ShouldQueue
 
         $json_response = json_decode($response);
 
-        foreach($json_response as $jr) {
-            if((explode("/", $jr->name)[0] === 'uniprint' ||  explode("/", $jr->name)[0] === 'papercut')) {
+        foreach($json_response->printers as $jr) {
+            if((explode("\\", $jr->name)[0] === 'uniprint' ||  explode("\\", $jr->name)[0] === 'papercut')) {
                 Printer::updateOrCreate(
                     [
                         'name' => $jr->name

@@ -4,23 +4,23 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 
-use App\Jobs\GetNewTickets;
+use App\Jobs\GetPrinterStatus;
 
-class Labtechs extends Command
+class GetPrinterStatuses extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'labtechs:gettickets';
+    protected $signature = 'labtechs:getprinterstatuses';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Gets new tickets from TeamDynamix.';
+    protected $description = 'Gets printer statuses from PaperCut.';
 
     /**
      * Create a new command instance.
@@ -39,6 +39,6 @@ class Labtechs extends Command
      */
     public function handle()
     {
-        GetNewTickets::dispatch();
+        GetPrinterStatus::dispatch();
     }
 }
