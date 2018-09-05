@@ -16,13 +16,14 @@
 <body>
   <div class="container-fluid" id="app">
     <div class="row">
-      <div class="col">
+      <div class="col-3">
       <printers :printers-list="{{ $printers }}"></printers>
       </div>
       <div class="col">
         <tickets :tickets-list="{{ $tickets }}"></tickets>
       </div>
     </div>
+    <p id="credits">Created by <span>Cayce House</span></p>
   </div>
   <!-- Scripts -->
   <script src="{{ asset('js/app.js') }}"></script>

@@ -10486,3 +10486,7 @@ th {
   color: #ffc702;
 }
 
+.text-muted span {
+  color: #ffc702 !important;
+}
+
