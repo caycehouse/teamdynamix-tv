@@ -31,7 +31,7 @@ class Kernel extends ConsoleKernel
     {
         $schedule->job(new GetNewTickets)->everyMinute();
         $schedule->job(new RemoveClosedTickets)->everyMinute();
-        //$schedule->job(new GetPrinterStatus)->everyFiveMinutes();
+        $schedule->job(new GetPrinterStatus)->everyFiveMinutes();
         $schedule->job(new RemoveFixedPrinters)->everyFiveMinutes();
     }
 
