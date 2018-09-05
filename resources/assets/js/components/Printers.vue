@@ -3,11 +3,13 @@
           <thead>
             <th>Name</th>
             <th>Status</th>
+            <th>Held Jobs</th>
           </thead>
           <tbody>
-              <tr v-for="{name, status} in printers" :key="name">
+              <tr v-for="{name, status, held_jobs} in printers" :key="name">
                 <td>{{ name }}</td>
                 <td>{{ status }}</td>
+                <td>{{ held_jobs }}</td>
               </tr>
           </tbody>
         </table>

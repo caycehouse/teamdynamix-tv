@@ -38583,6 +38583,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: {
@@ -38620,10 +38622,13 @@ var render = function() {
       _vm._l(_vm.printers, function(ref) {
         var name = ref.name
         var status = ref.status
+        var held_jobs = ref.held_jobs
         return _c("tr", { key: name }, [
           _c("td", [_vm._v(_vm._s(name))]),
           _vm._v(" "),
-          _c("td", [_vm._v(_vm._s(status))])
+          _c("td", [_vm._v(_vm._s(status))]),
+          _vm._v(" "),
+          _c("td", [_vm._v(_vm._s(held_jobs))])
         ])
       })
     )
@@ -38637,7 +38642,9 @@ var staticRenderFns = [
     return _c("thead", [
       _c("th", [_vm._v("Name")]),
       _vm._v(" "),
-      _c("th", [_vm._v("Status")])
+      _c("th", [_vm._v("Status")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Held Jobs")])
     ])
   }
 ]

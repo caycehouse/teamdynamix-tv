@@ -51,6 +51,7 @@ class GetPrinterStatus implements ShouldQueue
                     ],
                     [
                         'status' => $jr->status,
+                        'held_jobs' => $jr->heldJobsCount
                     ]
                 );
             }
