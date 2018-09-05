@@ -23,7 +23,7 @@ class GetPrinterStatus implements ShouldQueue
      */
     public function __construct()
     {
-        $this->root_url = 'http://pirateprint.ecu.edu:9192/api';
+        $this->root_url = 'http://pirateprint.ecu.edu:9191/api';
     }
 
     /**
