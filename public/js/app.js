@@ -38623,7 +38623,8 @@ var render = function() {
         var name = ref.name
         var status = ref.status
         var held_jobs = ref.held_jobs
-        return _c("tr", { key: name }, [
+        var print_server = ref.print_server
+        return _c("tr", { key: name, class: print_server }, [
           _c("td", [_vm._v(_vm._s(name))]),
           _vm._v(" "),
           _c("td", [_vm._v(_vm._s(status))]),

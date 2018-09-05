@@ -6,7 +6,7 @@
             <th>Held Jobs</th>
           </thead>
           <tbody>
-              <tr v-for="{name, status, held_jobs} in printers" :key="name">
+              <tr v-for="{name, status, held_jobs, print_server} in printers" :key="name" :class="print_server">
                 <td>{{ name }}</td>
                 <td>{{ status }}</td>
                 <td>{{ held_jobs }}</td>

@@ -13,7 +13,7 @@ class Printer extends Model
      *
      * @var array
      */
-    protected $fillable = ['name', 'status'];
+    protected $fillable = ['name', 'status', 'print_server', 'held_jobs'];
 
     /**
      * The "booting" method of the model.

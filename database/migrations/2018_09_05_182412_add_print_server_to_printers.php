@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddHeldJobsToPrinters extends Migration
+class AddPrintServerToPrinters extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class AddHeldJobsToPrinters extends Migration
     public function up()
     {
         Schema::table('printers', function (Blueprint $table) {
-            $table->integer('held_jobs');
+            $table->string('print_server');
         });
     }
 
@@ -26,7 +26,7 @@ class AddHeldJobsToPrinters extends Migration
     public function down()
     {
         Schema::table('printers', function (Blueprint $table) {
-            $table->dropColumn('held_jobs');
+            $table->dropColumn('print_server');
         });
     }
 }
