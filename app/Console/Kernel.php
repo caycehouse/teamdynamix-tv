@@ -30,9 +30,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->job(new GetNewTickets)->everyMinute();
-        $schedule->job(new RemoveClosedTickets)->everyFifteenMinutes();
         $schedule->job(new GetPrinterStatus)->everyFiveMinutes();
-        $schedule->job(new RemoveFixedPrinters)->everyFiveMinutes();
     }
 
     /**
