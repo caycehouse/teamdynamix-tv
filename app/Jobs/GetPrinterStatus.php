@@ -14,6 +14,8 @@ class GetPrinterStatus implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+    protected $root_url;
+
     /**
      * Create a new job instance.
      *
