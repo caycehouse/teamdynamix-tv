@@ -19,7 +19,7 @@
       <div class="col-3">
         <h2>Printers in Error</h2>
         <printers :printers-list="{{ $printers }}"></printers>
-        <h2>Resolved Ticket Stats</h2>
+        <h2>Resolved Ticket Stats <span class="text-light h6">by week</span></h2>
         <stats :stats-list="{{ $stats }}"></stats>
       </div>
       <div class="col">
