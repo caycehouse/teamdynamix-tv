@@ -19,7 +19,7 @@ class GetNewTickets implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     protected $root_url;
-    protected $app_id;
+    protected $report_id;
 
     /**
      * Create a new job instance.
@@ -29,7 +29,7 @@ class GetNewTickets implements ShouldQueue
     public function __construct()
     {
         $this->root_url = 'https://ecu.teamdynamix.com/TDWebApi';
-        $this->app_id = '217';
+        $this->report_id = '110937';
     }
 
     /**
@@ -58,19 +58,19 @@ class GetNewTickets implements ShouldQueue
     public function handle()
     {
         $client = new Client();
-        $response = $client->request('POST', $this->root_url . '/api/' . $this->app_id . '/tickets/search', [
+        $response = $client->request('GET', "{$this->root_url}/api/reports/{$this->report_id}", [
             'headers' => [ 'Authorization' => 'Bearer ' . self::get_auth_token() ],
-            'json' => ['PrimaryResponsibilityGroupIDs' => [ 4137 ] ]
+            'query' => [ 'withData' => 'true' ]
         ])->getBody();
 
-        $json_response = json_decode($response);
+        $json_response = json_decode($response, true);
 
-        foreach($json_response as $jr) {
-            $createdAt = Carbon::parse($jr->CreatedDate);
+        foreach($json_response['DataRows'] as $jr) {
+            $createdAt = Carbon::parse($jr['CreatedDate']);
             $createdAt->setTimezone('America/New_York');
 
             $colorCode = '';
-            if($jr->StatusName === 'New') {
+            if($jr['StatusName'] === 'New') {
                 if($createdAt <= Carbon::now('America/New_York')->subHours(12)) {
                     $colorCode = 'text-warning';
                 }
@@ -82,14 +82,15 @@ class GetNewTickets implements ShouldQueue
 
             Ticket::updateOrCreate(
                 [
-                    'ticket_id' => $jr->ID
+                    'ticket_id' => $jr['TicketID']
                 ],
                 [
-                    'title' => $jr->Title,
-                    'status' => $jr->StatusName,
-                    'lab' => $jr->LocationName,
+                    'title' => $jr['Title'],
+                    'status' => $jr['StatusName'],
+                    'lab' => empty($jr['18375'])? '' : $jr['18375'],
                     'ticket_created_at' => $createdAt->format('Y-m-d H:i:s'),
-                    'color_code' => $colorCode
+                    'color_code' => $colorCode,
+                    'resolved_by' => empty($jr['ClosedByFullName'])? '' : $jr['ClosedByFullName']
                 ]
             );
         }
