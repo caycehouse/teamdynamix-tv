@@ -38745,7 +38745,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     var _this = this;
 
     Echo.channel("stats").listen(".StatsChanged", function (e) {
-      console.log(e);
       _this.stats = e.stat;
     });
   }

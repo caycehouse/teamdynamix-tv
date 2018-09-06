@@ -17,10 +17,13 @@
   <div class="container-fluid mt-3" id="app">
     <div class="row">
       <div class="col-3">
+        <h2>Printers in Error</h2>
         <printers :printers-list="{{ $printers }}"></printers>
+        <h2>Resolved Ticket Stats</h2>
         <stats :stats-list="{{ $stats }}"></stats>
       </div>
       <div class="col">
+        <h2>Unresolved Tickets</h2>
         <tickets :tickets-list="{{ $tickets }}"></tickets>
       </div>
     </div>
