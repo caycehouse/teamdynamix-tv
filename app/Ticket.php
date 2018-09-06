@@ -16,17 +16,24 @@ class Ticket extends Model
     protected $fillable = ['ticket_id', 'title', 'status', 'lab', 'ticket_created_at', 'color_code', 'resolved_by'];
 
     /**
-     * The "booting" method of the model.
+     * Scope a query to only include resolved tickets.
      *
-     * @return void
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
      */
-    protected static function boot()
+    public function scopeResolved($query)
     {
-        parent::boot();
+        return $query->whereIn('status', ['Closed', 'Cancelled']);
+    }
 
-        static::addGlobalScope('open', function (Builder $builder) {
-            $builder->whereNotIn('status', ['Closed', 'Cancelled'])
-                ->orderBy('ticket_created_at', 'desc');
-        });
+    /**
+     * Scope a query to only include unresolved tickets.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeUnresolved($query)
+    {
+        return $query->whereNotIn('status', ['Closed', 'Cancelled']);
     }
 }

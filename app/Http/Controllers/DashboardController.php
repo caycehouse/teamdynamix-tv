@@ -15,7 +15,7 @@ class DashboardController extends Controller
      */
     public function __invoke()
     {
-        $tickets = Ticket::all();
+        $tickets = Ticket::unresolved()->orderBy('ticket_created_at', 'desc')->get();
         $printers = Printer::all();
         $stats = 'stats';
 

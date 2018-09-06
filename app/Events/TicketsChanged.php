@@ -32,7 +32,7 @@ class TicketsChanged implements ShouldBroadcast
     public function broadcastWith()
     {
         return [
-            'ticket' => Ticket::all()
+            'ticket' => Ticket::unresolved()->orderBy('ticket_created_at', 'desc')->get()
         ];
     }
 
