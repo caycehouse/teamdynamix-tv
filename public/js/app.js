@@ -38737,14 +38737,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
   data: function data() {
     return {
-      stats: this.StatsList
+      stats: this.StatsList,
+      stat: ''
     };
   },
   mounted: function mounted() {
     var _this = this;
 
     Echo.channel("stats").listen(".StatsChanged", function (e) {
-      _this.stats = e;
+      console.log(e);
+      _this.stats = e.stat;
     });
   }
 });

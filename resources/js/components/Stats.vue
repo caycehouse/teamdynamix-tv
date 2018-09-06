@@ -21,13 +21,14 @@ export default {
 
   data() {
     return {
-      stats: this.StatsList
+      stats: this.StatsList,
+      stat: ''
     };
   },
 
   mounted() {
     Echo.channel("stats").listen(".StatsChanged", e => {
-      this.stats = e;
+      this.stats = e.stat;
     });
   }
 };

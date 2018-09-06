@@ -11,6 +11,14 @@
 |
 */
 
+Broadcast::channel('stats', function() {
+    return true;
+});
+
+Broadcast::channel('printers', function() {
+    return true;
+});
+
 Broadcast::channel('tickets', function() {
     return true;
 });

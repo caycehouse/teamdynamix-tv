@@ -13,6 +13,7 @@ use Carbon\Carbon;
 
 use App\Ticket;
 use App\Events\TicketsChanged;
+use App\Events\StatsChanged;
 
 class GetNewTickets implements ShouldQueue
 {
@@ -96,5 +97,6 @@ class GetNewTickets implements ShouldQueue
         }
         
         event(new TicketsChanged);
+        event(new StatsChanged);
     }
 }
