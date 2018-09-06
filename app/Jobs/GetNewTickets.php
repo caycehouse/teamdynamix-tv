@@ -9,6 +9,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 
 use GuzzleHttp\Client;
+use Carbon\Carbon;
 
 use App\Ticket;
 use App\Events\TicketsChanged;
@@ -65,15 +66,16 @@ class GetNewTickets implements ShouldQueue
         $json_response = json_decode($response);
 
         foreach($json_response as $jr) {
-            $dateTime = strtotime($jr->CreatedDate);
+            $createdAt = Carbon::parse($jr->CreatedDate);
+            $createdAt->setTimezone('America/New_York');
 
             $colorCode = '';
             if($jr->StatusName === 'New') {
-                if($dateTime <= strtotime('-12 hours')) {
+                if($createdAt <= Carbon::now('America/New_York')->subHours(12)) {
                     $colorCode = 'text-warning';
                 }
                 
-                if($dateTime <= strtotime('-24 hours')) {
+                if($createdAt <= Carbon::now('America/New_York')->subHours(24)) {
                     $colorCode = 'text-danger';
                 }
             }
@@ -86,7 +88,7 @@ class GetNewTickets implements ShouldQueue
                     'title' => $jr->Title,
                     'status' => $jr->StatusName,
                     'lab' => $jr->LocationName,
-                    'ticket_created_at' => date('Y-m-d H:i:s', $dateTime),
+                    'ticket_created_at' => $createdAt->format('Y-m-d H:i:s'),
                     'color_code' => $colorCode
                 ]
             );
