@@ -5,6 +5,5 @@
 # be run after the Homestead machine is provisioned.
 
 cd *
-php artisan key:generate
 php artisan migrate
 
