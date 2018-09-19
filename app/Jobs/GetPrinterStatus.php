@@ -57,30 +57,6 @@ class GetPrinterStatus implements ShouldQueue
     }
 
     /**
-     * Gets the Print Provider statuses
-     */
-    public function getPrintProviderStatuses()
-    {
-        $api_suburl = '/print-providers/status';
-
-        $client = new Client();
-        $response = $client->request('GET', $this->root_url . $api_suburl, [
-            'query' => [ 'Authorization' => env('PAPERCUT_AUTH_TOKEN') ]
-        ])->getBody();
-
-        $json_response = json_decode($response);
-
-        $f = PapercutStatuses::updateOrCreate(
-            [
-                'status_name' => $api_suburl
-            ],
-            [
-                'status' => $json_response->status
-            ]
-        );
-    }
-
-    /**
      * Execute the job.
      *
      * @return void
