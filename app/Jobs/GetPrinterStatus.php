@@ -51,7 +51,7 @@ class GetPrinterStatus implements ShouldQueue
 
         PapercutStatuses::updateOrCreate(
             [
-                'status_name' => 'Status Summary'
+                'status_name' => 'MGMT System Health'
             ],
             [
                 'status' => $json_response->status,
