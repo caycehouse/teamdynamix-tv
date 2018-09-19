@@ -13,7 +13,7 @@ class Ticket extends Model
      *
      * @var array
      */
-    protected $fillable = ['ticket_id', 'title', 'status', 'lab', 'ticket_created_at', 'color_code', 'resolved_by'];
+    protected $fillable = ['ticket_id', 'title', 'status', 'lab', 'ticket_created_at', 'color_code', 'resolved_by', 'resolved_at'];
 
     /**
      * Scope a query to only include resolved tickets.
@@ -23,7 +23,7 @@ class Ticket extends Model
      */
     public function scopeResolved($query)
     {
-        return $query->whereIn('status', ['Closed', 'Cancelled']);
+        return $query->whereIn('status', ['Closed']);
     }
 
     /**

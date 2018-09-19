@@ -27,7 +27,7 @@ class DashboardController extends Controller
         $fromDate = Carbon::now()->startOfWeek()->toDateTimeString();
         $tillDate = Carbon::now()->toDateTimeString();
 
-        $stats = Ticket::resolved()->whereBetween('ticket_created_at', [$fromDate, $tillDate])
+        $stats = Ticket::resolved()->whereBetween('resolved_at', [$fromDate, $tillDate])
             ->groupBy('resolved_by')->select('resolved_by', DB::raw('count(*) as total'))->orderBy('total', 'desc')->get();
 
         return view( 'dashboard.index', [

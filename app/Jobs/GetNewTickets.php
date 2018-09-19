@@ -35,7 +35,7 @@ class GetNewTickets implements ShouldQueue
 
     /**
      * Get the auth token.
-     * 
+     *
      * @return void
      */
     public function get_auth_token()
@@ -67,6 +67,9 @@ class GetNewTickets implements ShouldQueue
         $json_response = json_decode($response, true);
 
         foreach($json_response['DataRows'] as $jr) {
+            $resolvedAt = Carbon::parse($jr['ClosedDate']);
+            $resolvedAt->setTimezone('America/New_York');
+
             $createdAt = Carbon::parse($jr['CreatedDate']);
             $createdAt->setTimezone('America/New_York');
 
@@ -75,7 +78,7 @@ class GetNewTickets implements ShouldQueue
                 if($createdAt <= Carbon::now('America/New_York')->subHours(12)) {
                     $colorCode = 'text-warning';
                 }
-                
+
                 if($createdAt <= Carbon::now('America/New_York')->subHours(24)) {
                     $colorCode = 'text-danger';
                 }
@@ -91,11 +94,12 @@ class GetNewTickets implements ShouldQueue
                     'lab' => empty($jr['18375'])? '' : $jr['18375'],
                     'ticket_created_at' => $createdAt->format('Y-m-d H:i:s'),
                     'color_code' => $colorCode,
-                    'resolved_by' => empty($jr['ClosedByFullName'])? '' : $jr['ClosedByFullName']
+                    'resolved_by' => empty($jr['ClosedByFullName'])? '' : $jr['ClosedByFullName'],
+                    'resolved_at' => $resolvedAt->format('Y-m-d H:i:s')
                 ]
             );
         }
-        
+
         event(new TicketsChanged);
         event(new StatsChanged);
     }
