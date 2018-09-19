@@ -14,7 +14,6 @@ php vendor/bin/homestead make
 ssh-keygen
 
 cp .env.example .env
-php artisan key:generate
 
 vagrant up
 ```
