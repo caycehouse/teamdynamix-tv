@@ -16,6 +16,13 @@ ssh-keygen
 cp .env.example .env
 php artisan key:generate
 
+# Add schedule:true to Homestead.yaml if you want crons to run.
+12. sites:
+13.     -
+14.         map: homestead.test
+15.         to: /home/vagrant/code/Laravel/public
+16.         schedule: true
+
 vagrant up
 ```
 
