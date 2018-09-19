@@ -13116,7 +13116,7 @@ return jQuery;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(5);
-module.exports = __webpack_require__(23);
+module.exports = __webpack_require__(26);
 
 
 /***/ }),
@@ -13143,6 +13143,7 @@ window.Vue = __webpack_require__(10);
 Vue.component('tickets', __webpack_require__(14));
 Vue.component('printers', __webpack_require__(17));
 Vue.component('stats', __webpack_require__(20));
+Vue.component('papercut-statuses', __webpack_require__(23));
 
 var app = new Vue({
   el: '#app'
@@ -38798,6 +38799,121 @@ if (false) {
 
 /***/ }),
 /* 23 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(24)
+/* template */
+var __vue_template__ = __webpack_require__(25)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/js/components/PapercutStatuses.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-7e0fd2e1", Component.options)
+  } else {
+    hotAPI.reload("data-v-7e0fd2e1", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 24 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: {
+        PapercutStatusesList: null
+    },
+
+    data: function data() {
+        return {
+            papercutStatuses: this.PapercutStatusesList,
+            papercutStatus: ''
+        };
+    },
+    mounted: function mounted() {
+        var _this = this;
+
+        Echo.channel('printers').listen('.PrintersChanged', function (e) {
+            _this.papercutStatuses = e.papercutStatus;
+        });
+    }
+});
+
+/***/ }),
+/* 25 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    _vm._l(_vm.papercutStatuses, function(ref) {
+      var status_name = ref.status_name
+      var status = ref.status
+      return _c("ul", { key: status_name, staticClass: "list-unstyled" }, [
+        _c("li", { staticClass: "text-center" }, [
+          _vm._v(_vm._s(status_name)),
+          _c("br"),
+          _c("span", { staticClass: "text-success" }, [_vm._v(_vm._s(status))])
+        ])
+      ])
+    })
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-7e0fd2e1", module.exports)
+  }
+}
+
+/***/ }),
+/* 26 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin

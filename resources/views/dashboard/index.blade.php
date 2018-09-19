@@ -14,22 +14,26 @@
   <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
-  <div class="container-fluid mt-3" id="app">
-    <div class="row">
-      <div class="col-3">
-        <h2>Printers in Error</h2>
-        <printers :printers-list="{{ $printers }}"></printers>
-        <h2>Resolved Ticket Stats <span class="text-light h6">by week</span></h2>
-        <stats :stats-list="{{ $stats }}"></stats>
-      </div>
-      <div class="col">
-        <h2>Unresolved Tickets</h2>
-        <tickets :tickets-list="{{ $tickets }}"></tickets>
-      </div>
+    <div class="container-fluid mt-3" id="app">
+        <div class="row">
+            <div class="col-12">
+                <h2>Papercut Status Summary</h2>
+                <papercut-statuses :papercut-statuses-list="{{ $papercutStatuses }}"></papercut-statuses>
+            </div>
+            <div class="col-3">
+                <h2>Printers in Error</h2>
+                <printers :printers-list="{{ $printers }}"></printers>
+                <h2>Resolved Ticket Stats <span class="text-light h6">by week</span></h2>
+                <stats :stats-list="{{ $stats }}"></stats>
+            </div>
+            <div class="col">
+                <h2>Unresolved Tickets</h2>
+                <tickets :tickets-list="{{ $tickets }}"></tickets>
+            </div>
+        </div>
+        <p id="credits">Created by <span>Cayce House</span></p>
     </div>
-    <p id="credits">Created by <span>Cayce House</span></p>
-  </div>
-  <!-- Scripts -->
-  <script src="{{ asset('js/app.js') }}"></script>
+    <!-- Scripts -->
+    <script src="{{ asset('js/app.js') }}"></script>
 </body>
 </html>
