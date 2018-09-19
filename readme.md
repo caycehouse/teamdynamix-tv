@@ -16,6 +16,12 @@ ssh-keygen
 cp .env.example .env
 php artisan key:generate
 
+# Edit these lines in .env with your details.
+41. TD_USERNAME=
+42. TD_PASSWORD=
+43.
+44. PAPERCUT_AUTH_TOKEN=
+
 # Add schedule:true to Homestead.yaml if you want crons to run.
 12. sites:
 13.     -
