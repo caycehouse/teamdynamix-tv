@@ -19,6 +19,7 @@
             <div class="col-12">
                 <h2>Papercut Status Summary</h2>
                 <papercut-statuses :papercut-statuses-list="{{ $papercutStatuses }}"></papercut-statuses>
+                <hr class="bg-white">
             </div>
             <div class="col-3">
                 <h2>Printers in Error</h2>
