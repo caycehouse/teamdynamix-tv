@@ -11,5 +11,5 @@ class PapercutStatuses extends Model
      *
      * @var array
      */
-    protected $fillable = ['status_name', 'status'];
+    protected $fillable = ['status_name', 'status', 'status_color'];
 }

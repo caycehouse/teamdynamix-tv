@@ -38866,15 +38866,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     data: function data() {
         return {
-            papercutStatuses: this.PapercutStatusesList,
-            papercutStatus: ''
+            papercutStatuses: this.PapercutStatusesList
         };
     },
     mounted: function mounted() {
         var _this = this;
 
         Echo.channel('printers').listen('.PrintersChanged', function (e) {
-            _this.papercutStatuses = e.papercutStatus;
+            _this.papercutStatuses = e.papercutStatuses;
         });
     }
 });
@@ -38892,11 +38891,12 @@ var render = function() {
     _vm._l(_vm.papercutStatuses, function(ref) {
       var status_name = ref.status_name
       var status = ref.status
+      var status_color = ref.status_color
       return _c("ul", { key: status_name, staticClass: "list-unstyled" }, [
         _c("li", { staticClass: "text-center" }, [
           _vm._v(_vm._s(status_name)),
           _c("br"),
-          _c("span", { staticClass: "text-success" }, [_vm._v(_vm._s(status))])
+          _c("span", { class: status_color }, [_vm._v(_vm._s(status))])
         ])
       ])
     })

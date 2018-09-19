@@ -9,6 +9,7 @@ use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
+use App\PapercutStatuses;
 
 class PrintersChanged implements ShouldBroadcast
 {
@@ -26,19 +27,20 @@ class PrintersChanged implements ShouldBroadcast
 
     /**
      * The JSON data to return.
-     * 
+     *
      * @return JSON
      */
     public function broadcastWith()
     {
         return [
-            'printer' => Printer::all()
+            'printer' => Printer::all(),
+            'papercutStatuses' => PapercutStatuses::all()
         ];
     }
 
     /**
      * The event to broadcast as.
-     * 
+     *
      * @return String
      */
     public function broadcastAs()

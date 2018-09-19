@@ -44,12 +44,18 @@ class GetPrinterStatus implements ShouldQueue
 
         $json_response = json_decode($response);
 
+        $statusColor = 'text-success';
+        if($json_response->status !== 'OK') {
+            $status = 'text-danger';
+        }
+
         PapercutStatuses::updateOrCreate(
             [
                 'status_name' => 'Status Summary'
             ],
             [
-                'status' => $json_response->status
+                'status' => $json_response->status,
+                'status_color' => $statusColor
             ]
         );
     }
