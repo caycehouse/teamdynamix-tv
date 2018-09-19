@@ -11,6 +11,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use GuzzleHttp\Client;
 
 use App\Printer;
+use App\PapercutStatuses;
 use App\Events\PrintersChanged;
 
 class GetPrinterStatus implements ShouldQueue
@@ -26,7 +27,33 @@ class GetPrinterStatus implements ShouldQueue
      */
     public function __construct()
     {
-        $this->root_url = 'http://pirateprint.ecu.edu:9191/api';
+        $this->root_url = 'http://pirateprint.ecu.edu:9191/api/health';
+    }
+
+    /**
+     * Gets the overall papercut status summary.
+     *
+     * @return void
+     */
+    public function getPapercutStatusSummary()
+    {
+        $api_suburl = '/site-servers/status';
+
+        $client = new Client();
+        $response = $client->request('GET', $this->root_url . $api_suburl, [
+            'query' => [ 'Authorization' => env('PAPERCUT_AUTH_TOKEN') ]
+        ])->getBody();
+
+        $json_response = json_decode($response);
+
+        $f = PapercutStatuses::updateOrCreate(
+            [
+                'status_name' => $api_suburl
+            ],
+            [
+                'status' => $json_response->status
+            ]
+        );
     }
 
     /**
@@ -36,8 +63,11 @@ class GetPrinterStatus implements ShouldQueue
      */
     public function handle()
     {
+        // Update system status summary.
+        self::getPapercutStatusSummary();
+
         $client = new Client();
-        $response = $client->request('GET', $this->root_url . '/health/printers', [
+        $response = $client->request('GET', $this->root_url . '/printers', [
             'query' => [ 'Authorization' => env('PAPERCUT_AUTH_TOKEN') ]
         ])->getBody();
 
