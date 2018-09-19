@@ -21,4 +21,4 @@ vagrant up
 
 ## License
 
-This project is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+This project is open-sourced software licensed under the [GPLv3 license](https://opensource.org/licenses/GPL-3.0).
