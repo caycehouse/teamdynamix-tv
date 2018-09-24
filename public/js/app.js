@@ -38888,11 +38888,12 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
+    { staticClass: "row" },
     _vm._l(_vm.papercutStatuses, function(ref) {
       var status_name = ref.status_name
       var status = ref.status
       var status_color = ref.status_color
-      return _c("ul", { key: status_name, staticClass: "list-unstyled" }, [
+      return _c("ul", { key: status_name, staticClass: "col list-unstyled" }, [
         _c("li", { staticClass: "text-center" }, [
           _vm._v(_vm._s(status_name)),
           _c("br"),
