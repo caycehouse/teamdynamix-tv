@@ -61,6 +61,36 @@ class GetPrinterStatus implements ShouldQueue
     }
 
     /**
+     * Gets the print providers summary.
+     *
+     * @return void
+     */
+    public function getPrintProvidersSummary()
+    {
+        $client = new Client();
+        $response = $client->request('GET', $this->root_url . '/print-providers/status', [
+            'query' => [ 'Authorization' => env('PAPERCUT_AUTH_TOKEN') ]
+        ])->getBody();
+
+        $json_response = json_decode($response);
+
+        $statusColor = 'text-success';
+        if($json_response->status !== 'OK') {
+            $status = 'text-danger';
+        }
+
+        PapercutStatuses::updateOrCreate(
+            [
+                'status_name' => 'Print Providers Health'
+            ],
+            [
+                'status' => $json_response->status,
+                'status_color' => $statusColor
+            ]
+        );
+    }
+
+    /**
      * Execute the job.
      *
      * @return void
@@ -69,6 +99,9 @@ class GetPrinterStatus implements ShouldQueue
     {
         // Update system status summary.
         self::getPapercutStatusSummary();
+
+        // Update print providers summary.
+        self::getPrintProvidersSummary();
 
         $client = new Client();
         $response = $client->request('GET', $this->root_url . '/printers', [
