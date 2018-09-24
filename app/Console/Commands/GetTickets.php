@@ -2,9 +2,8 @@
 
 namespace App\Console\Commands;
 
+use App\Ticket;
 use Illuminate\Console\Command;
-
-use App\Jobs\GetNewTickets;
 
 class GetTickets extends Command
 {
@@ -39,6 +38,6 @@ class GetTickets extends Command
      */
     public function handle()
     {
-        GetNewTickets::dispatch();
+        Ticket::getNewTickets();
     }
 }
