@@ -2,33 +2,16 @@
 
 namespace App\Jobs;
 
+use App\Printer;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 
-use GuzzleHttp\Client;
-
-use App\Printer;
-use App\PapercutStatuses;
-use App\Events\PrintersChanged;
-
 class GetPrinterStatus implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
-
-    protected $root_url;
-
-    /**
-     * Create a new job instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->root_url = 'http://pirateprint.ecu.edu:9191/api/health';
-    }
 
     /**
      * Gets the overall papercut status summary.
@@ -97,34 +80,6 @@ class GetPrinterStatus implements ShouldQueue
      */
     public function handle()
     {
-        // Update system status summary.
-        self::getPapercutStatusSummary();
-
-        // Update print providers summary.
-        self::getPrintProvidersSummary();
-
-        $client = new Client();
-        $response = $client->request('GET', $this->root_url . '/printers', [
-            'query' => [ 'Authorization' => env('PAPERCUT_AUTH_TOKEN') ]
-        ])->getBody();
-
-        $json_response = json_decode($response);
-
-        foreach($json_response->printers as $jr) {
-            if((explode("\\", $jr->name)[0] === 'uniprint' ||  explode("\\", $jr->name)[0] === 'papercut')) {
-                Printer::updateOrCreate(
-                    [
-                        'name' => $jr->name
-                    ],
-                    [
-                        'print_server' => explode("\\", $jr->name)[0],
-                        'status' => $jr->status,
-                        'held_jobs' => $jr->heldJobsCount
-                    ]
-                );
-            }
-        }
-
-        event(new PrintersChanged);
+        Printer::getStats();
     }
 }

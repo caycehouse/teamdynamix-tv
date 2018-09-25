@@ -2,25 +2,24 @@
 
 namespace App\Console\Commands;
 
+use App\Printer;
 use Illuminate\Console\Command;
 
-use App\Jobs\GetPrinterStatus;
-
-class GetPrinterStatuses extends Command
+class GetPrinterStats extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'labtechs:getprinterstatuses';
+    protected $signature = 'labtechs:getprinterstats';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Gets printer statuses from PaperCut.';
+    protected $description = 'Gets printer stats from PaperCut';
 
     /**
      * Create a new command instance.
@@ -39,6 +38,6 @@ class GetPrinterStatuses extends Command
      */
     public function handle()
     {
-        GetPrinterStatus::dispatch();
+        Printer::getStats();
     }
 }
