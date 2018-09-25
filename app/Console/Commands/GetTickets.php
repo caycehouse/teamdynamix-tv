@@ -19,7 +19,7 @@ class GetTickets extends Command
      *
      * @var string
      */
-    protected $description = 'Gets new tickets from TeamDynamix.';
+    protected $description = 'Gets new tickets from TeamDynamix';
 
     /**
      * Create a new command instance.
