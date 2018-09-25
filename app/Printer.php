@@ -17,18 +17,14 @@ class Printer extends Model
     protected $fillable = ['name', 'status', 'print_server', 'held_jobs'];
 
     /**
-     * The "booting" method of the model.
+     * Scope a query to only include printers in error.
      *
-     * @return void
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
      */
-    protected static function boot()
+    public function scopeInError($query)
     {
-        parent::boot();
-
-        static::addGlobalScope('open', function (Builder $builder) {
-            $builder->whereNotIn('status', ['OK'])
-                ->orderBy('name', 'desc');
-        });
+        return $query->whereNotIn('status', ['OK'])->orderBy('name', 'desc');
     }
 
     public static function getStats()

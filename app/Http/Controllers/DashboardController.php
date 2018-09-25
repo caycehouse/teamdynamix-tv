@@ -21,7 +21,7 @@ class DashboardController extends Controller
     public function __invoke()
     {
         $tickets = Ticket::unresolved()->orderBy('ticket_created_at', 'desc')->get();
-        $printers = Printer::all();
+        $printers = Printer::inError()->get();
         $papercutStatuses = PapercutStatuses::all();
 
         $fromDate = Carbon::now()->startOfWeek()->toDateTimeString();

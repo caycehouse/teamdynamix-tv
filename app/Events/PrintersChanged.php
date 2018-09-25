@@ -33,7 +33,7 @@ class PrintersChanged implements ShouldBroadcast
     public function broadcastWith()
     {
         return [
-            'printer' => Printer::all(),
+            'printer' => Printer::inError()->get(),
             'papercutStatuses' => PapercutStatuses::all()
         ];
     }
