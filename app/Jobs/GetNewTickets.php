@@ -20,6 +20,6 @@ class GetNewTickets implements ShouldQueue
      */
     public function handle()
     {
-        Ticket::getNewTickets();
+        Ticket::getNew();
     }
 }

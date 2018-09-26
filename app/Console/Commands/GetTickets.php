@@ -38,6 +38,6 @@ class GetTickets extends Command
      */
     public function handle()
     {
-        Ticket::getNewTickets();
+        Ticket::getNew();
     }
 }

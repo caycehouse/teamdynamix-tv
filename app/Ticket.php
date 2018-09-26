@@ -45,7 +45,7 @@ class Ticket extends Model
      *
      * @return void
      */
-    public static function getNewTickets()
+    public static function getNew()
     {
         $client = new Client();
 
