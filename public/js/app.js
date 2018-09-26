@@ -38417,31 +38417,30 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: {
-        TicketsList: null
-    },
+  props: {
+    TicketsList: null
+  },
 
-    data: function data() {
-        return {
-            tickets: this.TicketsList,
-            ticket: ''
-        };
-    },
+  data: function data() {
+    return {
+      tickets: this.TicketsList
+    };
+  },
 
 
-    methods: {
-        openTicket: function openTicket(ticket_id) {
-            window.open('https://ecu.teamdynamix.com/TDNext/Apps/217/Tickets/TicketDet.aspx?TicketID=' + ticket_id);
-        }
-    },
-
-    mounted: function mounted() {
-        var _this = this;
-
-        Echo.channel('tickets').listen('.TicketsChanged', function (e) {
-            _this.tickets = e.ticket;
-        });
+  methods: {
+    openTicket: function openTicket(ticket_id) {
+      window.open("https://ecu.teamdynamix.com/TDNext/Apps/217/Tickets/TicketDet.aspx?TicketID=" + ticket_id);
     }
+  },
+
+  mounted: function mounted() {
+    var _this = this;
+
+    Echo.channel("tickets").listen(".TicketsChanged", function (e) {
+      _this.tickets = e.ticket;
+    });
+  }
 });
 
 /***/ }),

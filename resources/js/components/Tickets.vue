@@ -20,29 +20,29 @@
 </template>
 
 <script>
-    export default {
-        props: {
-            TicketsList: null
-        },
+export default {
+  props: {
+    TicketsList: null
+  },
 
-        data(){
-            return {
-                tickets: this.TicketsList,
-                ticket: '',
-            }
-        },
+  data() {
+    return {
+      tickets: this.TicketsList
+    };
+  },
 
-        methods: {
-            openTicket: function(ticket_id) {
-                window.open(`https://ecu.teamdynamix.com/TDNext/Apps/217/Tickets/TicketDet.aspx?TicketID=${ticket_id}`);
-            }
-        },
-
-        mounted() {
-            Echo.channel('tickets')
-                .listen('.TicketsChanged', (e) => {
-                    this.tickets = e.ticket
-                });
-        }
+  methods: {
+    openTicket: function(ticket_id) {
+      window.open(
+        `https://ecu.teamdynamix.com/TDNext/Apps/217/Tickets/TicketDet.aspx?TicketID=${ticket_id}`
+      );
     }
+  },
+
+  mounted() {
+    Echo.channel("tickets").listen(".TicketsChanged", e => {
+      this.tickets = e.ticket;
+    });
+  }
+};
 </script>
