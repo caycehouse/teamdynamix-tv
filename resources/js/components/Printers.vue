@@ -1,5 +1,6 @@
 <template>
     <table class="table table-sm">
+        <caption>Printers in Error</caption>
           <thead>
             <th>Name</th>
             <th>Status</th>

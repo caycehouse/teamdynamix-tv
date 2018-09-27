@@ -38415,6 +38415,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
@@ -38452,6 +38453,8 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("table", { staticClass: "table table-sm" }, [
+    _c("caption", [_vm._v("Unresolved Tickets")]),
+    _vm._v(" "),
     _vm._m(0),
     _vm._v(" "),
     _c(
@@ -38588,6 +38591,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: {
@@ -38618,6 +38622,8 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("table", { staticClass: "table table-sm" }, [
+    _c("caption", [_vm._v("Printers in Error")]),
+    _vm._v(" "),
     _vm._m(0),
     _vm._v(" "),
     _c(
@@ -38729,6 +38735,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
@@ -38759,6 +38766,8 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("table", { staticClass: "table table-sm" }, [
+    _c("caption", [_vm._v("Ticket Resolutions (by week)")]),
+    _vm._v(" "),
     _vm._m(0),
     _vm._v(" "),
     _c(
@@ -38857,24 +38866,32 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: {
-        PapercutStatusesList: null
-    },
+  props: {
+    PapercutStatusesList: null
+  },
 
-    data: function data() {
-        return {
-            papercutStatuses: this.PapercutStatusesList
-        };
-    },
-    mounted: function mounted() {
-        var _this = this;
+  data: function data() {
+    return {
+      papercutStatuses: this.PapercutStatusesList
+    };
+  },
+  mounted: function mounted() {
+    var _this = this;
 
-        Echo.channel('printers').listen('.PrintersChanged', function (e) {
-            _this.papercutStatuses = e.papercutStatuses;
-        });
-    }
+    Echo.channel("printers").listen(".PrintersChanged", function (e) {
+      _this.papercutStatuses = e.papercutStatuses;
+    });
+  }
 });
 
 /***/ }),
@@ -38885,24 +38902,38 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "row" },
-    _vm._l(_vm.papercutStatuses, function(ref) {
-      var status_name = ref.status_name
-      var status = ref.status
-      var status_color = ref.status_color
-      return _c("ul", { key: status_name, staticClass: "col list-unstyled" }, [
-        _c("li", { staticClass: "text-center" }, [
-          _vm._v(_vm._s(status_name)),
-          _c("br"),
-          _c("span", { class: status_color }, [_vm._v(_vm._s(status))])
+  return _c("table", { staticClass: "table table-sm" }, [
+    _c("caption", [_vm._v("Papercut Statuses")]),
+    _vm._v(" "),
+    _vm._m(0),
+    _vm._v(" "),
+    _c(
+      "tbody",
+      _vm._l(_vm.papercutStatuses, function(ref) {
+        var status_name = ref.status_name
+        var status = ref.status
+        var status_color = ref.status_color
+        return _c("tr", { key: status_name }, [
+          _c("td", [_vm._v(_vm._s(status_name))]),
+          _vm._v(" "),
+          _c("td", { class: status_color }, [_vm._v(_vm._s(status))])
         ])
-      ])
-    })
-  )
+      })
+    )
+  ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("th", [_vm._v("System")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Status")])
+    ])
+  }
+]
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {

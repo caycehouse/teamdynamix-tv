@@ -1,5 +1,6 @@
 <template>
     <table class="table table-sm">
+        <caption>Ticket Resolutions (by week)</caption>
         <thead>
         <th>Tech Name</th>
         <th>Resolved Tickets</th>

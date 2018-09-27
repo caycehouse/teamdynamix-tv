@@ -14,25 +14,31 @@
   <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Labtechs TV</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active" id="credits">
+                    <a class="nav-link" href="#">Created & designed by <span>Cayce House<span></a>
+                </li>
+            </ul>
+        </div>
+    </nav>
     <div class="container-fluid mt-3" id="app">
         <div class="row">
-            <div class="col-12">
-                <h2>Papercut Status Summary</h2>
-                <papercut-statuses :papercut-statuses-list="{{ $papercutStatuses }}"></papercut-statuses>
-                <hr class="bg-white">
-            </div>
             <div class="col-3">
-                <h2>Printers in Error</h2>
+                <papercut-statuses :papercut-statuses-list="{{ $papercutStatuses }}"></papercut-statuses>
                 <printers :printers-list="{{ $printers }}"></printers>
-                <h2>Resolved Ticket Stats <span class="text-light h6">by week</span></h2>
                 <stats :stats-list="{{ $stats }}"></stats>
             </div>
             <div class="col">
-                <h2>Unresolved Tickets</h2>
                 <tickets :tickets-list="{{ $tickets }}"></tickets>
             </div>
         </div>
-        <p id="credits">Created by <span>Cayce House</span></p>
     </div>
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>

@@ -1,28 +1,35 @@
 <template>
-    <div class="row">
-        <ul v-for="{status_name, status, status_color} in papercutStatuses" :key="status_name" class="col list-unstyled">
-            <li class="text-center">{{ status_name }}<br><span :class="status_color">{{ status }}</span></li>
-        </ul>
-    </div>
+    <table class="table table-sm">
+        <caption>Papercut Statuses</caption>
+        <thead>
+            <th>System</th>
+            <th>Status</th>
+        </thead>
+        <tbody>
+            <tr v-for="{status_name, status, status_color} in papercutStatuses" :key="status_name">
+                <td>{{ status_name }}</td>
+                <td :class="status_color">{{ status }}</td>
+            </tr>
+        </tbody>
+    </table>
 </template>
 
 <script>
-    export default {
-        props: {
-            PapercutStatusesList: null
-        },
+export default {
+  props: {
+    PapercutStatusesList: null
+  },
 
-        data(){
-            return {
-                papercutStatuses: this.PapercutStatusesList
-            }
-        },
+  data() {
+    return {
+      papercutStatuses: this.PapercutStatusesList
+    };
+  },
 
-        mounted() {
-            Echo.channel('printers')
-                .listen('.PrintersChanged', (e) => {
-                    this.papercutStatuses = e.papercutStatuses
-                });
-        }
-    }
+  mounted() {
+    Echo.channel("printers").listen(".PrintersChanged", e => {
+      this.papercutStatuses = e.papercutStatuses;
+    });
+  }
+};
 </script>

@@ -1,5 +1,6 @@
 <template>
     <table class="table table-sm">
+        <caption>Unresolved Tickets</caption>
           <thead>
             <th>ID</th>
             <th>Title</th>
