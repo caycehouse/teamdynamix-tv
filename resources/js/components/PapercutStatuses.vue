@@ -1,7 +1,7 @@
 <template>
     <table class="table table-sm">
-        <caption>Papercut Statuses</caption>
-        <thead>
+        <caption class="text-warning">Papercut Statuses</caption>
+        <thead class="text-warning">
             <th>System</th>
             <th>Status</th>
         </thead>

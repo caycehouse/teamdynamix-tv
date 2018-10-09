@@ -1,7 +1,7 @@
 <template>
     <table class="table table-sm">
-        <caption>Printers in Error</caption>
-          <thead>
+        <caption class="text-warning">Printers in Error</caption>
+          <thead class="text-warning">
             <th>Name</th>
             <th>Status</th>
             <th>Held Jobs</th>

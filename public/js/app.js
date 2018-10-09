@@ -38453,7 +38453,9 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("table", { staticClass: "table table-sm" }, [
-    _c("caption", [_vm._v("Unresolved Tickets")]),
+    _c("caption", { staticClass: "text-warning" }, [
+      _vm._v("Unresolved Tickets")
+    ]),
     _vm._v(" "),
     _vm._m(0),
     _vm._v(" "),
@@ -38499,7 +38501,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("thead", [
+    return _c("thead", { staticClass: "text-warning" }, [
       _c("th", [_vm._v("ID")]),
       _vm._v(" "),
       _c("th", [_vm._v("Title")]),
@@ -38622,7 +38624,9 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("table", { staticClass: "table table-sm" }, [
-    _c("caption", [_vm._v("Printers in Error")]),
+    _c("caption", { staticClass: "text-warning" }, [
+      _vm._v("Printers in Error")
+    ]),
     _vm._v(" "),
     _vm._m(0),
     _vm._v(" "),
@@ -38649,7 +38653,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("thead", [
+    return _c("thead", { staticClass: "text-warning" }, [
       _c("th", [_vm._v("Name")]),
       _vm._v(" "),
       _c("th", [_vm._v("Status")]),
@@ -38766,7 +38770,9 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("table", { staticClass: "table table-sm" }, [
-    _c("caption", [_vm._v("Ticket Resolutions (by week)")]),
+    _c("caption", { staticClass: "text-warning" }, [
+      _vm._v("Ticket Resolutions (by week)")
+    ]),
     _vm._v(" "),
     _vm._m(0),
     _vm._v(" "),
@@ -38789,7 +38795,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("thead", [
+    return _c("thead", { staticClass: "text-warning" }, [
       _c("th", [_vm._v("Tech Name")]),
       _vm._v(" "),
       _c("th", [_vm._v("Resolved Tickets")])
@@ -38903,7 +38909,9 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("table", { staticClass: "table table-sm" }, [
-    _c("caption", [_vm._v("Papercut Statuses")]),
+    _c("caption", { staticClass: "text-warning" }, [
+      _vm._v("Papercut Statuses")
+    ]),
     _vm._v(" "),
     _vm._m(0),
     _vm._v(" "),
@@ -38927,7 +38935,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("thead", [
+    return _c("thead", { staticClass: "text-warning" }, [
       _c("th", [_vm._v("System")]),
       _vm._v(" "),
       _c("th", [_vm._v("Status")])

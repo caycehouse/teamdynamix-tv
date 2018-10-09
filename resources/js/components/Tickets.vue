@@ -1,7 +1,7 @@
 <template>
     <table class="table table-sm">
-        <caption>Unresolved Tickets</caption>
-          <thead>
+        <caption class="text-warning">Unresolved Tickets</caption>
+          <thead class="text-warning">
             <th>ID</th>
             <th>Title</th>
             <th>Lab</th>
