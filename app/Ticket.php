@@ -56,26 +56,23 @@ class Ticket extends Model
         ])->getBody();
 
         $response = $client->request('GET', "https://ecu.teamdynamix.com/TDWebApi/api/reports/110937", [
-            'headers' => [ 'Authorization' => 'Bearer ' . $authToken ],
-            'query' => [ 'withData' => 'true' ]
+            'headers' => ['Authorization' => 'Bearer ' . $authToken],
+            'query' => ['withData' => 'true']
         ])->getBody();
 
         $json_response = json_decode($response, true);
 
-        foreach($json_response['DataRows'] as $jr) {
-            $resolvedAt = Carbon::parse($jr['ClosedDate']);
-            $resolvedAt->setTimezone('America/New_York');
-
+        foreach ($json_response['DataRows'] as $jr) {
             $createdAt = Carbon::parse($jr['CreatedDate']);
             $createdAt->setTimezone('America/New_York');
 
             $colorCode = '';
-            if($jr['StatusName'] === 'New') {
-                if($createdAt <= Carbon::now('America/New_York')->subHours(12)) {
+            if ($jr['StatusName'] === 'New') {
+                if ($createdAt <= Carbon::now('America/New_York')->subHours(12)) {
                     $colorCode = 'text-warning';
                 }
 
-                if($createdAt <= Carbon::now('America/New_York')->subHours(24)) {
+                if ($createdAt <= Carbon::now('America/New_York')->subHours(24)) {
                     $colorCode = 'text-danger';
                 }
             }
@@ -87,7 +84,7 @@ class Ticket extends Model
                 [
                     'title' => $jr['Title'],
                     'status' => $jr['StatusName'],
-                    'lab' => empty($jr['18375'])? '' : $jr['18375'],
+                    'lab' => empty($jr['18375']) ? '' : $jr['18375'],
                     'ticket_created_at' => $createdAt->format('Y-m-d H:i:s'),
                     'color_code' => $colorCode
                 ]
