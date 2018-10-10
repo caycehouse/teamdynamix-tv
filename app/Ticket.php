@@ -98,7 +98,7 @@ class Ticket extends Model
                     'lab' => empty($jr['18375']) ? '' : $jr['18375'],
                     'ticket_created_at' => $createdAt->format('Y-m-d H:i:s'),
                     'color_code' => $colorCode,
-                    'resp_group' => $jr['ResponsibleGroupName']
+                    'resp_group' => empty($jr['ResponsibleGroupName']) ? '' : $jr['ResponsibleGroupName']
                 ]
             );
         }
