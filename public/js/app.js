@@ -38894,7 +38894,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   mounted: function mounted() {
     var _this = this;
 
-    Echo.channel("printers").listen(".PrintersChanged", function (e) {
+    Echo.channel("papercut-statuses").listen(".StatusesChanged", function (e) {
       _this.papercutStatuses = e.papercutStatuses;
     });
   }

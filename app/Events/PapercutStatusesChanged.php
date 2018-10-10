@@ -2,7 +2,7 @@
 
 namespace App\Events;
 
-use App\Printer;
+use App\PapercutStatuses;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -10,7 +10,7 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class PrintersChanged implements ShouldBroadcast
+class PapercutStatusesChanged implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -32,7 +32,7 @@ class PrintersChanged implements ShouldBroadcast
     public function broadcastWith()
     {
         return [
-            'printer' => Printer::inError()->get()
+            'papercutStatuses' => PapercutStatuses::all()
         ];
     }
 
@@ -43,7 +43,7 @@ class PrintersChanged implements ShouldBroadcast
      */
     public function broadcastAs()
     {
-        return 'PrintersChanged';
+        return 'StatusesChanged';
     }
 
     /**
@@ -53,6 +53,6 @@ class PrintersChanged implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('printers');
+        return new Channel('papercut-statuses');
     }
 }

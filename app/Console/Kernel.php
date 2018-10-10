@@ -2,13 +2,11 @@
 
 namespace App\Console;
 
+use App\Jobs\GetNewTickets;
+use App\Jobs\GetPapercutStatuses;
+use App\Jobs\GetPrinterStatus;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
-
-use App\Jobs\GetNewTickets;
-use App\Jobs\RemoveClosedTickets;
-use App\Jobs\GetPrinterStatus;
-use App\Jobs\RemoveFixedPrinters;
 
 class Kernel extends ConsoleKernel
 {
@@ -30,6 +28,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->job(new GetNewTickets)->everyMinute()->withoutOverlapping();
+        $schedule->job(new GetPapercutStatuses)->everyMinute()->withoutOverlapping();
         $schedule->job(new GetPrinterStatus)->everyFiveMinutes()->withoutOverlapping();
     }
 

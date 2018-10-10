@@ -27,7 +27,7 @@ export default {
   },
 
   mounted() {
-    Echo.channel("printers").listen(".PrintersChanged", e => {
+    Echo.channel("papercut-statuses").listen(".StatusesChanged", e => {
       this.papercutStatuses = e.papercutStatuses;
     });
   }
