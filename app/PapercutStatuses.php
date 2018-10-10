@@ -105,11 +105,42 @@ class PapercutStatuses extends Model
         );
     }
 
+    /**
+     * Gets the mobility print servers summary.
+     *
+     * @return void
+     */
+    public static function getMobilityPrintServersSummary()
+    {
+        $client = new Client();
+        $response = $client->request('GET', 'http://pirateprint.ecu.edu:9191/api/health/mobility-print-servers/status', [
+            'query' => ['Authorization' => env('PAPERCUT_AUTH_TOKEN')]
+        ])->getBody();
+
+        $json_response = json_decode($response);
+
+        $statusColor = 'text-success';
+        if ($json_response->status !== 'OK') {
+            $status = 'text-danger';
+        }
+
+        PapercutStatuses::updateOrCreate(
+            [
+                'status_name' => 'Mobility-Print Servers Health'
+            ],
+            [
+                'status' => $json_response->status,
+                'status_color' => $statusColor
+            ]
+        );
+    }
+
     public static function getStats()
     {
         self::getPapercutStatusSummary();
         self::getPrintProvidersSummary();
         self::getWebPrintServersSummary();
+        self::getMobilityPrintServersSummary();
 
         event(new PapercutStatusesChanged);
     }
