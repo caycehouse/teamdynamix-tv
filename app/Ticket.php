@@ -2,7 +2,6 @@
 
 namespace App;
 
-use App\Events\StatsChanged;
 use App\Events\TicketsChanged;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
@@ -98,6 +97,5 @@ class Ticket extends Model
         }
 
         event(new TicketsChanged);
-        event(new StatsChanged);
     }
 }

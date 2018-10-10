@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Jobs\GetDeviceStatus;
 use App\Jobs\GetNewTickets;
 use App\Jobs\GetPapercutStatuses;
 use App\Jobs\GetPrinterStatus;
@@ -27,6 +28,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
+        $schedule->job(new GetDeviceStatus)->everyFiveMinutes()->withoutOverlapping();
         $schedule->job(new GetNewTickets)->everyMinute()->withoutOverlapping();
         $schedule->job(new GetPapercutStatuses)->everyMinute()->withoutOverlapping();
         $schedule->job(new GetPrinterStatus)->everyFiveMinutes()->withoutOverlapping();

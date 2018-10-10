@@ -33,7 +33,7 @@
             <div class="col-3">
                 <papercut-statuses :papercut-statuses-list="{{ $papercutStatuses }}"></papercut-statuses>
                 <printers :printers-list="{{ $printers }}"></printers>
-                <stats :stats-list="{{ $stats }}"></stats>
+                <devices :devices-list="{{ $devices }}"></devices>
             </div>
             <div class="col">
                 <tickets :tickets-list="{{ $tickets }}"></tickets>

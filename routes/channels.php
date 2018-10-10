@@ -11,7 +11,11 @@
 |
 */
 
-Broadcast::channel('stats', function() {
+Broadcast::channel('devices', function() {
+    return true;
+});
+
+Broadcast::channel('papercut-stats', function() {
     return true;
 });
 

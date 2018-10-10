@@ -15,10 +15,10 @@ window.Vue = require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+Vue.component('devices', require('./components/Devices.vue'));
 Vue.component('tickets', require('./components/Tickets.vue'));
-Vue.component('printers', require('./components/Printers.vue'));
-Vue.component('stats', require('./components/Stats.vue'));
 Vue.component('papercut-statuses', require('./components/PapercutStatuses.vue'));
+Vue.component('printers', require('./components/Printers.vue'));
 
 const app = new Vue({
     el: '#app'

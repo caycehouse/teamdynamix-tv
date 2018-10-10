@@ -2,19 +2,15 @@
 
 namespace App\Events;
 
+use App\Device;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
-use Illuminate\Support\Facades\DB;
 
-use Carbon\Carbon;
-
-use App\Ticket;
-
-class StatsChanged implements ShouldBroadcast
+class DevicesChanged implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -35,14 +31,8 @@ class StatsChanged implements ShouldBroadcast
      */
     public function broadcastWith()
     {
-        $fromDate = Carbon::now()->startOfWeek()->toDateTimeString();
-        $tillDate = Carbon::now()->toDateTimeString();
-
-        $stats = Ticket::resolved()->whereBetween('resolved_at', [$fromDate, $tillDate])
-            ->groupBy('resolved_by')->select('resolved_by', DB::raw('count(*) as total'))->orderBy('total', 'desc')->get();
-
         return [
-            'stat' => $stats
+            'device' => Device::inError()->get()
         ];
     }
 
@@ -53,7 +43,7 @@ class StatsChanged implements ShouldBroadcast
      */
     public function broadcastAs()
     {
-        return 'StatsChanged';
+        return 'DevicesChanged';
     }
 
     /**
@@ -63,6 +53,6 @@ class StatsChanged implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('stats');
+        return new Channel('devices');
     }
 }
