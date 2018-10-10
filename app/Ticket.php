@@ -15,7 +15,7 @@ class Ticket extends Model
      *
      * @var array
      */
-    protected $fillable = ['ticket_id', 'title', 'status', 'lab', 'ticket_created_at', 'color_code'];
+    protected $fillable = ['ticket_id', 'title', 'status', 'lab', 'ticket_created_at', 'color_code', 'resp_group'];
 
     /**
      * Scope a query to only include resolved tickets.
@@ -37,6 +37,17 @@ class Ticket extends Model
     public function scopeUnresolved($query)
     {
         return $query->whereNotIn('status', ['Closed', 'Cancelled']);
+    }
+
+    /**
+     * Scope a query to only include student computer labs tickets.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeStudentComputerLabs($query)
+    {
+        return $query->whereIn('resp_group', ['+Student Computer Labs']);
     }
 
     /**
@@ -86,7 +97,8 @@ class Ticket extends Model
                     'status' => $jr['StatusName'],
                     'lab' => empty($jr['18375']) ? '' : $jr['18375'],
                     'ticket_created_at' => $createdAt->format('Y-m-d H:i:s'),
-                    'color_code' => $colorCode
+                    'color_code' => $colorCode,
+                    'resp_group' => $jr['ResponsibleGroupName']
                 ]
             );
         }

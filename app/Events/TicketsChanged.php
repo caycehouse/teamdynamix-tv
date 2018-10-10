@@ -26,19 +26,19 @@ class TicketsChanged implements ShouldBroadcast
 
     /**
      * The JSON data to return.
-     * 
+     *
      * @return JSON
      */
     public function broadcastWith()
     {
         return [
-            'ticket' => Ticket::unresolved()->orderBy('ticket_created_at', 'desc')->get()
+            'ticket' => Ticket::unresolved()->studentComputerLabs()->orderBy('ticket_created_at', 'desc')->get()
         ];
     }
 
     /**
      * The event to broadcast as.
-     * 
+     *
      * @return String
      */
     public function broadcastAs()
