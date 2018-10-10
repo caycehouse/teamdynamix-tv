@@ -15,7 +15,7 @@ class Ticket extends Model
      *
      * @var array
      */
-    protected $fillable = ['ticket_id', 'title', 'status', 'lab', 'ticket_created_at', 'color_code', 'resolved_at'];
+    protected $fillable = ['ticket_id', 'title', 'status', 'lab', 'ticket_created_at', 'color_code'];
 
     /**
      * Scope a query to only include resolved tickets.
@@ -89,8 +89,7 @@ class Ticket extends Model
                     'status' => $jr['StatusName'],
                     'lab' => empty($jr['18375'])? '' : $jr['18375'],
                     'ticket_created_at' => $createdAt->format('Y-m-d H:i:s'),
-                    'color_code' => $colorCode,
-                    'resolved_at' => $resolvedAt->format('Y-m-d H:i:s')
+                    'color_code' => $colorCode
                 ]
             );
         }
