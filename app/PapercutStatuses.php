@@ -75,11 +75,41 @@ class PapercutStatuses extends Model
             ]
         );
     }
+    /**
+     * Gets the web-print servers summary.
+     *
+     * @return void
+     */
+    public static function getWebPrintServersSummary()
+    {
+        $client = new Client();
+        $response = $client->request('GET', 'http://pirateprint.ecu.edu:9191/api/health/web-print/status?servers-in-error-threshold=0', [
+            'query' => ['Authorization' => env('PAPERCUT_AUTH_TOKEN')]
+        ])->getBody();
+
+        $json_response = json_decode($response);
+
+        $statusColor = 'text-success';
+        if ($json_response->status !== 'OK') {
+            $status = 'text-danger';
+        }
+
+        PapercutStatuses::updateOrCreate(
+            [
+                'status_name' => 'Web-Print Servers Health'
+            ],
+            [
+                'status' => $json_response->status,
+                'status_color' => $statusColor
+            ]
+        );
+    }
 
     public static function getStats()
     {
         self::getPapercutStatusSummary();
         self::getPrintProvidersSummary();
+        self::getWebPrintServersSummary();
 
         event(new PapercutStatusesChanged);
     }
