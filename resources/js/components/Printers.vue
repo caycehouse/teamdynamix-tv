@@ -1,11 +1,7 @@
 <template>
     <div>
-        <h4 class="text-warning">Printers in Error ({{ printers.length }})</h4>
+        <h5 class="text-warning">Printers in Error ({{ printers.length }})</h5>
         <table class="table table-sm">
-            <thead class="text-warning">
-                <th>Name</th>
-                <th>Status</th>
-            </thead>
             <tbody>
                 <tr v-for="{name, status, print_server} in printers" :key="name" :class="print_server">
                     <td>{{ name }}</td>

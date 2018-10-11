@@ -1,11 +1,7 @@
 <template>
     <div>
-        <h4 class="text-warning">Devices in Error ({{ devices.length }})</h4>
+        <h5 class="text-warning">Devices in Error ({{ devices.length }})</h5>
         <table class="table table-sm">
-            <thead class="text-warning">
-                <th>Name</th>
-                <th>Status</th>
-            </thead>
             <tbody>
                 <tr v-for="{name, status} in devices" :key="name" class="text-danger">
                     <td>{{ name }}</td>

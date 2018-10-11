@@ -1,14 +1,7 @@
 <template>
     <div>
-        <h4 class="text-warning">Unresolved Tickets</h4>
+        <h5 class="text-warning">Unresolved Tickets</h5>
         <table class="table table-sm">
-            <thead class="text-warning">
-                <th>ID</th>
-                <th>Title</th>
-                <th>Lab</th>
-                <th>Status</th>
-                <th>Age</th>
-            </thead>
             <tbody>
                 <tr v-for="{id, ticket_id, title, lab, status, age, color_code} in tickets" :key="id" v-on:click="openTicket(ticket_id)" :class="color_code">
                     <td>{{ ticket_id }}</td>

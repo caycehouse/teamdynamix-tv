@@ -37,7 +37,7 @@ class PapercutStatuses extends Model
 
         PapercutStatuses::updateOrCreate(
             [
-                'status_name' => 'MGMT System Health'
+                'status_name' => 'Papercut System'
             ],
             [
                 'status' => $json_response->status,
@@ -67,7 +67,7 @@ class PapercutStatuses extends Model
 
         PapercutStatuses::updateOrCreate(
             [
-                'status_name' => 'Print Providers Health'
+                'status_name' => 'Print Providers'
             ],
             [
                 'status' => $json_response->status,
@@ -96,7 +96,7 @@ class PapercutStatuses extends Model
 
         PapercutStatuses::updateOrCreate(
             [
-                'status_name' => 'Web-Print Servers Health'
+                'status_name' => 'Web-Print Servers'
             ],
             [
                 'status' => $json_response->status,
@@ -126,7 +126,7 @@ class PapercutStatuses extends Model
 
         PapercutStatuses::updateOrCreate(
             [
-                'status_name' => 'Mobility-Print Servers Health'
+                'status_name' => 'Mobility-Print Servers'
             ],
             [
                 'status' => $json_response->status,

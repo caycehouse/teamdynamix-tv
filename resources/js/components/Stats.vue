@@ -1,11 +1,7 @@
 <template>
     <div>
-        <h4 class="text-warning">Ticket Resolutions (by week)</h4>
+        <h5 class="text-warning">Ticket Resolutions (by week)</h5>
         <table class="table table-sm">
-            <thead class="text-warning">
-                <th>Tech Name</th>
-                <th>Resolved Tickets</th>
-            </thead>
             <tbody>
                 <tr v-for="{ resolved_by, total } in stats" :key="resolved_by">
                 <td>{{ resolved_by }}</td>

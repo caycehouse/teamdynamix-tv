@@ -9,6 +9,9 @@
     </div>
     <div class="col-8">
         <tickets :tickets-list="{{ $tickets }}"></tickets>
+        <div class="offset-md-9 col-3">
+            <stats :stats-list="{{ $stats }}"></stats>
+        </div>
     </div>
 </div>
 @endsection

@@ -38409,10 +38409,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
@@ -38442,13 +38438,11 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("h4", { staticClass: "text-warning" }, [
+    _c("h5", { staticClass: "text-warning" }, [
       _vm._v("Devices in Error (" + _vm._s(_vm.devices.length) + ")")
     ]),
     _vm._v(" "),
     _c("table", { staticClass: "table table-sm" }, [
-      _vm._m(0),
-      _vm._v(" "),
       _c(
         "tbody",
         _vm._l(_vm.devices, function(ref) {
@@ -38464,18 +38458,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", { staticClass: "text-warning" }, [
-      _c("th", [_vm._v("Name")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Status")])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -38555,13 +38538,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
@@ -38599,11 +38575,9 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("h4", { staticClass: "text-warning" }, [_vm._v("Unresolved Tickets")]),
+    _c("h5", { staticClass: "text-warning" }, [_vm._v("Unresolved Tickets")]),
     _vm._v(" "),
     _c("table", { staticClass: "table table-sm" }, [
-      _vm._m(0),
-      _vm._v(" "),
       _c(
         "tbody",
         _vm._l(_vm.tickets, function(ref) {
@@ -38642,24 +38616,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", { staticClass: "text-warning" }, [
-      _c("th", [_vm._v("ID")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Title")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Lab")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Status")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Age")])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -38736,10 +38693,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
@@ -38769,11 +38722,9 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("h4", { staticClass: "text-warning" }, [_vm._v("Papercut Statuses")]),
+    _c("h5", { staticClass: "text-warning" }, [_vm._v("Papercut Statuses")]),
     _vm._v(" "),
     _c("table", { staticClass: "table table-sm" }, [
-      _vm._m(0),
-      _vm._v(" "),
       _c(
         "tbody",
         _vm._l(_vm.papercutStatuses, function(ref) {
@@ -38790,18 +38741,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", { staticClass: "text-warning" }, [
-      _c("th", [_vm._v("System")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Status")])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -38878,10 +38818,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
@@ -38911,13 +38847,11 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("h4", { staticClass: "text-warning" }, [
+    _c("h5", { staticClass: "text-warning" }, [
       _vm._v("Printers in Error (" + _vm._s(_vm.printers.length) + ")")
     ]),
     _vm._v(" "),
     _c("table", { staticClass: "table table-sm" }, [
-      _vm._m(0),
-      _vm._v(" "),
       _c(
         "tbody",
         _vm._l(_vm.printers, function(ref) {
@@ -38934,18 +38868,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", { staticClass: "text-warning" }, [
-      _c("th", [_vm._v("Name")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Status")])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -39022,10 +38945,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
@@ -39055,13 +38974,11 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("h4", { staticClass: "text-warning" }, [
+    _c("h5", { staticClass: "text-warning" }, [
       _vm._v("Ticket Resolutions (by week)")
     ]),
     _vm._v(" "),
     _c("table", { staticClass: "table table-sm" }, [
-      _vm._m(0),
-      _vm._v(" "),
       _c(
         "tbody",
         _vm._l(_vm.stats, function(ref) {
@@ -39077,18 +38994,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", { staticClass: "text-warning" }, [
-      _c("th", [_vm._v("Tech Name")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Resolved Tickets")])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
