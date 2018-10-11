@@ -1,5 +1,6 @@
 <template>
     <div>
+        <h5 class="text-warning">Papercut Summary</h5>
         <table class="table table-sm">
             <tbody>
                 <tr v-for="{status_name, status, status_color} in papercutStatuses" :key="status_name">

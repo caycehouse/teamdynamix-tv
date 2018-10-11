@@ -83,13 +83,15 @@ class Ticket extends Model
 
             $colorCode = '';
             if ($jr['StatusName'] === 'New') {
-                if ($createdAt <= Carbon::now('America/New_York')->subHours(12)) {
-                    $colorCode = 'text-warning';
-                }
-
                 if ($createdAt <= Carbon::now('America/New_York')->subHours(24)) {
                     $colorCode = 'text-danger';
+                } else if ($createdAt <= Carbon::now('America/New_York')->subHours(12)) {
+                    $colorCode = 'text-warning';
+                } else {
+                    $colorCode = 'text-success';
                 }
+            } else if ($jr['StatusName'] === 'On Hold') {
+                $colorCode = 'text-white-50';
             }
 
             Ticket::updateOrCreate(
