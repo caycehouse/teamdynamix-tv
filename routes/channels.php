@@ -10,19 +10,3 @@
 | used to check if an authenticated user can listen to the channel.
 |
 */
-
-Broadcast::channel('devices', function() {
-    return true;
-});
-
-Broadcast::channel('papercut-stats', function() {
-    return true;
-});
-
-Broadcast::channel('printers', function() {
-    return true;
-});
-
-Broadcast::channel('tickets', function() {
-    return true;
-});
