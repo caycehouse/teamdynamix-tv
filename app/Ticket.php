@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Events\StatsChanged;
 use App\Events\TicketsChanged;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
@@ -15,7 +16,7 @@ class Ticket extends Model
      *
      * @var array
      */
-    protected $fillable = ['ticket_id', 'title', 'status', 'lab', 'ticket_created_at', 'color_code', 'resp_group'];
+    protected $fillable = ['ticket_id', 'title', 'status', 'lab', 'ticket_created_at', 'color_code', 'resp_group', 'resolved_by', 'resolved_at'];
 
     /**
      * Scope a query to only include resolved tickets.
@@ -74,6 +75,9 @@ class Ticket extends Model
         $json_response = json_decode($response, true);
 
         foreach ($json_response['DataRows'] as $jr) {
+            $resolvedAt = Carbon::parse($jr['ClosedDate']);
+            $resolvedAt->setTimezone('America/New_York');
+
             $createdAt = Carbon::parse($jr['CreatedDate']);
             $createdAt->setTimezone('America/New_York');
 
@@ -98,11 +102,14 @@ class Ticket extends Model
                     'lab' => empty($jr['18375']) ? '' : $jr['18375'],
                     'ticket_created_at' => $createdAt->format('Y-m-d H:i:s'),
                     'color_code' => $colorCode,
-                    'resp_group' => empty($jr['ResponsibleGroupName']) ? '' : $jr['ResponsibleGroupName']
+                    'resp_group' => empty($jr['ResponsibleGroupName']) ? '' : $jr['ResponsibleGroupName'],
+                    'resolved_by' => empty($jr['ClosedByFullName'])? '' : $jr['ClosedByFullName'],
+                    'resolved_at' => $resolvedAt->format('Y-m-d H:i:s')
                 ]
             );
         }
 
         event(new TicketsChanged);
+        event(new StatsChanged);
     }
 }

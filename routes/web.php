@@ -12,3 +12,5 @@
 */
 
 Route::get('/', 'DashboardController');
+
+Route::get('/stats', 'StatsController');
