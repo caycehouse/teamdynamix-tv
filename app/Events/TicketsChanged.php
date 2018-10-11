@@ -15,16 +15,6 @@ class TicketsChanged implements ShouldBroadcast
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     /**
-     * Create a new event instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
-
-    /**
      * The JSON data to return.
      *
      * @return JSON
@@ -32,7 +22,7 @@ class TicketsChanged implements ShouldBroadcast
     public function broadcastWith()
     {
         return [
-            'ticket' => Ticket::unresolved()->studentComputerLabs()->orderBy('ticket_created_at', 'desc')->get()
+            'ticket' => Ticket::unresolved()->studentComputerLabs()->orderBy('ticket_created_at', 'desc')->take(20)->get()
         ];
     }
 
