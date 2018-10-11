@@ -38607,7 +38607,7 @@ var render = function() {
         var title = ref.title
         var lab = ref.lab
         var status = ref.status
-        var ticket_created_at = ref.ticket_created_at
+        var age = ref.age
         var color_code = ref.color_code
         return _c(
           "tr",
@@ -38629,7 +38629,7 @@ var render = function() {
             _vm._v(" "),
             _c("td", [_vm._v(_vm._s(status))]),
             _vm._v(" "),
-            _c("td", [_vm._v(_vm._s(ticket_created_at))])
+            _c("td", [_vm._v(_vm._s(age))])
           ]
         )
       })
@@ -38650,7 +38650,7 @@ var staticRenderFns = [
       _vm._v(" "),
       _c("th", [_vm._v("Status")]),
       _vm._v(" "),
-      _c("th", [_vm._v("Created")])
+      _c("th", [_vm._v("Age")])
     ])
   }
 ]

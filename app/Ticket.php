@@ -16,7 +16,7 @@ class Ticket extends Model
      *
      * @var array
      */
-    protected $fillable = ['ticket_id', 'title', 'status', 'lab', 'ticket_created_at', 'color_code', 'resp_group', 'resolved_by', 'resolved_at'];
+    protected $fillable = ['ticket_id', 'title', 'status', 'lab', 'ticket_created_at', 'color_code', 'resp_group', 'resolved_by', 'resolved_at', 'age'];
 
     /**
      * Scope a query to only include resolved tickets.
@@ -104,7 +104,8 @@ class Ticket extends Model
                     'color_code' => $colorCode,
                     'resp_group' => empty($jr['ResponsibleGroupName']) ? '' : $jr['ResponsibleGroupName'],
                     'resolved_by' => empty($jr['ClosedByFullName'])? '' : $jr['ClosedByFullName'],
-                    'resolved_at' => $resolvedAt->format('Y-m-d H:i:s')
+                    'resolved_at' => $resolvedAt->format('Y-m-d H:i:s'),
+                    'age' => "{$jr['DaysOld']} d"
                 ]
             );
         }

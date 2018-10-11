@@ -6,15 +6,15 @@
             <th>Title</th>
             <th>Lab</th>
             <th>Status</th>
-            <th>Created</th>
+            <th>Age</th>
           </thead>
           <tbody>
-              <tr v-for="{id, ticket_id, title, lab, status, ticket_created_at, color_code} in tickets" :key="id" v-on:click="openTicket(ticket_id)" :class="color_code">
+              <tr v-for="{id, ticket_id, title, lab, status, age, color_code} in tickets" :key="id" v-on:click="openTicket(ticket_id)" :class="color_code">
                 <td>{{ ticket_id }}</td>
                 <td>{{ title }}</td>
                 <td>{{ lab }}</td>
                 <td>{{ status }}</td>
-                <td>{{ ticket_created_at }}</td>
+                <td>{{ age }}</td>
               </tr>
           </tbody>
         </table>
