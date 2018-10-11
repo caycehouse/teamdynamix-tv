@@ -14,7 +14,7 @@
   <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #592a8a;">
+    <nav class="navbar navbar-expand-lg navbar-dark py-0 py-md-0" style="background-color: #592a8a;">
         <a class="navbar-brand text-warning" href="#">Labtechs TV</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -23,12 +23,12 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item active" id="credits">
-                    <a class="nav-link" href="#">Created & designed by <span class="text-warning">Cayce House<span></a>
+                    <a class="nav-link" href="//caycehouse.com">Crafted by <span class="text-warning">Cayce House<span></a>
                 </li>
             </ul>
         </div>
     </nav>
-    <div class="container-fluid mt-3" id="app">
+    <div class="container-fluid mt-2" id="app">
         @yield('content')
     </div>
     <!-- Scripts -->

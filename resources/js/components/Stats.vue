@@ -1,17 +1,19 @@
 <template>
-    <table class="table table-sm">
-        <caption class="text-warning">Ticket Resolutions (by week)</caption>
-        <thead class="text-warning">
-            <th>Tech Name</th>
-            <th>Resolved Tickets</th>
-        </thead>
-        <tbody>
-            <tr v-for="{ resolved_by, total } in stats" :key="resolved_by">
-            <td>{{ resolved_by }}</td>
-            <td>{{ total }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <div>
+        <h4 class="text-warning">Ticket Resolutions (by week)</h4>
+        <table class="table table-sm">
+            <thead class="text-warning">
+                <th>Tech Name</th>
+                <th>Resolved Tickets</th>
+            </thead>
+            <tbody>
+                <tr v-for="{ resolved_by, total } in stats" :key="resolved_by">
+                <td>{{ resolved_by }}</td>
+                <td>{{ total }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </template>
 
 <script>

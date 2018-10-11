@@ -1,19 +1,21 @@
 <template>
-    <table class="table table-sm">
-        <caption class="text-warning">Printers in Error</caption>
-          <thead class="text-warning">
-            <th>Name</th>
-            <th>Status</th>
-            <th>Held Jobs</th>
-          </thead>
-          <tbody>
-              <tr v-for="{name, status, held_jobs, print_server} in printers" :key="name" :class="print_server">
-                <td>{{ name }}</td>
-                <td>{{ status }}</td>
-                <td>{{ held_jobs }}</td>
-              </tr>
-          </tbody>
-        </table>
+    <div>
+        <h4 class="text-warning">Printers in Error</h4>
+        <table class="table table-sm">
+            <thead class="text-warning">
+                <th>Name</th>
+                <th>Status</th>
+                <th>Held Jobs</th>
+            </thead>
+            <tbody>
+                <tr v-for="{name, status, held_jobs, print_server} in printers" :key="name" :class="print_server">
+                    <td>{{ name }}</td>
+                    <td>{{ status }}</td>
+                    <td>{{ held_jobs }}</td>
+                </tr>
+            </tbody>
+            </table>
+    </div>
 </template>
 
 <script>

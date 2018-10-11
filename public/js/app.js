@@ -38411,6 +38411,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
@@ -38439,25 +38441,25 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("table", { staticClass: "table table-sm" }, [
-    _c("caption", { staticClass: "text-warning" }, [
-      _vm._v("Devices in Error")
-    ]),
+  return _c("div", [
+    _c("h4", { staticClass: "text-warning" }, [_vm._v("Devices in Error")]),
     _vm._v(" "),
-    _vm._m(0),
-    _vm._v(" "),
-    _c(
-      "tbody",
-      _vm._l(_vm.devices, function(ref) {
-        var name = ref.name
-        var status = ref.status
-        return _c("tr", { key: name, staticClass: "text-danger" }, [
-          _c("td", [_vm._v(_vm._s(name))]),
-          _vm._v(" "),
-          _c("td", [_vm._v(_vm._s(status))])
-        ])
-      })
-    )
+    _c("table", { staticClass: "table table-sm" }, [
+      _vm._m(0),
+      _vm._v(" "),
+      _c(
+        "tbody",
+        _vm._l(_vm.devices, function(ref) {
+          var name = ref.name
+          var status = ref.status
+          return _c("tr", { key: name, staticClass: "text-danger" }, [
+            _c("td", [_vm._v(_vm._s(name))]),
+            _vm._v(" "),
+            _c("td", [_vm._v(_vm._s(status))])
+          ])
+        })
+      )
+    ])
   ])
 }
 var staticRenderFns = [
@@ -38556,6 +38558,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
@@ -38592,48 +38596,48 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("table", { staticClass: "table table-sm" }, [
-    _c("caption", { staticClass: "text-warning" }, [
-      _vm._v("Unresolved Tickets")
-    ]),
+  return _c("div", [
+    _c("h4", { staticClass: "text-warning" }, [_vm._v("Unresolved Tickets")]),
     _vm._v(" "),
-    _vm._m(0),
-    _vm._v(" "),
-    _c(
-      "tbody",
-      _vm._l(_vm.tickets, function(ref) {
-        var id = ref.id
-        var ticket_id = ref.ticket_id
-        var title = ref.title
-        var lab = ref.lab
-        var status = ref.status
-        var age = ref.age
-        var color_code = ref.color_code
-        return _c(
-          "tr",
-          {
-            key: id,
-            class: color_code,
-            on: {
-              click: function($event) {
-                _vm.openTicket(ticket_id)
+    _c("table", { staticClass: "table table-sm" }, [
+      _vm._m(0),
+      _vm._v(" "),
+      _c(
+        "tbody",
+        _vm._l(_vm.tickets, function(ref) {
+          var id = ref.id
+          var ticket_id = ref.ticket_id
+          var title = ref.title
+          var lab = ref.lab
+          var status = ref.status
+          var age = ref.age
+          var color_code = ref.color_code
+          return _c(
+            "tr",
+            {
+              key: id,
+              class: color_code,
+              on: {
+                click: function($event) {
+                  _vm.openTicket(ticket_id)
+                }
               }
-            }
-          },
-          [
-            _c("td", [_vm._v(_vm._s(ticket_id))]),
-            _vm._v(" "),
-            _c("td", [_vm._v(_vm._s(title))]),
-            _vm._v(" "),
-            _c("td", [_vm._v(_vm._s(lab))]),
-            _vm._v(" "),
-            _c("td", [_vm._v(_vm._s(status))]),
-            _vm._v(" "),
-            _c("td", [_vm._v(_vm._s(age))])
-          ]
-        )
-      })
-    )
+            },
+            [
+              _c("td", [_vm._v(_vm._s(ticket_id))]),
+              _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(title))]),
+              _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(lab))]),
+              _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(status))]),
+              _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(age))])
+            ]
+          )
+        })
+      )
+    ])
   ])
 }
 var staticRenderFns = [
@@ -38732,6 +38736,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
@@ -38760,26 +38766,26 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("table", { staticClass: "table table-sm" }, [
-    _c("caption", { staticClass: "text-warning" }, [
-      _vm._v("Papercut Statuses")
-    ]),
+  return _c("div", [
+    _c("h4", { staticClass: "text-warning" }, [_vm._v("Papercut Statuses")]),
     _vm._v(" "),
-    _vm._m(0),
-    _vm._v(" "),
-    _c(
-      "tbody",
-      _vm._l(_vm.papercutStatuses, function(ref) {
-        var status_name = ref.status_name
-        var status = ref.status
-        var status_color = ref.status_color
-        return _c("tr", { key: status_name }, [
-          _c("td", [_vm._v(_vm._s(status_name))]),
-          _vm._v(" "),
-          _c("td", { class: status_color }, [_vm._v(_vm._s(status))])
-        ])
-      })
-    )
+    _c("table", { staticClass: "table table-sm" }, [
+      _vm._m(0),
+      _vm._v(" "),
+      _c(
+        "tbody",
+        _vm._l(_vm.papercutStatuses, function(ref) {
+          var status_name = ref.status_name
+          var status = ref.status
+          var status_color = ref.status_color
+          return _c("tr", { key: status_name }, [
+            _c("td", [_vm._v(_vm._s(status_name))]),
+            _vm._v(" "),
+            _c("td", { class: status_color }, [_vm._v(_vm._s(status))])
+          ])
+        })
+      )
+    ])
   ])
 }
 var staticRenderFns = [
@@ -38874,6 +38880,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: {
@@ -38903,29 +38911,29 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("table", { staticClass: "table table-sm" }, [
-    _c("caption", { staticClass: "text-warning" }, [
-      _vm._v("Printers in Error")
-    ]),
+  return _c("div", [
+    _c("h4", { staticClass: "text-warning" }, [_vm._v("Printers in Error")]),
     _vm._v(" "),
-    _vm._m(0),
-    _vm._v(" "),
-    _c(
-      "tbody",
-      _vm._l(_vm.printers, function(ref) {
-        var name = ref.name
-        var status = ref.status
-        var held_jobs = ref.held_jobs
-        var print_server = ref.print_server
-        return _c("tr", { key: name, class: print_server }, [
-          _c("td", [_vm._v(_vm._s(name))]),
-          _vm._v(" "),
-          _c("td", [_vm._v(_vm._s(status))]),
-          _vm._v(" "),
-          _c("td", [_vm._v(_vm._s(held_jobs))])
-        ])
-      })
-    )
+    _c("table", { staticClass: "table table-sm" }, [
+      _vm._m(0),
+      _vm._v(" "),
+      _c(
+        "tbody",
+        _vm._l(_vm.printers, function(ref) {
+          var name = ref.name
+          var status = ref.status
+          var held_jobs = ref.held_jobs
+          var print_server = ref.print_server
+          return _c("tr", { key: name, class: print_server }, [
+            _c("td", [_vm._v(_vm._s(name))]),
+            _vm._v(" "),
+            _c("td", [_vm._v(_vm._s(status))]),
+            _vm._v(" "),
+            _c("td", [_vm._v(_vm._s(held_jobs))])
+          ])
+        })
+      )
+    ])
   ])
 }
 var staticRenderFns = [
@@ -39020,6 +39028,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
@@ -39048,25 +39058,27 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("table", { staticClass: "table table-sm" }, [
-    _c("caption", { staticClass: "text-warning" }, [
+  return _c("div", [
+    _c("h4", { staticClass: "text-warning" }, [
       _vm._v("Ticket Resolutions (by week)")
     ]),
     _vm._v(" "),
-    _vm._m(0),
-    _vm._v(" "),
-    _c(
-      "tbody",
-      _vm._l(_vm.stats, function(ref) {
-        var resolved_by = ref.resolved_by
-        var total = ref.total
-        return _c("tr", { key: resolved_by }, [
-          _c("td", [_vm._v(_vm._s(resolved_by))]),
-          _vm._v(" "),
-          _c("td", [_vm._v(_vm._s(total))])
-        ])
-      })
-    )
+    _c("table", { staticClass: "table table-sm" }, [
+      _vm._m(0),
+      _vm._v(" "),
+      _c(
+        "tbody",
+        _vm._l(_vm.stats, function(ref) {
+          var resolved_by = ref.resolved_by
+          var total = ref.total
+          return _c("tr", { key: resolved_by }, [
+            _c("td", [_vm._v(_vm._s(resolved_by))]),
+            _vm._v(" "),
+            _c("td", [_vm._v(_vm._s(total))])
+          ])
+        })
+      )
+    ])
   ])
 }
 var staticRenderFns = [
