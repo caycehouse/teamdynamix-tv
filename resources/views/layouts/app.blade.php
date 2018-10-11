@@ -28,7 +28,7 @@
             </ul>
         </div>
     </nav>
-    <div class="container-fluid mt-2" id="app">
+    <div class="container-fluid mt-3" id="app">
         @yield('content')
     </div>
     <!-- Scripts -->
