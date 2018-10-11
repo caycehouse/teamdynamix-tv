@@ -17,16 +17,6 @@ class StatsChanged implements ShouldBroadcast
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     /**
-     * Create a new event instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
-
-    /**
      * The JSON data to return.
      *
      * @return JSON
@@ -36,7 +26,7 @@ class StatsChanged implements ShouldBroadcast
         $fromDate = Carbon::now()->startOfWeek()->toDateTimeString();
         $tillDate = Carbon::now()->toDateTimeString();
 
-        $stats = Ticket::resolved()->whereBetween('resolved_at', [$fromDate, $tillDate])
+        $stats = Ticket::resolved()->studentComputerLabs()->whereBetween('resolved_at', [$fromDate, $tillDate])
             ->groupBy('resolved_by')->select('resolved_by', DB::raw('count(*) as total'))->orderBy('total', 'desc')->get();
 
         return [
