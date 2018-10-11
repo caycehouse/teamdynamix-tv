@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h4 class="text-warning">Devices in Error</h4>
+        <h4 class="text-warning">Devices in Error ({{ devices.length }})</h4>
         <table class="table table-sm">
             <thead class="text-warning">
                 <th>Name</th>
@@ -12,7 +12,7 @@
                     <td>{{ status }}</td>
                 </tr>
             </tbody>
-            </table>
+        </table>
     </div>
 </template>
 

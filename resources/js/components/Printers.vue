@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h4 class="text-warning">Printers in Error</h4>
+        <h4 class="text-warning">Printers in Error ({{ printers.length }})</h4>
         <table class="table table-sm">
             <thead class="text-warning">
                 <th>Name</th>
@@ -12,28 +12,26 @@
                     <td>{{ status }}</td>
                 </tr>
             </tbody>
-            </table>
+        </table>
     </div>
 </template>
 
 <script>
-    export default {
-        props: {
-            PrintersList: null
-        },
+export default {
+  props: {
+    PrintersList: null
+  },
 
-        data(){
-            return {
-                printers: this.PrintersList,
-                printer: '',
-            }
-        },
+  data() {
+    return {
+      printers: this.PrintersList
+    };
+  },
 
-        mounted() {
-            Echo.channel('printers')
-                .listen('.PrintersChanged', (e) => {
-                    this.printers = e.printer
-                });
-        }
-    }
+  mounted() {
+    Echo.channel("printers").listen(".PrintersChanged", e => {
+      this.printers = e.printer;
+    });
+  }
+};
 </script>

@@ -38442,7 +38442,9 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("h4", { staticClass: "text-warning" }, [_vm._v("Devices in Error")]),
+    _c("h4", { staticClass: "text-warning" }, [
+      _vm._v("Devices in Error (" + _vm._s(_vm.devices.length) + ")")
+    ]),
     _vm._v(" "),
     _c("table", { staticClass: "table table-sm" }, [
       _vm._m(0),
@@ -38882,23 +38884,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: {
-        PrintersList: null
-    },
+  props: {
+    PrintersList: null
+  },
 
-    data: function data() {
-        return {
-            printers: this.PrintersList,
-            printer: ''
-        };
-    },
-    mounted: function mounted() {
-        var _this = this;
+  data: function data() {
+    return {
+      printers: this.PrintersList
+    };
+  },
+  mounted: function mounted() {
+    var _this = this;
 
-        Echo.channel('printers').listen('.PrintersChanged', function (e) {
-            _this.printers = e.printer;
-        });
-    }
+    Echo.channel("printers").listen(".PrintersChanged", function (e) {
+      _this.printers = e.printer;
+    });
+  }
 });
 
 /***/ }),
@@ -38910,7 +38911,9 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("h4", { staticClass: "text-warning" }, [_vm._v("Printers in Error")]),
+    _c("h4", { staticClass: "text-warning" }, [
+      _vm._v("Printers in Error (" + _vm._s(_vm.printers.length) + ")")
+    ]),
     _vm._v(" "),
     _c("table", { staticClass: "table table-sm" }, [
       _vm._m(0),

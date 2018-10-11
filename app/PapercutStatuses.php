@@ -135,78 +135,12 @@ class PapercutStatuses extends Model
         );
     }
 
-    /**
-     * Gets the Printers summary.
-     *
-     * @return void
-     */
-    public static function getPrintersSummary()
-    {
-        $client = new Client(['http_errors' => false]);
-        $response = $client->request('GET', 'http://pirateprint.ecu.edu:9191/api/health/printers/status?in-error-threshold=0', [
-            'query' => ['Authorization' => env('PAPERCUT_AUTH_TOKEN')]
-        ])->getBody();
-
-        $json_response = json_decode($response);
-
-        $statusColor = 'text-success';
-        if ($json_response->status !== 'OK') {
-            $statusColor = 'text-danger';
-        }
-
-        $message = substr($json_response->message, 0, strpos($json_response->message, ","));
-
-        PapercutStatuses::updateOrCreate(
-            [
-                'status_name' => 'Printer Health'
-            ],
-            [
-                'status' => $message,
-                'status_color' => $statusColor
-            ]
-        );
-    }
-
-    /**
-     * Gets the Devices summary.
-     *
-     * @return void
-     */
-    public static function getDevicesSummary()
-    {
-        $client = new Client(['http_errors' => false]);
-        $response = $client->request('GET', 'http://pirateprint.ecu.edu:9191/api/health/devices/status?offline-threshold=0', [
-            'query' => ['Authorization' => env('PAPERCUT_AUTH_TOKEN')]
-        ])->getBody();
-
-        $json_response = json_decode($response);
-
-        $statusColor = 'text-success';
-        if ($json_response->status !== 'OK') {
-            $statusColor = 'text-danger';
-        }
-
-        $message = substr($json_response->message, 0, strpos($json_response->message, ","));
-
-        PapercutStatuses::updateOrCreate(
-            [
-                'status_name' => 'Device Health'
-            ],
-            [
-                'status' => $message,
-                'status_color' => $statusColor
-            ]
-        );
-    }
-
     public static function getStats()
     {
         self::getPapercutStatusSummary();
         self::getPrintProvidersSummary();
         self::getWebPrintServersSummary();
         self::getMobilityPrintServersSummary();
-        self::getPrintersSummary();
-        self::getDevicesSummary();
 
         event(new PapercutStatusesChanged);
     }
