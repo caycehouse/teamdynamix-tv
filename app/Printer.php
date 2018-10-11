@@ -14,7 +14,7 @@ class Printer extends Model
      *
      * @var array
      */
-    protected $fillable = ['name', 'status', 'print_server', 'held_jobs'];
+    protected $fillable = ['name', 'status', 'print_server'];
 
     /**
      * Scope a query to only include printers in error.
@@ -46,8 +46,7 @@ class Printer extends Model
                     ],
                     [
                         'print_server' => $print_server,
-                        'status' => $jr->status,
-                        'held_jobs' => $jr->heldJobsCount
+                        'status' => $jr->status
                     ]
                 );
             }

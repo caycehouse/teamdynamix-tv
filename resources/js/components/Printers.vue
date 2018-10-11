@@ -5,13 +5,11 @@
             <thead class="text-warning">
                 <th>Name</th>
                 <th>Status</th>
-                <th>Held Jobs</th>
             </thead>
             <tbody>
-                <tr v-for="{name, status, held_jobs, print_server} in printers" :key="name" :class="print_server">
+                <tr v-for="{name, status, print_server} in printers" :key="name" :class="print_server">
                     <td>{{ name }}</td>
                     <td>{{ status }}</td>
-                    <td>{{ held_jobs }}</td>
                 </tr>
             </tbody>
             </table>
