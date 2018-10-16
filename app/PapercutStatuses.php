@@ -23,7 +23,7 @@ class PapercutStatuses extends Model
      */
     public static function getPapercutStatusSummary()
     {
-        $client = new Client();
+        $client = new Client(['http_errors' => false]);
         $response = $client->request('GET', 'http://pirateprint.ecu.edu:9191/api/health/site-servers/status', [
             'query' => ['Authorization' => env('PAPERCUT_AUTH_TOKEN')]
         ])->getBody();
@@ -53,7 +53,7 @@ class PapercutStatuses extends Model
      */
     public static function getPrintProvidersSummary()
     {
-        $client = new Client();
+        $client = new Client(['http_errors' => false]);
         $response = $client->request('GET', 'http://pirateprint.ecu.edu:9191/api/health/print-providers/status', [
             'query' => ['Authorization' => env('PAPERCUT_AUTH_TOKEN')]
         ])->getBody();
@@ -82,7 +82,7 @@ class PapercutStatuses extends Model
      */
     public static function getWebPrintServersSummary()
     {
-        $client = new Client();
+        $client = new Client(['http_errors' => false]);
         $response = $client->request('GET', 'http://pirateprint.ecu.edu:9191/api/health/web-print/status?servers-in-error-threshold=0', [
             'query' => ['Authorization' => env('PAPERCUT_AUTH_TOKEN')]
         ])->getBody();
@@ -112,7 +112,7 @@ class PapercutStatuses extends Model
      */
     public static function getMobilityPrintServersSummary()
     {
-        $client = new Client();
+        $client = new Client(['http_errors' => false]);
         $response = $client->request('GET', 'http://pirateprint.ecu.edu:9191/api/health/mobility-print-servers/status', [
             'query' => ['Authorization' => env('PAPERCUT_AUTH_TOKEN')]
         ])->getBody();
