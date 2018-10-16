@@ -21,7 +21,7 @@ class PapercutStatusesChanged implements ShouldBroadcast
      */
     public function __construct()
     {
-        //
+        \Log::info('[Event] Papercut Statuses Changed');
     }
 
     /**

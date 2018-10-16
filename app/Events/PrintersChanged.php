@@ -21,7 +21,7 @@ class PrintersChanged implements ShouldBroadcast
      */
     public function __construct()
     {
-        //
+        \Log::info('[Event] Printers Changed');
     }
 
     /**

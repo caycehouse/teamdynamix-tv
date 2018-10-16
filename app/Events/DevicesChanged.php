@@ -21,7 +21,7 @@ class DevicesChanged implements ShouldBroadcast
      */
     public function __construct()
     {
-        //
+        \Log::info('[Event] Devices Changed');
     }
 
     /**
