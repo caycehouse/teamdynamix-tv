@@ -15,16 +15,6 @@ class DevicesChanged implements ShouldBroadcast
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     /**
-     * Create a new event instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        \Log::info('[Event] Devices Changed');
-    }
-
-    /**
      * The JSON data to return.
      *
      * @return JSON

@@ -15,16 +15,6 @@ class PapercutStatusesChanged implements ShouldBroadcast
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     /**
-     * Create a new event instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        \Log::info('[Event] Papercut Statuses Changed');
-    }
-
-    /**
      * The JSON data to return.
      *
      * @return JSON
