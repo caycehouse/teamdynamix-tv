@@ -21,7 +21,7 @@ class DashboardController extends Controller
     public function __invoke()
     {
         $devices = Device::inError()->get();
-        $tickets = Ticket::unresolved()->studentComputerLabs()->orderBy('ticket_created_at', 'desc')->take(20)->get();
+        $tickets = Ticket::unresolved()->studentComputerLabs()->orderBy('ticket_created_at', 'desc')->get();
         $papercutStatuses = PapercutStatuses::all();
         $printers = Printer::inError()->get();
 
