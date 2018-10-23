@@ -38575,12 +38575,14 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("h5", { staticClass: "text-warning" }, [_vm._v("Unresolved Tickets")]),
+    _c("h5", { staticClass: "text-warning" }, [
+      _vm._v("Unresolved Tickets (" + _vm._s(_vm.tickets.length) + ")")
+    ]),
     _vm._v(" "),
     _c("table", { staticClass: "table table-sm" }, [
       _c(
         "tbody",
-        _vm._l(_vm.tickets, function(ref) {
+        _vm._l(_vm.tickets.slice(0, 20), function(ref) {
           var id = ref.id
           var ticket_id = ref.ticket_id
           var title = ref.title

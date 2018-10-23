@@ -1,9 +1,9 @@
 <template>
     <div>
-        <h5 class="text-warning">Unresolved Tickets</h5>
+        <h5 class="text-warning">Unresolved Tickets ({{ tickets.length }})</h5>
         <table class="table table-sm">
             <tbody>
-                <tr v-for="{id, ticket_id, title, lab, status, age, color_code} in tickets" :key="id" v-on:click="openTicket(ticket_id)" :class="color_code">
+                <tr v-for="{id, ticket_id, title, lab, status, age, color_code} in tickets.slice(0, 20)" :key="id" v-on:click="openTicket(ticket_id)" :class="color_code">
                     <td>{{ ticket_id }}</td>
                     <td>{{ title }}</td>
                     <td>{{ lab }}</td>
@@ -11,7 +11,7 @@
                     <td>{{ age }}</td>
                 </tr>
             </tbody>
-            </table>
+        </table>
     </div>
 </template>
 
