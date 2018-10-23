@@ -6,6 +6,7 @@ use App\Jobs\GetDeviceStatus;
 use App\Jobs\GetNewTickets;
 use App\Jobs\GetPapercutStatuses;
 use App\Jobs\GetPrinterStatus;
+use App\Jobs\UpdateTickets;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -30,6 +31,7 @@ class Kernel extends ConsoleKernel
     {
         $schedule->job(new GetDeviceStatus)->everyMinute();
         $schedule->job(new GetNewTickets)->everyMinute();
+        $schedule->job(new UpdateTickets)->everyMinute();
         $schedule->job(new GetPapercutStatuses)->everyMinute();
         $schedule->job(new GetPrinterStatus)->everyMinute();
     }

@@ -94,7 +94,7 @@ class Ticket extends Model
                 $colorCode = 'text-white-50';
             }
 
-            Ticket::updateOrCreate(
+            Ticket::firstOrCreate(
                 [
                     'ticket_id' => $jr['TicketID']
                 ],
@@ -114,5 +114,79 @@ class Ticket extends Model
 
         event(new TicketsChanged);
         event(new StatsChanged);
+    }
+
+    /**
+     * Fetches ticket information from TeamDynamix.
+     *
+     * @return void
+     */
+    public function fetch()
+    {
+        $client = new Client();
+
+        $authToken = $client->request('POST', 'https://ecu.teamdynamix.com/TDWebApi/api/auth', [
+            'json' => [
+                'username' => env('TD_USERNAME'),
+                'password' => env('TD_PASSWORD')
+            ]
+        ])->getBody();
+
+        $response = $client->request('GET', "https://ecu.teamdynamix.com/TDWebApi/api/reports/116088", [
+            'headers' => ['Authorization' => 'Bearer ' . $authToken],
+            'query' => ['withData' => 'true', 'dataSortExpression' => "TicketID={$this->ticket_id}"]
+        ])->getBody();
+
+        $json_response = json_decode($response, true);
+
+        \Log::info($json_response);
+
+        foreach ($json_response['DataRows'] as $jr) {
+            $resolvedAt = Carbon::parse($jr['CompletedDate']);
+            $resolvedAt->setTimezone('America/New_York');
+
+            $createdAt = Carbon::parse($jr['CreatedDate']);
+            $createdAt->setTimezone('America/New_York');
+
+            $colorCode = '';
+            if ($jr['StatusName'] === 'New') {
+                if ($createdAt <= Carbon::now('America/New_York')->subHours(24)) {
+                    $colorCode = 'text-danger';
+                } else if ($createdAt <= Carbon::now('America/New_York')->subHours(12)) {
+                    $colorCode = 'text-warning';
+                } else {
+                    $colorCode = 'text-success';
+                }
+            } else if ($jr['StatusName'] === 'On Hold') {
+                $colorCode = 'text-white-50';
+            }
+
+            $lab = '';
+            if($jr['Attributes']['18375']) {
+                $lab = $jr['Attributes']['18375']['ValueText'];
+            }
+
+            self::fill(
+                [
+                    'title' => $jr['Title'],
+                    'status' => $jr['StatusName'],
+                    'lab' => $lab,
+                    'ticket_created_at' => $createdAt->format('Y-m-d H:i:s'),
+                    'color_code' => $colorCode,
+                    'resp_group' => empty($jr['ResponsibleGroupName']) ? '' : $jr['ResponsibleGroupName'],
+                    'resolved_by' => empty($jr['CompletedFullName'])? '' : $jr['CompletedFullName'],
+                    'resolved_at' => $resolvedAt->format('Y-m-d H:i:s'),
+                    'age' => "{$jr['DaysOld']} d"
+                ]
+            );
+
+            \Log::info(self::isDirty());
+
+            if (self::isDirty()) {
+                self::save();
+                event(new TicketsChanged);
+                event(new StatsChanged);
+            }
+        }
     }
 }
