@@ -38953,6 +38953,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     StatsList: null
   },
 
+  computed: {
+    totalAll: function totalAll() {
+      return this.stats.reduce(function (acc, cur) {
+        return acc + cur.total;
+      }, 0);
+    }
+  },
+
   data: function data() {
     return {
       stats: this.StatsList
@@ -38977,7 +38985,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", [
     _c("h5", { staticClass: "text-warning" }, [
-      _vm._v("Ticket Resolutions (by week)")
+      _vm._v("Ticket Resolutions (" + _vm._s(_vm.totalAll) + ")")
     ]),
     _vm._v(" "),
     _c("table", { staticClass: "table table-sm" }, [

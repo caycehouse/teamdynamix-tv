@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h5 class="text-warning">Ticket Resolutions (by week)</h5>
+        <h5 class="text-warning">Ticket Resolutions ({{ totalAll }})</h5>
         <table class="table table-sm">
             <tbody>
                 <tr v-for="{ resolved_by, total } in stats" :key="resolved_by">
@@ -16,6 +16,12 @@
 export default {
   props: {
     StatsList: null
+  },
+
+  computed: {
+    totalAll: function() {
+      return this.stats.reduce((acc, cur) => acc + cur.total, 0);
+    }
   },
 
   data() {
