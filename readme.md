@@ -2,7 +2,7 @@
 The Labtechs TV web application
 
 ## Requirements
-Virtualbox, Vagrant, Composer, and PHP 7+.
+Docker, docker-compose, Composer, and PHP 7+.
 
 ## Installation
 ```
