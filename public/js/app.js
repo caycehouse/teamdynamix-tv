@@ -55562,11 +55562,34 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       devices: this.DevicesList
     };
   },
+
+
+  methods: {
+    remove: function remove(index) {
+      this.$delete(this.devices, index);
+    },
+    findWithAttr: function findWithAttr(array, attr, value) {
+      for (var i = 0; i < array.length; i += 1) {
+        if (array[i][attr] === value) {
+          return i;
+        }
+      }
+      return -1;
+    }
+  },
+
   mounted: function mounted() {
     var _this = this;
 
-    Echo.channel("devices").listen(".DevicesChanged", function (e) {
-      _this.devices = e.device;
+    Echo.channel("BroadcastingModelEvent").listen(".App\\Device", function (e) {
+      if (e.eventType == "created" || e.eventType == "updated") {
+        if (e.model.status == "OK") {
+          var index = _this.findWithAttr(_this.devices, "name", e.model.name);
+          _this.remove(index);
+        } else {
+          _this.devices.push(e.device);
+        }
+      }
     });
   }
 });
@@ -55720,12 +55743,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     var _this = this;
 
     Echo.channel("BroadcastingModelEvent").listen(".App\\Ticket", function (e) {
-      if (e.eventType == "created") {
-        _this.tickets.push(e.model);
-      } else if (e.eventType == "updated") {
+      if (e.eventType == "created" || e.eventType == "updated") {
         if (e.model.status == "Closed") {
-          var index = _this.findWithAttr(_this.tickets, 'ticket_id', e.model.ticket_id);
+          var index = _this.findWithAttr(_this.tickets, "ticket_id", e.model.ticket_id);
           _this.remove(index);
+        } else {
+          _this.devices.push(e.device);
         }
       }
     });

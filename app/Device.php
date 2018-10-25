@@ -2,7 +2,6 @@
 
 namespace App;
 
-use App\Events\DevicesChanged;
 use GuzzleHttp\Client;
 use Illuminate\Database\Eloquent\Model;
 
@@ -14,7 +13,6 @@ class Device extends Model
      * @var array
      */
     protected $fillable = ['name', 'status'];
-
 
     /**
      * Scope a query to only include devices in error.
@@ -38,16 +36,19 @@ class Device extends Model
         $json_response = json_decode($response);
 
         foreach ($json_response->devices as $jr) {
-            Device::updateOrCreate(
-                [
-                    'name' => $jr->name
-                ],
-                [
-                    'status' => $jr->state->status
-                ]
-            );
-        }
+            // Get device or initialize new device.
+            $device = Device::firstOrNew([
+                'name' => $jr->name
+            ]);
 
-        event(new DevicesChanged);
+            // Set the device's status.
+            $device->status = $jr->state->status;
+
+            // If device model is changed.
+            if ($device->isDirty()) {
+                // Save the data to the DB.
+                $device->save();
+            }
+        }
     }
 }

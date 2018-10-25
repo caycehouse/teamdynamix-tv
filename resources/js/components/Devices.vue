@@ -24,9 +24,30 @@ export default {
     };
   },
 
+  methods: {
+    remove(index) {
+      this.$delete(this.devices, index);
+    },
+    findWithAttr(array, attr, value) {
+      for (var i = 0; i < array.length; i += 1) {
+        if (array[i][attr] === value) {
+          return i;
+        }
+      }
+      return -1;
+    }
+  },
+
   mounted() {
-    Echo.channel("devices").listen(".DevicesChanged", e => {
-      this.devices = e.device;
+    Echo.channel("BroadcastingModelEvent").listen(".App\\Device", e => {
+      if (e.eventType == "created" || e.eventType == "updated") {
+        if (e.model.status == "OK") {
+          let index = this.findWithAttr(this.devices, "name", e.model.name);
+          this.remove(index);
+        } else {
+          this.devices.push(e.device);
+        }
+      }
     });
   }
 };

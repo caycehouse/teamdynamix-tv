@@ -3,7 +3,6 @@
 namespace App;
 
 use App\Events\StatsChanged;
-use App\Events\TicketsChanged;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;

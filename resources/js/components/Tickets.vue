@@ -54,12 +54,16 @@ export default {
 
   mounted() {
     Echo.channel("BroadcastingModelEvent").listen(".App\\Ticket", e => {
-      if (e.eventType == "created") {
-        this.tickets.push(e.model);
-      } else if (e.eventType == "updated") {
+      if (e.eventType == "created" || e.eventType == "updated") {
         if (e.model.status == "Closed") {
-          let index = this.findWithAttr(this.tickets, 'ticket_id', e.model.ticket_id);
+          let index = this.findWithAttr(
+            this.tickets,
+            "ticket_id",
+            e.model.ticket_id
+          );
           this.remove(index);
+        } else {
+          this.devices.push(e.device);
         }
       }
     });
