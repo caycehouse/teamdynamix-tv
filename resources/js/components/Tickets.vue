@@ -63,7 +63,7 @@ export default {
           );
           this.remove(index);
         } else {
-          this.devices.push(e.device);
+          this.tickets.push(e.device);
         }
       }
     });

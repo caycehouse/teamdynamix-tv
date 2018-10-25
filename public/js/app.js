@@ -55748,7 +55748,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           var index = _this.findWithAttr(_this.tickets, "ticket_id", e.model.ticket_id);
           _this.remove(index);
         } else {
-          _this.devices.push(e.device);
+          _this.tickets.push(e.device);
         }
       }
     });

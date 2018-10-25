@@ -111,7 +111,6 @@ class Ticket extends Model
             );
 
             if($ticket->wasRecentlyCreated) {
-                event(new TicketsChanged);
                 event(new StatsChanged);
             }
         }
@@ -189,7 +188,6 @@ class Ticket extends Model
             self::save();
 
             // Fire update events.
-            event(new TicketsChanged);
             event(new StatsChanged);
         }
     }
