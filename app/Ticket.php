@@ -94,7 +94,7 @@ class Ticket extends Model
                 $colorCode = 'text-white-50';
             }
 
-            Ticket::updateOrCreate(
+            $ticket = Ticket::firstOrCreate(
                 [
                     'ticket_id' => $jr['TicketID']
                 ],
@@ -105,14 +105,93 @@ class Ticket extends Model
                     'ticket_created_at' => $createdAt->format('Y-m-d H:i:s'),
                     'color_code' => $colorCode,
                     'resp_group' => empty($jr['ResponsibleGroupName']) ? '' : $jr['ResponsibleGroupName'],
-                    'resolved_by' => empty($jr['ClosedByFullName'])? '' : $jr['ClosedByFullName'],
+                    'resolved_by' => empty($jr['ClosedByFullName']) ? '' : $jr['ClosedByFullName'],
                     'resolved_at' => $resolvedAt->format('Y-m-d H:i:s'),
                     'age' => "{$jr['DaysOld']} d"
                 ]
             );
+
+            if($ticket->wasRecentlyCreated) {
+                event(new TicketsChanged);
+                event(new StatsChanged);
+            }
+        }
+    }
+
+    /**
+     * Fetches ticket information from TeamDynamix.
+     *
+     * @return void
+     */
+    public function fetch()
+    {
+        $client = new Client();
+
+        $authToken = $client->request('POST', 'https://ecu.teamdynamix.com/TDWebApi/api/auth', [
+            'json' => [
+                'username' => env('TD_USERNAME'),
+                'password' => env('TD_PASSWORD')
+            ]
+        ])->getBody();
+
+        $response = $client->request('GET', "https://ecu.teamdynamix.com/TDWebApi/api/217/tickets/{$this->ticket_id}", [
+            'headers' => ['Authorization' => 'Bearer ' . $authToken]
+        ])->getBody();
+
+        $jr = json_decode($response, true);
+
+        $resolvedAt = Carbon::parse($jr['CompletedDate']);
+        $resolvedAt->setTimezone('America/New_York');
+
+        $createdAt = Carbon::parse($jr['CreatedDate']);
+        $createdAt->setTimezone('America/New_York');
+
+        $colorCode = '';
+        if ($jr['StatusName'] === 'New') {
+            if ($createdAt <= Carbon::now('America/New_York')->subHours(24)) {
+                $colorCode = 'text-danger';
+            } else if ($createdAt <= Carbon::now('America/New_York')->subHours(12)) {
+                $colorCode = 'text-warning';
+            } else {
+                $colorCode = 'text-success';
+            }
+        } else if ($jr['StatusName'] === 'On Hold') {
+            $colorCode = 'text-white-50';
         }
 
-        event(new TicketsChanged);
-        event(new StatsChanged);
+        // Loop through ticket attributes.
+        $lab = '';
+        foreach($jr['Attributes'] as $attr) {
+            // If the current attribute is of ID Lab.
+            if($attr['ID'] == '18375') {
+                // Set lab equal to Value Text of the attribute.
+                $lab = $attr['ValueText'];
+            }
+        }
+
+        // Fill the ticket with the fields from TeamDynamix.
+        self::fill(
+            [
+                'title' => $jr['Title'],
+                'status' => $jr['StatusName'],
+                'lab' => $lab,
+                'ticket_created_at' => $createdAt->format('Y-m-d H:i:s'),
+                'color_code' => $colorCode,
+                'resp_group' => empty($jr['ResponsibleGroupName']) ? '' : $jr['ResponsibleGroupName'],
+                'resolved_by' => empty($jr['CompletedFullName']) ? '' : $jr['CompletedFullName'],
+                'resolved_at' => $resolvedAt->format('Y-m-d H:i:s'),
+                'age' => "{$jr['DaysOld']} d"
+            ]
+        );
+
+        // If the ticket has changed.
+        if (self::isDirty()) {
+            // Save the updated info to the DB.
+            self::save();
+
+            // Fire update events.
+            event(new TicketsChanged);
+            event(new StatsChanged);
+        }
     }
 }
