@@ -2,7 +2,6 @@
 
 namespace App;
 
-use App\Events\PapercutStatusesChanged;
 use GuzzleHttp\Client;
 use Illuminate\Database\Eloquent\Model;
 
@@ -14,7 +13,6 @@ class PapercutStatuses extends Model
      * @var array
      */
     protected $fillable = ['status_name', 'status', 'status_color'];
-
 
     /**
      * Gets the overall papercut status summary.
@@ -75,6 +73,7 @@ class PapercutStatuses extends Model
             ]
         );
     }
+
     /**
      * Gets the web-print servers summary.
      *
@@ -141,7 +140,5 @@ class PapercutStatuses extends Model
         self::getPrintProvidersSummary();
         self::getWebPrintServersSummary();
         self::getMobilityPrintServersSummary();
-
-        event(new PapercutStatusesChanged);
     }
 }

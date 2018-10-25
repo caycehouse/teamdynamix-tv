@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Device;
+use App\PapercutStatuses;
 use App\Printer;
 use App\Ticket;
 use App\Observers\BroadcastingModelObserver;
@@ -18,6 +19,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Device::observe(BroadcastingModelObserver::class);
+        PapercutStatuses::observe(BroadcastingModelObserver::class);
         Printer::observe(BroadcastingModelObserver::class);
         Ticket::observe(BroadcastingModelObserver::class);
     }

@@ -55898,8 +55898,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   mounted: function mounted() {
     var _this = this;
 
-    Echo.channel("papercut-statuses").listen(".StatusesChanged", function (e) {
-      _this.papercutStatuses = e.papercutStatuses;
+    Echo.channel("BroadcastingModelEvent").listen(".App\\PapercutStatuses", function (e) {
+      if (e.eventType == "created" || e.eventType == "updated") {
+        _this.papercutStatuses.push(e.model);
+      }
     });
   }
 });

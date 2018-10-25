@@ -25,9 +25,14 @@ export default {
   },
 
   mounted() {
-    Echo.channel("papercut-statuses").listen(".StatusesChanged", e => {
-      this.papercutStatuses = e.papercutStatuses;
-    });
+    Echo.channel("BroadcastingModelEvent").listen(
+      ".App\\PapercutStatuses",
+      e => {
+        if (e.eventType == "created" || e.eventType == "updated") {
+          this.papercutStatuses.push(e.model);
+        }
+      }
+    );
   }
 };
 </script>
