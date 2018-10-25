@@ -40,18 +40,19 @@ class Printer extends Model
         foreach ($json_response->printers as $jr) {
             $print_server = explode("\\", $jr->name)[0];
             if (($print_server === 'uniprint' || $print_server === 'papercut')) {
-                Printer::updateOrCreate(
-                    [
-                        'name' => $jr->name
-                    ],
-                    [
-                        'print_server' => $print_server,
-                        'status' => $jr->status
-                    ]
-                );
+                $printer = Printer::firstOrNew([
+                    'name' => $jr->name
+                ]);
+
+                $printer->fill([
+                    'print_server' => $print_server,
+                    'status' => $jr->status
+                ]);
+
+                if ($printer->isDirty()) {
+                    $printer->save();
+                }
             }
         }
-
-        event(new PrintersChanged);
     }
 }

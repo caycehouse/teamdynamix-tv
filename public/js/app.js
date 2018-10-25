@@ -55587,7 +55587,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           var index = _this.findWithAttr(_this.devices, "name", e.model.name);
           _this.remove(index);
         } else {
-          _this.devices.push(e.device);
+          _this.devices.push(e.model);
         }
       }
     });
@@ -55748,7 +55748,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           var index = _this.findWithAttr(_this.tickets, "ticket_id", e.model.ticket_id);
           _this.remove(index);
         } else {
-          _this.tickets.push(e.device);
+          _this.tickets.push(e.model);
         }
       }
     });
@@ -56020,11 +56020,34 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       printers: this.PrintersList
     };
   },
+
+
+  methods: {
+    remove: function remove(index) {
+      this.$delete(this.printers, index);
+    },
+    findWithAttr: function findWithAttr(array, attr, value) {
+      for (var i = 0; i < array.length; i += 1) {
+        if (array[i][attr] === value) {
+          return i;
+        }
+      }
+      return -1;
+    }
+  },
+
   mounted: function mounted() {
     var _this = this;
 
-    Echo.channel("printers").listen(".PrintersChanged", function (e) {
-      _this.printers = e.printer;
+    Echo.channel("BroadcastingModelEvent").listen(".App\\Printer", function (e) {
+      if (e.eventType == "created" || e.eventType == "updated") {
+        if (e.model.status == "OK") {
+          var index = _this.findWithAttr(_this.printers, "name", e.model.name);
+          _this.remove(index);
+        } else {
+          _this.printers.push(e.model);
+        }
+      }
     });
   }
 });

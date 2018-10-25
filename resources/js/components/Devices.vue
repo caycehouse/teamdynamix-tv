@@ -45,7 +45,7 @@ export default {
           let index = this.findWithAttr(this.devices, "name", e.model.name);
           this.remove(index);
         } else {
-          this.devices.push(e.device);
+          this.devices.push(e.model);
         }
       }
     });
