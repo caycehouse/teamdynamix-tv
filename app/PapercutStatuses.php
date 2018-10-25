@@ -33,15 +33,18 @@ class PapercutStatuses extends Model
             $statusColor = 'text-danger';
         }
 
-        PapercutStatuses::updateOrCreate(
-            [
-                'status_name' => 'Papercut System'
-            ],
-            [
-                'status' => $json_response->status,
-                'status_color' => $statusColor
-            ]
-        );
+        $ps = PapercutStatuses::firstOrNew([
+            'status_name' => 'Papercut System'
+        ]);
+
+        $ps->fill([
+            'status' => $json_response->status,
+            'status_color' => $statusColor
+        ]);
+
+        if ($ps->isDirty()) {
+            $ps->save();
+        }
     }
 
     /**
@@ -63,15 +66,18 @@ class PapercutStatuses extends Model
             $statusColor = 'text-danger';
         }
 
-        PapercutStatuses::updateOrCreate(
-            [
-                'status_name' => 'Print Providers'
-            ],
-            [
-                'status' => $json_response->status,
-                'status_color' => $statusColor
-            ]
-        );
+        $ps = PapercutStatuses::firstOrNew([
+            'status_name' => 'Print Providers'
+        ]);
+
+        $ps->fill([
+            'status' => $json_response->status,
+            'status_color' => $statusColor
+        ]);
+
+        if ($ps->isDirty()) {
+            $ps->save();
+        }
     }
 
     /**
@@ -93,15 +99,19 @@ class PapercutStatuses extends Model
             $status = 'text-danger';
         }
 
-        PapercutStatuses::updateOrCreate(
-            [
-                'status_name' => 'Web-Print Servers'
-            ],
-            [
-                'status' => $json_response->status,
-                'status_color' => $statusColor
-            ]
-        );
+
+        $ps = PapercutStatuses::firstOrNew([
+            'status_name' => 'Web-Print Servers'
+        ]);
+
+        $ps->fill([
+            'status' => $json_response->status,
+            'status_color' => $statusColor
+        ]);
+
+        if ($ps->isDirty()) {
+            $ps->save();
+        }
     }
 
     /**
@@ -123,15 +133,18 @@ class PapercutStatuses extends Model
             $statusColor = 'text-danger';
         }
 
-        PapercutStatuses::updateOrCreate(
-            [
-                'status_name' => 'Mobility-Print Servers'
-            ],
-            [
-                'status' => $json_response->status,
-                'status_color' => $statusColor
-            ]
-        );
+        $ps = PapercutStatuses::firstOrNew([
+            'status_name' => 'Mobility-Print Servers'
+        ]);
+
+        $ps->fill([
+            'status' => $json_response->status,
+            'status_color' => $statusColor
+        ]);
+
+        if ($ps->isDirty()) {
+            $ps->save();
+        }
     }
 
     public static function getStats()
