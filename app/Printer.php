@@ -2,7 +2,6 @@
 
 namespace App;
 
-use App\Events\PrintersChanged;
 use GuzzleHttp\Client;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
