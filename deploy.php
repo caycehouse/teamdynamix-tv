@@ -22,8 +22,8 @@ set('allow_anonymous_stats', false);
 
 // Hosts
 
-host(getenv('host'))
-    ->user(getenv('user'))
+host(getenv('DEP_HOST'))
+    ->user(getenv('DEP_USER'))
     ->set('deploy_path', '~/td.sumojoe.com');
 
 // Tasks
