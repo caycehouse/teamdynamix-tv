@@ -22,6 +22,10 @@ class AppServiceProvider extends ServiceProvider
         PapercutStatuses::observe(BroadcastingModelObserver::class);
         Printer::observe(BroadcastingModelObserver::class);
         Ticket::observe(BroadcastingModelObserver::class);
+
+        if ($this->app->environment('local')) {
+            $this->app->register(TelescopeServiceProvider::class);
+        }
     }
 
     /**

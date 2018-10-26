@@ -23,6 +23,14 @@ add('shared_dirs', []);
 add('writable_dirs', []);
 set('allow_anonymous_stats', false);
 
+// Plesk does funny things with composer, so get our own copy.
+set('bin/composer', function () {
+    run("cd {{release_path}} && curl -sS https://getcomposer.org/installer | {{bin/php}}");
+    $composer = '{{release_path}}/composer.phar';
+
+    return '{{bin/php}} ' . $composer;
+});
+
 // Hosts
 
 host(getenv('DEP_HOST'))
