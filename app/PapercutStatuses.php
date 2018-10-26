@@ -21,7 +21,7 @@ class PapercutStatuses extends Model
     {
         $client = new Client(['http_errors' => false]);
         $response = $client->request('GET', $url, [
-            'query' => ['Authorization' => env('PAPERCUT_AUTH_TOKEN')]
+            'query' => ['Authorization' => config('labtechs.papercut_auth_token')]
         ])->getBody();
 
         $json_response = json_decode($response);
