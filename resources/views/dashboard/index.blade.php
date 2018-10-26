@@ -2,16 +2,14 @@
 
 @section('content')
 <div class="row">
-    <div class="col">
+    <div class="col col-lg-4">
         <papercut-statuses :papercut-statuses-list="{{ $papercutStatuses }}"></papercut-statuses>
         <printers :printers-list="{{ $printers }}"></printers>
         <devices :devices-list="{{ $devices }}"></devices>
     </div>
-    <div class="col-8">
+    <div class="col">
         <tickets :tickets-list="{{ $tickets }}"></tickets>
-        <div class="offset-md-9 col-3">
-            <stats :stats-list="{{ $stats }}"></stats>
-        </div>
+        <stats :stats-list="{{ $stats }}"></stats>
     </div>
 </div>
 @endsection
