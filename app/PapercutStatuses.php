@@ -15,14 +15,12 @@ class PapercutStatuses extends Model
     protected $fillable = ['status_name', 'status', 'status_color'];
 
     /**
-     * Gets the overall papercut status summary.
-     *
-     * @return void
+     * Pulls status for URL from papercut and saves it to DB with provided name.
      */
-    public static function getPapercutStatusSummary()
+    public static function getPapercutStatus($url, $name)
     {
         $client = new Client(['http_errors' => false]);
-        $response = $client->request('GET', 'http://pirateprint.ecu.edu:9191/api/health/site-servers/status', [
+        $response = $client->request('GET', $url, [
             'query' => ['Authorization' => env('PAPERCUT_AUTH_TOKEN')]
         ])->getBody();
 
@@ -33,109 +31,7 @@ class PapercutStatuses extends Model
             $statusColor = 'text-danger';
         }
 
-        $ps = PapercutStatuses::firstOrNew([
-            'status_name' => 'Papercut System'
-        ]);
-
-        $ps->fill([
-            'status' => $json_response->status,
-            'status_color' => $statusColor
-        ]);
-
-        if ($ps->isDirty()) {
-            $ps->save();
-        }
-    }
-
-    /**
-     * Gets the print providers summary.
-     *
-     * @return void
-     */
-    public static function getPrintProvidersSummary()
-    {
-        $client = new Client(['http_errors' => false]);
-        $response = $client->request('GET', 'http://pirateprint.ecu.edu:9191/api/health/print-providers/status', [
-            'query' => ['Authorization' => env('PAPERCUT_AUTH_TOKEN')]
-        ])->getBody();
-
-        $json_response = json_decode($response);
-
-        $statusColor = 'text-success';
-        if ($json_response->status !== 'OK') {
-            $statusColor = 'text-danger';
-        }
-
-        $ps = PapercutStatuses::firstOrNew([
-            'status_name' => 'Print Providers'
-        ]);
-
-        $ps->fill([
-            'status' => $json_response->status,
-            'status_color' => $statusColor
-        ]);
-
-        if ($ps->isDirty()) {
-            $ps->save();
-        }
-    }
-
-    /**
-     * Gets the web-print servers summary.
-     *
-     * @return void
-     */
-    public static function getWebPrintServersSummary()
-    {
-        $client = new Client(['http_errors' => false]);
-        $response = $client->request('GET', 'http://pirateprint.ecu.edu:9191/api/health/web-print/status?servers-in-error-threshold=0', [
-            'query' => ['Authorization' => env('PAPERCUT_AUTH_TOKEN')]
-        ])->getBody();
-
-        $json_response = json_decode($response);
-
-        $statusColor = 'text-success';
-        if ($json_response->status !== 'OK') {
-            $status = 'text-danger';
-        }
-
-
-        $ps = PapercutStatuses::firstOrNew([
-            'status_name' => 'Web-Print Servers'
-        ]);
-
-        $ps->fill([
-            'status' => $json_response->status,
-            'status_color' => $statusColor
-        ]);
-
-        if ($ps->isDirty()) {
-            $ps->save();
-        }
-    }
-
-    /**
-     * Gets the mobility print servers summary.
-     *
-     * @return void
-     */
-    public static function getMobilityPrintServersSummary()
-    {
-        $client = new Client(['http_errors' => false]);
-        $response = $client->request('GET', 'http://pirateprint.ecu.edu:9191/api/health/mobility-print-servers/status', [
-            'query' => ['Authorization' => env('PAPERCUT_AUTH_TOKEN')]
-        ])->getBody();
-
-        $json_response = json_decode($response);
-
-        $statusColor = 'text-success';
-        if ($json_response->status !== 'OK') {
-            $statusColor = 'text-danger';
-        }
-
-        $ps = PapercutStatuses::firstOrNew([
-            'status_name' => 'Mobility-Print Servers'
-        ]);
+        $ps = PapercutStatuses::firstOrNew(['status_name' => $name]);
 
         $ps->fill([
             'status' => $json_response->status,
@@ -149,9 +45,13 @@ class PapercutStatuses extends Model
 
     public static function getStats()
     {
-        self::getPapercutStatusSummary();
-        self::getPrintProvidersSummary();
-        self::getWebPrintServersSummary();
-        self::getMobilityPrintServersSummary();
+        self::getPapercutStatus('http://pirateprint.ecu.edu:9191/api/health/site-servers/status',
+            'Papercut System');
+        self::getPapercutStatus('http://pirateprint.ecu.edu:9191/api/health/print-providers/status',
+            'Print Providers');
+        self::getPapercutStatus('http://pirateprint.ecu.edu:9191/api/health/web-print/status?servers-in-error-threshold=0',
+            'Web-Print Servers');
+        self::getPapercutStatus('http://pirateprint.ecu.edu:9191/api/health/mobility-print-servers/status',
+            'Mobility-Print Servers');
     }
 }
