@@ -24,12 +24,32 @@ export default {
     };
   },
 
+  methods: {
+    findWithAttr(array, attr, value) {
+      for (var i = 0; i < array.length; i += 1) {
+        if (array[i][attr] === value) {
+          return i;
+        }
+      }
+      return -1;
+    }
+  },
+
   mounted() {
     Echo.channel("BroadcastingModelEvent").listen(
       ".App\\PapercutStatuses",
       e => {
         if (e.eventType == "created" || e.eventType == "updated") {
-          this.papercutStatuses.push(e.model);
+          let index = this.findWithAttr(
+            this.papercutStatuses,
+            "name",
+            e.model.name
+          );
+          if (index == -1) {
+            this.papercutStatuses.push(e.model);
+          } else {
+            this.$set(this.papercutStatuses, index, e.model);
+          }
         }
       }
     );

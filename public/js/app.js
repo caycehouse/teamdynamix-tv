@@ -55583,11 +55583,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     Echo.channel("BroadcastingModelEvent").listen(".App\\Device", function (e) {
       if (e.eventType == "created" || e.eventType == "updated") {
+        var index = _this.findWithAttr(_this.devices, "name", e.model.name);
         if (e.model.status == "OK") {
-          var index = _this.findWithAttr(_this.devices, "name", e.model.name);
           _this.remove(index);
         } else {
-          _this.devices.push(e.model);
+          if (index == -1) {
+            _this.devices.push(e.model);
+          } else {
+            _this.$set(_this.devices, index, e.model);
+          }
         }
       }
     });
@@ -55744,11 +55748,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     Echo.channel("BroadcastingModelEvent").listen(".App\\Ticket", function (e) {
       if (e.eventType == "created" || e.eventType == "updated") {
+        var index = _this.findWithAttr(_this.tickets, "ticket_id", e.model.ticket_id);
         if (e.model.status == "Closed") {
-          var index = _this.findWithAttr(_this.tickets, "ticket_id", e.model.ticket_id);
           _this.remove(index);
         } else {
-          _this.tickets.push(e.model);
+          if (index == -1) {
+            _this.tickets.push(e.model);
+          } else {
+            _this.$set(_this.tickets, index, e.model);
+          }
         }
       }
     });
@@ -55895,12 +55903,30 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       papercutStatuses: this.PapercutStatusesList
     };
   },
+
+
+  methods: {
+    findWithAttr: function findWithAttr(array, attr, value) {
+      for (var i = 0; i < array.length; i += 1) {
+        if (array[i][attr] === value) {
+          return i;
+        }
+      }
+      return -1;
+    }
+  },
+
   mounted: function mounted() {
     var _this = this;
 
     Echo.channel("BroadcastingModelEvent").listen(".App\\PapercutStatuses", function (e) {
       if (e.eventType == "created" || e.eventType == "updated") {
-        _this.papercutStatuses.push(e.model);
+        var index = _this.findWithAttr(_this.papercutStatuses, "name", e.model.name);
+        if (index == -1) {
+          _this.papercutStatuses.push(e.model);
+        } else {
+          _this.$set(_this.papercutStatuses, index, e.model);
+        }
       }
     });
   }

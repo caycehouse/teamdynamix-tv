@@ -55,15 +55,19 @@ export default {
   mounted() {
     Echo.channel("BroadcastingModelEvent").listen(".App\\Ticket", e => {
       if (e.eventType == "created" || e.eventType == "updated") {
+        let index = this.findWithAttr(
+          this.tickets,
+          "ticket_id",
+          e.model.ticket_id
+        );
         if (e.model.status == "Closed") {
-          let index = this.findWithAttr(
-            this.tickets,
-            "ticket_id",
-            e.model.ticket_id
-          );
           this.remove(index);
         } else {
-          this.tickets.push(e.model);
+          if (index == -1) {
+            this.tickets.push(e.model);
+          } else {
+            this.$set(this.tickets, index, e.model);
+          }
         }
       }
     });

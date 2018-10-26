@@ -41,11 +41,15 @@ export default {
   mounted() {
     Echo.channel("BroadcastingModelEvent").listen(".App\\Device", e => {
       if (e.eventType == "created" || e.eventType == "updated") {
+        let index = this.findWithAttr(this.devices, "name", e.model.name);
         if (e.model.status == "OK") {
-          let index = this.findWithAttr(this.devices, "name", e.model.name);
           this.remove(index);
         } else {
-          this.devices.push(e.model);
+          if (index == -1) {
+            this.devices.push(e.model);
+          } else {
+            this.$set(this.devices, index, e.model);
+          }
         }
       }
     });
