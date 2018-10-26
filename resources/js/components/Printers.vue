@@ -41,11 +41,15 @@ export default {
   mounted() {
     Echo.channel("BroadcastingModelEvent").listen(".App\\Printer", e => {
       if (e.eventType == "created" || e.eventType == "updated") {
+        let index = this.findWithAttr(this.printers, "name", e.model.name);
         if (e.model.status == "OK") {
-          let index = this.findWithAttr(this.printers, "name", e.model.name);
           this.remove(index);
         } else {
-          this.printers.push(e.model);
+          if (index == -1) {
+            this.printers.push(e.model);
+          } else {
+            this.$set(this.printers, index, e.model);
+          }
         }
       }
     });

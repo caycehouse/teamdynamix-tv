@@ -56043,11 +56043,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     Echo.channel("BroadcastingModelEvent").listen(".App\\Printer", function (e) {
       if (e.eventType == "created" || e.eventType == "updated") {
+        var index = _this.findWithAttr(_this.printers, "name", e.model.name);
         if (e.model.status == "OK") {
-          var index = _this.findWithAttr(_this.printers, "name", e.model.name);
           _this.remove(index);
         } else {
-          _this.printers.push(e.model);
+          if (index == -1) {
+            _this.printers.push(e.model);
+          } else {
+            _this.$set(_this.printers, index, e.model);
+          }
         }
       }
     });
