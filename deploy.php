@@ -3,6 +3,9 @@ namespace Deployer;
 
 require 'recipe/laravel.php';
 
+// Load .env
+with(new \Dotenv\Dotenv(__DIR__))->load();
+
 // Project name
 set('application', 'Labtechs TV');
 
