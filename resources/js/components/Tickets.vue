@@ -64,7 +64,13 @@ export default {
           this.remove(index);
         } else {
           if (index == -1) {
-            this.tickets.push(e.model);
+            if (e.model.resp_group == "+Student Computer Labs") {
+                // Add ticket only if it belongs to us.
+              this.tickets.push(e.model);
+            } else {
+                // Otherwise remove the ticket.
+              this.remove(index);
+            }
           } else {
             this.$set(this.tickets, index, e.model);
           }

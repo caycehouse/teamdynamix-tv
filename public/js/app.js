@@ -55753,7 +55753,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           _this.remove(index);
         } else {
           if (index == -1) {
-            _this.tickets.push(e.model);
+            if (e.model.resp_group == "+Student Computer Labs") {
+              // Add ticket only if it belongs to us.
+              _this.tickets.push(e.model);
+            } else {
+              // Otherwise remove the ticket.
+              _this.remove(index);
+            }
           } else {
             _this.$set(_this.tickets, index, e.model);
           }
