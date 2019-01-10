@@ -110,6 +110,7 @@ return [
     'hosts' => [
         env('DEP_HOST') => [
             'deploy_path' => env('DEP_PATH'),
+            'http_user' => env('DEP_USER'),
             'user' => env('DEP_USER'),
         ],
     ],
