@@ -7,6 +7,7 @@ use App\Device;
 use App\Ticket;
 use App\PapercutStatuses;
 use App\Printer;
+use App\Resolution;
 use App\Stats;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -27,14 +28,16 @@ class DashboardController extends Controller
 
         $fromDate = Carbon::now()->startOfWeek()->toDateTimeString();
         $tillDate = Carbon::now()->toDateTimeString();
-        $stats = Ticket::resolved()->get();
+        $resolutionsLastWeek = Resolution::where('period', '=', 'last_week')->get();
+        $resolutionsThisWeek = Resolution::where('period', '=', 'this_week')->get();
 
         return view('dashboard.index', [
             'devices' => $devices,
             'tickets' => $tickets,
             'papercutStatuses' => $papercutStatuses,
             'printers' => $printers,
-            'stats' => $stats
+            'resolutionsLastWeek' => $resolutionsLastWeek,
+            'resolutionsThisWeek' => $resolutionsThisWeek
         ]);
     }
 }

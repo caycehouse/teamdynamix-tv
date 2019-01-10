@@ -13163,7 +13163,6 @@ module.exports = __webpack_require__(31);
 /* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
-
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -13180,14 +13179,14 @@ window.Vue = __webpack_require__(12);
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('devices', __webpack_require__(16));
-Vue.component('tickets', __webpack_require__(19));
-Vue.component('papercut-statuses', __webpack_require__(22));
-Vue.component('printers', __webpack_require__(25));
-Vue.component('stats', __webpack_require__(28));
+Vue.component("devices", __webpack_require__(16));
+Vue.component("tickets", __webpack_require__(19));
+Vue.component("papercut-statuses", __webpack_require__(22));
+Vue.component("printers", __webpack_require__(25));
+Vue.component("resolutions", __webpack_require__(28));
 
 var app = new Vue({
-  el: '#app'
+  el: "#app"
 });
 
 /***/ }),
@@ -56951,7 +56950,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/js/components/Stats.vue"
+Component.options.__file = "resources/js/components/Resolutions.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -56960,9 +56959,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-56c7d5c4", Component.options)
+    hotAPI.createRecord("data-v-78229cac", Component.options)
   } else {
-    hotAPI.reload("data-v-56c7d5c4", Component.options)
+    hotAPI.reload("data-v-78229cac", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -56995,27 +56994,48 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
-    StatsList: null
+    ResolutionsList: null,
+    period: null
   },
 
   computed: {
     totalAll: function totalAll() {
-      return this.stats.reduce(function (acc, cur) {
-        return acc + cur.total;
+      return this.resolutions.reduce(function (acc, cur) {
+        return acc + cur.closes;
       }, 0);
     }
   },
 
   data: function data() {
     return {
-      stats: this.StatsList
+      resolutions: this.ResolutionsList
     };
   },
+
+
+  methods: {
+    findWithAttr: function findWithAttr(array, attr, value) {
+      for (var i = 0; i < array.length; i += 1) {
+        if (array[i][attr] === value) {
+          return i;
+        }
+      }
+      return -1;
+    }
+  },
+
   mounted: function mounted() {
     var _this = this;
 
-    Echo.channel("stats").listen(".StatsChanged", function (e) {
-      _this.stats = e.stat;
+    Echo.channel("BroadcastingModelEvent").listen(".App\\Resolution", function (e) {
+      if (e.model.period == _this.period) {
+        var index = _this.findWithAttr(_this.resolutions, "name", e.model.name);
+        if (index == -1) {
+          _this.resolutions.push(e.model);
+        } else {
+          _this.$set(_this.resolutions, index, e.model);
+        }
+      }
     });
   }
 });
@@ -57030,19 +57050,19 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", [
     _c("h5", { staticClass: "text-warning" }, [
-      _vm._v("Ticket Resolutions (" + _vm._s(_vm.totalAll) + ")")
+      _vm._v("Ticket Resolutions This Week (" + _vm._s(_vm.totalAll) + ")")
     ]),
     _vm._v(" "),
     _c("table", { staticClass: "table table-sm" }, [
       _c(
         "tbody",
-        _vm._l(_vm.stats, function(ref) {
-          var resolved_by = ref.resolved_by
-          var total = ref.total
-          return _c("tr", { key: resolved_by }, [
-            _c("td", [_vm._v(_vm._s(resolved_by))]),
+        _vm._l(_vm.resolutions, function(ref) {
+          var name = ref.name
+          var closes = ref.closes
+          return _c("tr", { key: name }, [
+            _c("td", [_vm._v(_vm._s(name))]),
             _vm._v(" "),
-            _c("td", [_vm._v(_vm._s(total))])
+            _c("td", [_vm._v(_vm._s(closes))])
           ])
         }),
         0
@@ -57056,7 +57076,7 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-56c7d5c4", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-78229cac", module.exports)
   }
 }
 

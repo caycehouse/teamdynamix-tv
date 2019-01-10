@@ -2,13 +2,15 @@
 
 namespace App\Console;
 
+use Illuminate\Console\Scheduling\Schedule;
+use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+
 use App\Jobs\GetDeviceStatus;
 use App\Jobs\GetNewTickets;
 use App\Jobs\GetPapercutStatuses;
 use App\Jobs\GetPrinterStatus;
 use App\Jobs\UpdateTickets;
-use Illuminate\Console\Scheduling\Schedule;
-use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use App\Jobs\GetResolutions;
 
 class Kernel extends ConsoleKernel
 {
@@ -34,6 +36,7 @@ class Kernel extends ConsoleKernel
         $schedule->job(new UpdateTickets)->everyMinute();
         $schedule->job(new GetPapercutStatuses)->everyMinute();
         $schedule->job(new GetPrinterStatus)->everyMinute();
+        $schedule->job(new GetResolutions)->everyFiveMinutes();
     }
 
     /**
@@ -43,7 +46,7 @@ class Kernel extends ConsoleKernel
      */
     protected function commands()
     {
-        $this->load(__DIR__.'/Commands');
+        $this->load(__DIR__ . '/Commands');
 
         require base_path('routes/console.php');
     }

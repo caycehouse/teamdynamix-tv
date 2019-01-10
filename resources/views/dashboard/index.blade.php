@@ -9,7 +9,14 @@
     </div>
     <div class="col">
         <tickets :tickets-list="{{ $tickets }}"></tickets>
-        <stats :stats-list="{{ $stats }}"></stats>
+        <div class="row">
+            <div class="col">
+                <resolutions period='last_week' :resolutions-list="{{ $resolutionsLastWeek }}"></resolutions>
+            </div>
+            <div class="col">
+                <resolutions period='this_week' :resolutions-list="{{ $resolutionsThisWeek }}"></resolutions>
+            </div>
+        </div>
     </div>
 </div>
 @endsection
