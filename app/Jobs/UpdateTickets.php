@@ -22,5 +22,10 @@ class UpdateTickets implements ShouldQueue
     {
         // Get all unresolved tickets.
         $tickets = Ticket::unresolved()->get();
+
+        foreach ($tickets as $t) {
+            // Fetch new information on ticket.
+            $t->fetch();
+        }
     }
 }

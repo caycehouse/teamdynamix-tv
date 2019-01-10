@@ -60,20 +60,67 @@ class Ticket extends Model
 
         $json_response = json_decode($response, true);
 
-        Ticket::truncate();
-
         foreach ($json_response['DataRows'] as $jr) {
-            $ticket = Ticket::create(
+            $ticket = Ticket::firstOrCreate(
                 [
-                    'ticket_id' => $jr['TicketID'],
+                    'ticket_id' => $jr['TicketID']
+                ],
+                [
                     'title' => $jr['Title'],
                     'lab' => empty($jr['18375']) ? '' : $jr['18375'],
                     'status' => $jr['StatusName'],
                     'age' => "{$jr['DaysOld']} d"
                 ]
             );
+        }
+    }
 
-            $ticket->save();
+    /**
+     * Fetches ticket information from TeamDynamix.
+     *
+     * @return void
+     */
+    public function fetch()
+    {
+        $client = new Client();
+
+        $authToken = $client->request('POST', 'https://ecu.teamdynamix.com/TDWebApi/api/auth', [
+            'json' => [
+                'username' => config('labtechs.td_username'),
+                'password' => config('labtechs.td_password')
+            ]
+        ])->getBody();
+
+        $response = $client->request('GET', "https://ecu.teamdynamix.com/TDWebApi/api/217/tickets/{$this->ticket_id}", [
+            'headers' => ['Authorization' => 'Bearer ' . $authToken]
+        ])->getBody();
+
+        $jr = json_decode($response, true);
+
+        // Loop through ticket attributes.
+        $lab = '';
+        foreach ($jr['Attributes'] as $attr) {
+            // If the current attribute is of ID Lab.
+            if ($attr['ID'] == '18375') {
+                // Set lab equal to Value Text of the attribute.
+                $lab = $attr['ValueText'];
+            }
+        }
+
+        // Fill the ticket with the fields from TeamDynamix.
+        self::fill(
+            [
+                'title' => $jr['Title'],
+                'status' => $jr['StatusName'],
+                'lab' => $lab,
+                'age' => "{$jr['DaysOld']} d"
+            ]
+        );
+
+        // If the ticket has changed.
+        if (self::isDirty()) {
+            // Save the updated info to the DB.
+            self::save();
         }
     }
 }
