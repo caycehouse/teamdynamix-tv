@@ -31,28 +31,13 @@ export default {
     };
   },
 
-  methods: {
-    findWithAttr(array, attr, value) {
-      for (var i = 0; i < array.length; i += 1) {
-        if (array[i][attr] === value) {
-          return i;
-        }
-      }
-      return -1;
-    }
-  },
-
   mounted() {
-    Echo.channel("BroadcastingModelEvent").listen(".App\\Resolution", e => {
-      if (e.model.period == this.period) {
-        let index = this.findWithAttr(this.resolutions, "name", e.model.name);
-        if (index == -1) {
-          this.resolutions.push(e.model);
-        } else {
-          this.$set(this.resolutions, index, e.model);
-        }
+    Echo.channel("resolutions").listen(
+      `.ResolutionsChanged\\\\${this.period}`,
+      e => {
+        this.resolutions = e.resolutions;
       }
-    });
+    );
   }
 };
 </script>

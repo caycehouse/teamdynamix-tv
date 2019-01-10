@@ -5,6 +5,8 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use GuzzleHttp\Client;
 
+use App\Events\ResolutionsChanged;
+
 class Resolution extends Model
 {
     /**
@@ -46,6 +48,8 @@ class Resolution extends Model
                 ]
             );
         }
+
+        event(new ResolutionsChanged($period));
     }
 
     /**

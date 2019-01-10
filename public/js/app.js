@@ -57011,31 +57011,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       resolutions: this.ResolutionsList
     };
   },
-
-
-  methods: {
-    findWithAttr: function findWithAttr(array, attr, value) {
-      for (var i = 0; i < array.length; i += 1) {
-        if (array[i][attr] === value) {
-          return i;
-        }
-      }
-      return -1;
-    }
-  },
-
   mounted: function mounted() {
     var _this = this;
 
-    Echo.channel("BroadcastingModelEvent").listen(".App\\Resolution", function (e) {
-      if (e.model.period == _this.period) {
-        var index = _this.findWithAttr(_this.resolutions, "name", e.model.name);
-        if (index == -1) {
-          _this.resolutions.push(e.model);
-        } else {
-          _this.$set(_this.resolutions, index, e.model);
-        }
-      }
+    Echo.channel("resolutions").listen(".ResolutionsChanged\\\\" + this.period, function (e) {
+      _this.resolutions = e.resolutions;
     });
   }
 });
