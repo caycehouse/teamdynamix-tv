@@ -56999,6 +56999,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
 
   computed: {
+    listItems: function listItems() {
+      return _.orderBy(this.resolutions, "closes", "desc");
+    },
+
     totalAll: function totalAll() {
       return this.resolutions.reduce(function (acc, cur) {
         return acc + cur.closes;
@@ -57011,6 +57015,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       resolutions: this.ResolutionsList
     };
   },
+
+
+  methods: {
+    humanizePeriod: function humanizePeriod(period) {
+      if (period == "this_week") {
+        return "This Week";
+      } else {
+        return "Last Week";
+      }
+    }
+  },
+
   mounted: function mounted() {
     var _this = this;
 
@@ -57030,13 +57046,19 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", [
     _c("h5", { staticClass: "text-warning" }, [
-      _vm._v("Ticket Resolutions This Week (" + _vm._s(_vm.totalAll) + ")")
+      _vm._v(
+        "Ticket Resolutions " +
+          _vm._s(_vm.humanizePeriod(_vm.period)) +
+          " (" +
+          _vm._s(_vm.totalAll) +
+          ")"
+      )
     ]),
     _vm._v(" "),
     _c("table", { staticClass: "table table-sm" }, [
       _c(
         "tbody",
-        _vm._l(_vm.resolutions, function(ref) {
+        _vm._l(_vm.listItems, function(ref) {
           var name = ref.name
           var closes = ref.closes
           return _c("tr", { key: name }, [
