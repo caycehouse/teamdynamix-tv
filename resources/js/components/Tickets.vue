@@ -65,10 +65,14 @@ export default {
         "ticket_id",
         e.model.ticket_id
       );
-      if (index == -1) {
-        this.tickets.push(e.model);
+      if (e.model.status == "Closed") {
+        this.remove(index);
       } else {
-        this.$set(this.tickets, index, e.model);
+        if (index == -1) {
+          this.tickets.push(e.model);
+        } else {
+          this.$set(this.tickets, index, e.model);
+        }
       }
     });
   }
