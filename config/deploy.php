@@ -13,7 +13,7 @@ return [
     |
     | Supported: 'basic', 'firstdeploy', 'local', 'pull'.
     |
-    */
+ */
 
     'default' => 'basic',
 
@@ -26,7 +26,7 @@ return [
     | Any key of this array are supported in the `default` option above.
     | Any key matching Laravel Deployer's strategies overrides them.
     |
-    */
+     */
 
     'strategies' => [
         //
@@ -41,7 +41,7 @@ return [
     | into strategic places of your deployment flow. Each of the official
     | strategies invoke hooks in different ways to implement their logic.
     |
-    */
+     */
 
     'hooks' => [
         // Right before we start deploying.
@@ -89,12 +89,11 @@ return [
     | to make them more configurable and reusable. You can use options to
     | configure existing tasks or to use whithin your own custom tasks.
     |
-    */
+     */
 
     'options' => [
         'application' => env('APP_NAME', 'Laravel'),
-        'repository' => 'https://github.com/caycehouse/labtechs-tv-laravel.git',
-        'bin/composer' => env('DEP_COMPOSER')
+        'repository' => 'https://github.com/caycehouse/labtechs-tv-laravel.git'
     ],
 
     /*
@@ -106,11 +105,11 @@ return [
     | You can provide them with roles and stages to filter them during
     | deployment. Read more about how to configure them in the docs.
     |
-    */
+     */
 
     'hosts' => [
         env('DEP_HOST') => [
-            'deploy_path' => '/var/www/vhosts/sumojoe.com/td.sumojoe.com',
+            'deploy_path' => env('DEP_PATH'),
             'user' => env('DEP_USER'),
         ],
     ],
@@ -124,7 +123,7 @@ return [
     | local machine, without needing any SSH connection. You can use the
     | same configurations used by hosts to configure your localhost.
     |
-    */
+     */
 
     'localhost' => [
         //
@@ -139,7 +138,7 @@ return [
     | options and strategies. Therefore, it also allows you to create and
     | include your own recipes to define more complex deployment flows.
     |
-    */
+     */
 
     'include' => [
         //
@@ -154,7 +153,7 @@ return [
     | Deployer's file, you can provide its path here. Note that, without
     | this configuration file, the root's deployer file will be used.
     |
-    */
+     */
 
     'custom_deployer_file' => false,
 
