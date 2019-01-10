@@ -2,8 +2,6 @@
 
 namespace App;
 
-use App\Events\StatsChanged;
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use GuzzleHttp\Client;
@@ -65,17 +63,17 @@ class Ticket extends Model
         Ticket::truncate();
 
         foreach ($json_response['DataRows'] as $jr) {
-            $ticket = Ticket::firstOrCreate(
+            $ticket = Ticket::create(
                 [
-                    'ticket_id' => $jr['TicketID']
-                ],
-                [
+                    'ticket_id' => $jr['TicketID'],
                     'title' => $jr['Title'],
                     'lab' => empty($jr['18375']) ? '' : $jr['18375'],
                     'status' => $jr['StatusName'],
                     'age' => "{$jr['DaysOld']} d"
                 ]
             );
+
+            $ticket->save();
         }
     }
 }
