@@ -11,16 +11,17 @@
     },
     "devDependencies": {
         "axios": "^0.18",
-        "bootstrap": "^4.0.0",
+        "bootstrap": "^4.2.1",
         "cross-env": "^5.1",
         "jquery": "^3.2",
         "laravel-mix": "^2.0",
-        "lodash": "^4.17.4",
-        "popper.js": "^1.12",
-        "vue": "^2.5.7"
+        "lodash": "^4.17.11",
+        "popper.js": "^1.14.6",
+        "vue": "^2.5.21",
+        "vue-template-compiler": "^2.5.21"
     },
     "dependencies": {
-        "laravel-echo": "^1.4.0",
+        "laravel-echo": "^1.5.2",
         "pusher-js": "^4.3.1"
     }
 }
