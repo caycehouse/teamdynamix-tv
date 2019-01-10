@@ -56548,7 +56548,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     var _this = this;
 
     Echo.channel("BroadcastingModelEvent").listen(".App\\Ticket", function (e) {
-      console.log(e);
       var index = _this.findWithAttr(_this.tickets, "ticket_id", e.model.ticket_id);
       if (e.model.status == "Closed") {
         _this.remove(index);

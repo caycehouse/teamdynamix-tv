@@ -70,7 +70,6 @@ export default {
 
   mounted() {
     Echo.channel("BroadcastingModelEvent").listen(".App\\Ticket", e => {
-      console.log(e);
       let index = this.findWithAttr(
         this.tickets,
         "ticket_id",
