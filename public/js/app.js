@@ -56517,6 +56517,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
   methods: {
+    colorCode: function colorCode(age, status) {
+      if (status == "New") {
+        if (age > 1) {
+          return "text-danger";
+        } else {
+          return "text-warning";
+        }
+      } else if (status == "Work-in-Progress") {
+        return "text-muted";
+      }
+    },
     openTicket: function openTicket(ticket_id) {
       window.open("https://ecu.teamdynamix.com/TDNext/Apps/217/Tickets/TicketDet.aspx?TicketID=" + ticket_id);
     },
@@ -56575,12 +56586,11 @@ var render = function() {
           var lab = ref.lab
           var status = ref.status
           var age = ref.age
-          var color_code = ref.color_code
           return _c(
             "tr",
             {
               key: id,
-              class: color_code,
+              class: _vm.colorCode(age, status),
               on: {
                 click: function($event) {
                   _vm.openTicket(ticket_id)
@@ -56596,7 +56606,7 @@ var render = function() {
               _vm._v(" "),
               _c("td", [_vm._v(_vm._s(status))]),
               _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(age))])
+              _c("td", [_vm._v(_vm._s(age) + "d")])
             ]
           )
         }),

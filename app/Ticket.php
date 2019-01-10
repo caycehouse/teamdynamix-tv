@@ -69,7 +69,7 @@ class Ticket extends Model
                     'title' => $jr['Title'],
                     'lab' => empty($jr['18375']) ? '' : $jr['18375'],
                     'status' => $jr['StatusName'],
-                    'age' => "{$jr['DaysOld']} d"
+                    'age' => $jr['DaysOld']
                 ]
             );
         }
@@ -113,7 +113,7 @@ class Ticket extends Model
                 'title' => $jr['Title'],
                 'status' => $jr['StatusName'],
                 'lab' => $lab,
-                'age' => "{$jr['DaysOld']} d"
+                'age' => $jr['DaysOld']
             ]
         );
 

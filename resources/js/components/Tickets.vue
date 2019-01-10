@@ -4,16 +4,16 @@
     <table class="table table-sm">
       <tbody>
         <tr
-          v-for="{id, ticket_id, title, lab, status, age, color_code} in listItems.slice(0, 20)"
+          v-for="{id, ticket_id, title, lab, status, age} in listItems.slice(0, 20)"
           :key="id"
           v-on:click="openTicket(ticket_id)"
-          :class="color_code"
+          :class="colorCode(age, status)"
         >
           <td>{{ ticket_id }}</td>
           <td>{{ title }}</td>
           <td>{{ lab }}</td>
           <td>{{ status }}</td>
-          <td>{{ age }}</td>
+          <td>{{ age }}d</td>
         </tr>
       </tbody>
     </table>
@@ -39,6 +39,17 @@ export default {
   },
 
   methods: {
+    colorCode: function(age, status) {
+      if (status == "New") {
+        if (age > 1) {
+          return "text-danger";
+        } else {
+          return "text-warning";
+        }
+      } else if (status == "Work-in-Progress") {
+        return "text-muted";
+      }
+    },
     openTicket: function(ticket_id) {
       window.open(
         `https://ecu.teamdynamix.com/TDNext/Apps/217/Tickets/TicketDet.aspx?TicketID=${ticket_id}`
