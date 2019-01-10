@@ -1,18 +1,23 @@
 <template>
-    <div>
-        <h5 class="text-warning">Unresolved Tickets ({{ tickets.length }})</h5>
-        <table class="table table-sm">
-            <tbody>
-                <tr v-for="{id, ticket_id, title, lab, status, age, color_code} in listItems.slice(0, 20)" :key="id" v-on:click="openTicket(ticket_id)" :class="color_code">
-                    <td>{{ ticket_id }}</td>
-                    <td>{{ title }}</td>
-                    <td>{{ lab }}</td>
-                    <td>{{ status }}</td>
-                    <td>{{ age }}</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+  <div>
+    <h5 class="text-warning">Unresolved Tickets ({{ tickets.length }})</h5>
+    <table class="table table-sm">
+      <tbody>
+        <tr
+          v-for="{id, ticket_id, title, lab, status, age, color_code} in listItems.slice(0, 20)"
+          :key="id"
+          v-on:click="openTicket(ticket_id)"
+          :class="color_code"
+        >
+          <td>{{ ticket_id }}</td>
+          <td>{{ title }}</td>
+          <td>{{ lab }}</td>
+          <td>{{ status }}</td>
+          <td>{{ age }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </template>
 
 <script>
@@ -54,27 +59,16 @@ export default {
 
   mounted() {
     Echo.channel("BroadcastingModelEvent").listen(".App\\Ticket", e => {
-      if (e.eventType == "created" || e.eventType == "updated") {
-        let index = this.findWithAttr(
-          this.tickets,
-          "ticket_id",
-          e.model.ticket_id
-        );
-        if (e.model.status == "Closed") {
-          this.remove(index);
-        } else {
-          if (index == -1) {
-            if (e.model.resp_group == "+Student Computer Labs") {
-                // Add ticket only if it belongs to us.
-              this.tickets.push(e.model);
-            } else {
-                // Otherwise remove the ticket.
-              this.remove(index);
-            }
-          } else {
-            this.$set(this.tickets, index, e.model);
-          }
-        }
+      console.log(e);
+      let index = this.findWithAttr(
+        this.tickets,
+        "ticket_id",
+        e.model.ticket_id
+      );
+      if (index == -1) {
+        this.tickets.push(e.model);
+      } else {
+        this.$set(this.tickets, index, e.model);
       }
     });
   }

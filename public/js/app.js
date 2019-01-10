@@ -56492,6 +56492,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
@@ -56532,23 +56537,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     var _this = this;
 
     Echo.channel("BroadcastingModelEvent").listen(".App\\Ticket", function (e) {
-      if (e.eventType == "created" || e.eventType == "updated") {
-        var index = _this.findWithAttr(_this.tickets, "ticket_id", e.model.ticket_id);
-        if (e.model.status == "Closed") {
-          _this.remove(index);
-        } else {
-          if (index == -1) {
-            if (e.model.resp_group == "+Student Computer Labs") {
-              // Add ticket only if it belongs to us.
-              _this.tickets.push(e.model);
-            } else {
-              // Otherwise remove the ticket.
-              _this.remove(index);
-            }
-          } else {
-            _this.$set(_this.tickets, index, e.model);
-          }
-        }
+      console.log(e);
+      var index = _this.findWithAttr(_this.tickets, "ticket_id", e.model.ticket_id);
+      if (index == -1) {
+        _this.tickets.push(e.model);
+      } else {
+        _this.$set(_this.tickets, index, e.model);
       }
     });
   }
