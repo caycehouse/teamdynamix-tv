@@ -46,7 +46,7 @@ export default {
         } else {
           return "text-warning";
         }
-      } else if (status == "Work-in-Progress") {
+      } else if (status == "On Hold") {
         return "text-muted";
       }
     },
