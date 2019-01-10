@@ -13186,7 +13186,14 @@ Vue.component("printers", __webpack_require__(25));
 Vue.component("resolutions", __webpack_require__(28));
 
 var app = new Vue({
-  el: "#app"
+    el: "#app"
+});
+
+// Master Control Event for mass reloading of clients
+Echo.channel("MasterControlEvent").listen(".Reload", function (e) {
+    if (e.key == "3sk38dg2" && "3sk38dg2" != null) {
+        location.reload(true);
+    }
 });
 
 /***/ }),
@@ -56523,7 +56530,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         } else {
           return "text-warning";
         }
-      } else if (status == "Work-in-Progress") {
+      } else if (status == "On Hold") {
         return "text-muted";
       }
     },

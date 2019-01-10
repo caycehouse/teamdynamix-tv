@@ -26,3 +26,13 @@ Vue.component("resolutions", require("./components/Resolutions.vue"));
 const app = new Vue({
     el: "#app"
 });
+
+// Master Control Event for mass reloading of clients
+Echo.channel("MasterControlEvent").listen(".Reload", e => {
+    if (
+        e.key == process.env.MIX_MASTER_CONTROL_KEY &&
+        process.env.MIX_MASTER_CONTROL_KEY != null
+    ) {
+        location.reload(true);
+    }
+});
