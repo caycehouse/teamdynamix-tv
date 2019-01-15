@@ -21,7 +21,7 @@ class UpdateTickets implements ShouldQueue
     public function handle()
     {
         // Get all unresolved tickets.
-        $tickets = Ticket::unresolved()->withTrashed()->get();
+        $tickets = Ticket::unresolved()->get();
 
         foreach ($tickets as $t) {
             // Fetch new information on ticket.
