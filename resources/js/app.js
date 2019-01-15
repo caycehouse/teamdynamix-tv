@@ -36,3 +36,9 @@ Echo.channel("MasterControlEvent").listen(".Reload", e => {
         location.reload(true);
     }
 });
+
+// Automatically refresh page after 5 hours
+let refreshTimeInHours = 5;
+setTimeout(function() {
+    location.reload(true);
+}, 1000 * 60 * 60 * refreshTimeInHours);

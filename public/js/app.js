@@ -13196,6 +13196,12 @@ Echo.channel("MasterControlEvent").listen(".Reload", function (e) {
     }
 });
 
+// Automatically refresh page after 5 hours
+var refreshTimeInHours = 5;
+setTimeout(function () {
+    location.reload(true);
+}, 1000 * 60 * 60 * refreshTimeInHours);
+
 /***/ }),
 /* 6 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
