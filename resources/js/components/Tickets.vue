@@ -75,7 +75,7 @@ export default {
         "ticket_id",
         e.model.ticket_id
       );
-      if (e.model.status == "Closed") {
+      if (e.model.status == "Closed" || e.eventType == "deleted") {
         this.remove(index);
       } else {
         if (index == -1) {

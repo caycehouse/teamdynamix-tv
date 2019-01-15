@@ -3,11 +3,21 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Builder;
 use GuzzleHttp\Client;
 
 class Ticket extends Model
 {
+    use SoftDeletes;
+
+    /**
+     * The attributes that should be mutated to dates.
+     *
+     * @var array
+     */
+    protected $dates = ['deleted_at'];
+
     /**
      * The attributes that are mass assignable.
      *
@@ -61,7 +71,7 @@ class Ticket extends Model
         $json_response = json_decode($response, true);
 
         foreach ($json_response['DataRows'] as $jr) {
-            $ticket = Ticket::firstOrCreate(
+            $ticket = Ticket::withTrashed()->firstOrCreate(
                 [
                     'ticket_id' => $jr['TicketID']
                 ],
@@ -72,6 +82,11 @@ class Ticket extends Model
                     'age' => $jr['DaysOld']
                 ]
             );
+
+            // Restore deleted ticket if it has become unresolved again.
+            if ($ticket->trashed()) {
+                $ticket->restore();
+            }
         }
     }
 
@@ -97,30 +112,35 @@ class Ticket extends Model
 
         $jr = json_decode($response, true);
 
-        // Loop through ticket attributes.
-        $lab = '';
-        foreach ($jr['Attributes'] as $attr) {
-            // If the current attribute is of ID Lab.
-            if ($attr['ID'] == '18375') {
-                // Set lab equal to Value Text of the attribute.
-                $lab = $attr['ValueText'];
+        // Delete a Ticket if it belongs to another group.
+        if ($jr['ResponsibleGroupName'] != '+Student Computer Labs') {
+            $this->delete();
+        } else {
+            // Loop through ticket attributes.
+            $lab = '';
+            foreach ($jr['Attributes'] as $attr) {
+                // If the current attribute is of ID Lab.
+                if ($attr['ID'] == '18375') {
+                    // Set lab equal to Value Text of the attribute.
+                    $lab = $attr['ValueText'];
+                }
             }
-        }
 
-        // Fill the ticket with the fields from TeamDynamix.
-        self::fill(
-            [
-                'title' => $jr['Title'],
-                'status' => $jr['StatusName'],
-                'lab' => $lab,
-                'age' => $jr['DaysOld']
-            ]
-        );
+            // Fill the ticket with the fields from TeamDynamix.
+            self::fill(
+                [
+                    'title' => $jr['Title'],
+                    'status' => $jr['StatusName'],
+                    'lab' => $lab,
+                    'age' => $jr['DaysOld']
+                ]
+            );
 
-        // If the ticket has changed.
-        if (self::isDirty()) {
-            // Save the updated info to the DB.
-            self::save();
+            // If the ticket has changed.
+            if (self::isDirty()) {
+                // Save the updated info to the DB.
+                self::save();
+            }
         }
     }
 }
