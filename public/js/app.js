@@ -56528,6 +56528,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
 
 
+  filters: {
+    truncate: function truncate(text, length) {
+      return text.substring(0, length);
+    }
+  },
+
   methods: {
     colorCode: function colorCode(age, status) {
       if (status == "New") {
@@ -56611,7 +56617,7 @@ var render = function() {
             [
               _c("td", [_vm._v(_vm._s(ticket_id))]),
               _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(title))]),
+              _c("td", [_vm._v(_vm._s(_vm._f("truncate")(title, 80)))]),
               _vm._v(" "),
               _c("td", [_vm._v(_vm._s(lab))]),
               _vm._v(" "),

@@ -10,7 +10,7 @@
           :class="colorCode(age, status)"
         >
           <td>{{ ticket_id }}</td>
-          <td>{{ title }}</td>
+          <td>{{ title | truncate(80) }}</td>
           <td>{{ lab }}</td>
           <td>{{ status }}</td>
           <td>{{ age }}d</td>
@@ -36,6 +36,12 @@ export default {
     return {
       tickets: this.TicketsList
     };
+  },
+
+  filters: {
+    truncate: function(text, length) {
+      return text.substring(0, length);
+    }
   },
 
   methods: {
@@ -75,7 +81,11 @@ export default {
         "ticket_id",
         e.model.ticket_id
       );
-      if (e.model.status == "Cancelled" || e.model.status == "Closed" || e.eventType == "deleted") {
+      if (
+        e.model.status == "Cancelled" ||
+        e.model.status == "Closed" ||
+        e.eventType == "deleted"
+      ) {
         this.remove(index);
       } else {
         if (index == -1) {
