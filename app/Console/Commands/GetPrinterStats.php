@@ -12,7 +12,7 @@ class GetPrinterStats extends Command
      *
      * @var string
      */
-    protected $signature = 'labtechs:getprinterstats';
+    protected $signature = 'teamdynamix:getprinterstats';
 
     /**
      * The console command description.

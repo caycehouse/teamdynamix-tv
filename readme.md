@@ -1,12 +1,15 @@
-# labtechs-tv
-The Labtechs TV web application
+# teamdynamix-tv
+
+The _unnoficial_ TeamDynamix TV web application
 
 ## Requirements
+
 Virtualbox, Vagrant, Composer, and PHP 7+.
 
 ## Installation
+
 ```
-git clone https://github.com/caycehouse/labtechs-tv.git
+git clone https://github.com/caycehouse/teamdynamix-tv.git
 composer install
 php vendor/bin/homestead make
 

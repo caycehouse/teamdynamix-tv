@@ -2,24 +2,24 @@
 
 namespace App\Console\Commands;
 
-use App\PapercutStatuses;
+use App\Ticket;
 use Illuminate\Console\Command;
 
-class GetPapercutStats extends Command
+class GetDeviceStats extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'labtechs:getpapercutstats';
+    protected $signature = 'teamdynamix:gettickets';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Gets papercut stats from PaperCut';
+    protected $description = 'Gets new tickets from TeamDynamix';
 
     /**
      * Create a new command instance.
@@ -38,6 +38,6 @@ class GetPapercutStats extends Command
      */
     public function handle()
     {
-        PapercutStatuses::getStats();
+        Ticket::getNew();
     }
 }

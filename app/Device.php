@@ -31,7 +31,7 @@ class Device extends Model
         $client = new Client();
 
         $response = $client->request('GET', 'http://pirateprint.ecu.edu:9191/api/health/devices', [
-            'query' => ['Authorization' => config('labtechs.papercut_auth_token')],
+            'query' => ['Authorization' => config('teamdynamix.papercut_auth_token')],
         ])->getBody();
 
         $json_response = json_decode($response);

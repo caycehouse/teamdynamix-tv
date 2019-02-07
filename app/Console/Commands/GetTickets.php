@@ -12,7 +12,7 @@ class GetTickets extends Command
      *
      * @var string
      */
-    protected $signature = 'labtechs:gettickets';
+    protected $signature = 'teamdynamix:gettickets';
 
     /**
      * The console command description.

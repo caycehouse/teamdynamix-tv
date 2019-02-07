@@ -71,8 +71,8 @@ class Ticket extends Model
 
         $authToken = $client->request('POST', 'https://ecu.teamdynamix.com/TDWebApi/api/auth', [
             'json' => [
-                'username' => config('labtechs.td_username'),
-                'password' => config('labtechs.td_password'),
+                'username' => config('teamdynamix.td_username'),
+                'password' => config('teamdynamix.td_password'),
             ],
         ])->getBody();
 
@@ -115,8 +115,8 @@ class Ticket extends Model
 
         $authToken = $client->request('POST', 'https://ecu.teamdynamix.com/TDWebApi/api/auth', [
             'json' => [
-                'username' => config('labtechs.td_username'),
-                'password' => config('labtechs.td_password'),
+                'username' => config('teamdynamix.td_username'),
+                'password' => config('teamdynamix.td_password'),
             ],
         ])->getBody();
 

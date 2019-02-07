@@ -12,7 +12,7 @@ class GetDeviceStats extends Command
      *
      * @var string
      */
-    protected $signature = 'labtechs:getdevicestats';
+    protected $signature = 'teamdynamix:getdevicestats';
 
     /**
      * The console command description.
