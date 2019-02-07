@@ -32,6 +32,11 @@ php artisan key:generate
 15.         to: /home/vagrant/code/Laravel/public
 16.         schedule: true
 
+# Add redis port if you want to test live web socketing.
+21. ports:
+22.     - send: 6001
+23.       to: 6001
+
 vagrant up
 ```
 
