@@ -88,7 +88,7 @@ return [
 
     'options' => [
         'application' => env('APP_NAME', 'Laravel'),
-        'repository' => 'https://github.com/caycehouse/teamdynamix-tv-laravel.git',
+        'repository' => 'https://github.com/caycehouse/teamdynamix-tv.git',
         'shared_files' => ['.env', 'laravel-echo-server.json'],
     ],
 
