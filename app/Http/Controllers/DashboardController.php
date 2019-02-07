@@ -16,7 +16,7 @@ class DashboardController extends Controller
      *
      * @return Response
      */
-    public function __invoke($resp_group)
+    public function index($resp_group)
     {
         $tickets = Ticket::unresolved()->byResponsibleGroup($resp_group)->get();
 

@@ -11,4 +11,4 @@
 |
 */
 
-Route::get('/{resp_group}', 'DashboardController');
+Route::get('dashboard/{resp_group}', 'DashboardController@index');
