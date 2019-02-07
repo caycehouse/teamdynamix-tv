@@ -71,7 +71,7 @@ return [
 
         // Deployment succeeded.
         'success' => [
-            //
+            'pm2:restart'
         ],
 
         // Deployment failed.
@@ -142,7 +142,7 @@ return [
      */
 
     'include' => [
-        //
+        'recipe/pm2.php'
     ],
 
     /*
