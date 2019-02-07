@@ -76,22 +76,29 @@ export default {
 
   mounted() {
     Echo.channel("BroadcastingModelEvent").listen(".App\\Ticket", e => {
-      let index = this.findWithAttr(
-        this.tickets,
-        "ticket_id",
-        e.model.ticket_id
+      let resp_group = _.replace(
+        document.URL.split("/")[3],
+        new RegExp("%20", "g"),
+        " "
       );
-      if (
-        e.model.status == "Cancelled" ||
-        e.model.status == "Closed" ||
-        e.eventType == "deleted"
-      ) {
-        this.remove(index);
-      } else {
-        if (index == -1) {
-          this.tickets.push(e.model);
+      if (e.model.resp_group === resp_group) {
+        let index = this.findWithAttr(
+          this.tickets,
+          "ticket_id",
+          e.model.ticket_id
+        );
+        if (
+          e.model.status == "Cancelled" ||
+          e.model.status == "Closed" ||
+          e.eventType == "deleted"
+        ) {
+          this.remove(index);
         } else {
-          this.$set(this.tickets, index, e.model);
+          if (index == -1) {
+            this.tickets.push(e.model);
+          } else {
+            this.$set(this.tickets, index, e.model);
+          }
         }
       }
     });

@@ -11,4 +11,4 @@
 |
 */
 
-Route::get('/', 'DashboardController');
+Route::get('/{resp_group}', 'DashboardController');

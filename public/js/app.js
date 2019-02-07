@@ -56168,14 +56168,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     var _this = this;
 
     Echo.channel("BroadcastingModelEvent").listen(".App\\Ticket", function (e) {
-      var index = _this.findWithAttr(_this.tickets, "ticket_id", e.model.ticket_id);
-      if (e.model.status == "Cancelled" || e.model.status == "Closed" || e.eventType == "deleted") {
-        _this.remove(index);
-      } else {
-        if (index == -1) {
-          _this.tickets.push(e.model);
+      var resp_group = _.replace(document.URL.split("/")[3], new RegExp("%20", "g"), " ");
+      if (e.model.resp_group === resp_group) {
+        var index = _this.findWithAttr(_this.tickets, "ticket_id", e.model.ticket_id);
+        if (e.model.status == "Cancelled" || e.model.status == "Closed" || e.eventType == "deleted") {
+          _this.remove(index);
         } else {
-          _this.$set(_this.tickets, index, e.model);
+          if (index == -1) {
+            _this.tickets.push(e.model);
+          } else {
+            _this.$set(_this.tickets, index, e.model);
+          }
         }
       }
     });

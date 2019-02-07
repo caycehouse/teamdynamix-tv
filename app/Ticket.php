@@ -22,7 +22,7 @@ class Ticket extends Model
      *
      * @var array
      */
-    protected $fillable = ['ticket_id', 'title', 'status', 'lab', 'age'];
+    protected $fillable = ['ticket_id', 'title', 'status', 'lab', 'age', 'resp_group'];
 
     /**
      * Scope a query to only include resolved tickets.
@@ -49,6 +49,18 @@ class Ticket extends Model
     }
 
     /**
+     * Scope a query to only include a responsible group's tickets.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopebyResponsibleGroup($query, $resp_group)
+    {
+        return $query->where('resp_group', $resp_group);
+    }
+
+    /**
      * Gets new tickets from TeamDynamix.
      *
      * @return void
@@ -64,7 +76,7 @@ class Ticket extends Model
             ],
         ])->getBody();
 
-        $response = $client->request('GET', 'https://ecu.teamdynamix.com/TDWebApi/api/reports/110937', [
+        $response = $client->request('GET', 'https://ecu.teamdynamix.com/TDWebApi/api/reports/118331', [
             'headers' => ['Authorization' => 'Bearer '.$authToken],
             'query' => ['withData' => 'true'],
         ])->getBody();
@@ -81,6 +93,7 @@ class Ticket extends Model
                     'lab' => empty($jr['18375']) ? '' : $jr['18375'],
                     'status' => $jr['StatusName'],
                     'age' => $jr['DaysOld'],
+                    'resp_group' => $jr['ResponsibleGroupName'],
                 ]
             );
 
@@ -114,7 +127,7 @@ class Ticket extends Model
         $jr = json_decode($response, true);
 
         // Delete a Ticket if it belongs to another group.
-        if ('+Student Computer Labs' != $jr['ResponsibleGroupName']) {
+        if ($this->resp_group != $jr['ResponsibleGroupName']) {
             $this->delete();
         } else {
             // Loop through ticket attributes.
