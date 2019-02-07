@@ -24,8 +24,13 @@ class UpdateTickets implements ShouldQueue
         $tickets = Ticket::unresolved()->get();
 
         foreach ($tickets as $t) {
-            // Fetch new information on ticket.
-            $t->fetch();
+            Redis::throttle('tdupdate')->allow(59)->every(60)->then(function () {
+                // Fetch new information on ticket.
+                $t->fetch();
+            }, function () {
+                // Could not obtain lock...
+                return $this->release(10);
+            });
         }
     }
 }
