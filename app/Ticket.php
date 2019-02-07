@@ -84,7 +84,8 @@ class Ticket extends Model
         $json_response = json_decode($response, true);
 
         foreach ($json_response['DataRows'] as $jr) {
-            $ticket = self::withTrashed()->firstOrCreate(
+            if ($jr['ResponsibleGroupName']) {
+                $ticket = self::withTrashed()->firstOrCreate(
                 [
                     'ticket_id' => $jr['TicketID'],
                 ],
@@ -97,9 +98,10 @@ class Ticket extends Model
                 ]
             );
 
-            // Restore deleted ticket if it has become unresolved again.
-            if ($ticket->trashed()) {
-                $ticket->restore();
+                // Restore deleted ticket if it has become unresolved again.
+                if ($ticket->trashed()) {
+                    $ticket->restore();
+                }
             }
         }
     }
