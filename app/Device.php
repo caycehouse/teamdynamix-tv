@@ -18,6 +18,7 @@ class Device extends Model
      * Scope a query to only include devices in error.
      *
      * @param \Illuminate\Database\Eloquent\Builder $query
+     *
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function scopeInError($query)
@@ -30,15 +31,15 @@ class Device extends Model
         $client = new Client();
 
         $response = $client->request('GET', 'http://pirateprint.ecu.edu:9191/api/health/devices', [
-            'query' => ['Authorization' => config('labtechs.papercut_auth_token')]
+            'query' => ['Authorization' => config('labtechs.papercut_auth_token')],
         ])->getBody();
 
         $json_response = json_decode($response);
 
         foreach ($json_response->devices as $jr) {
             // Get device or initialize new device.
-            $device = Device::firstOrNew([
-                'name' => $jr->name
+            $device = self::firstOrNew([
+                'name' => $jr->name,
             ]);
 
             // Set the device's status.

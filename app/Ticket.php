@@ -2,10 +2,9 @@
 
 namespace App;
 
+use GuzzleHttp\Client;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\Builder;
-use GuzzleHttp\Client;
 
 class Ticket extends Model
 {
@@ -29,6 +28,7 @@ class Ticket extends Model
      * Scope a query to only include resolved tickets.
      *
      * @param \Illuminate\Database\Eloquent\Builder $query
+     *
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function scopeResolved($query)
@@ -40,6 +40,7 @@ class Ticket extends Model
      * Scope a query to only include unresolved tickets.
      *
      * @param \Illuminate\Database\Eloquent\Builder $query
+     *
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function scopeUnresolved($query)
@@ -59,27 +60,27 @@ class Ticket extends Model
         $authToken = $client->request('POST', 'https://ecu.teamdynamix.com/TDWebApi/api/auth', [
             'json' => [
                 'username' => config('labtechs.td_username'),
-                'password' => config('labtechs.td_password')
-            ]
+                'password' => config('labtechs.td_password'),
+            ],
         ])->getBody();
 
-        $response = $client->request('GET', "https://ecu.teamdynamix.com/TDWebApi/api/reports/110937", [
-            'headers' => ['Authorization' => 'Bearer ' . $authToken],
-            'query' => ['withData' => 'true']
+        $response = $client->request('GET', 'https://ecu.teamdynamix.com/TDWebApi/api/reports/110937', [
+            'headers' => ['Authorization' => 'Bearer '.$authToken],
+            'query' => ['withData' => 'true'],
         ])->getBody();
 
         $json_response = json_decode($response, true);
 
         foreach ($json_response['DataRows'] as $jr) {
-            $ticket = Ticket::withTrashed()->firstOrCreate(
+            $ticket = self::withTrashed()->firstOrCreate(
                 [
-                    'ticket_id' => $jr['TicketID']
+                    'ticket_id' => $jr['TicketID'],
                 ],
                 [
                     'title' => $jr['Title'],
                     'lab' => empty($jr['18375']) ? '' : $jr['18375'],
                     'status' => $jr['StatusName'],
-                    'age' => $jr['DaysOld']
+                    'age' => $jr['DaysOld'],
                 ]
             );
 
@@ -102,25 +103,25 @@ class Ticket extends Model
         $authToken = $client->request('POST', 'https://ecu.teamdynamix.com/TDWebApi/api/auth', [
             'json' => [
                 'username' => config('labtechs.td_username'),
-                'password' => config('labtechs.td_password')
-            ]
+                'password' => config('labtechs.td_password'),
+            ],
         ])->getBody();
 
         $response = $client->request('GET', "https://ecu.teamdynamix.com/TDWebApi/api/217/tickets/{$this->ticket_id}", [
-            'headers' => ['Authorization' => 'Bearer ' . $authToken]
+            'headers' => ['Authorization' => 'Bearer '.$authToken],
         ])->getBody();
 
         $jr = json_decode($response, true);
 
         // Delete a Ticket if it belongs to another group.
-        if ($jr['ResponsibleGroupName'] != '+Student Computer Labs') {
+        if ('+Student Computer Labs' != $jr['ResponsibleGroupName']) {
             $this->delete();
         } else {
             // Loop through ticket attributes.
             $lab = '';
             foreach ($jr['Attributes'] as $attr) {
                 // If the current attribute is of ID Lab.
-                if ($attr['ID'] == '18375') {
+                if ('18375' == $attr['ID']) {
                     // Set lab equal to Value Text of the attribute.
                     $lab = $attr['ValueText'];
                 }
@@ -132,7 +133,7 @@ class Ticket extends Model
                     'title' => $jr['Title'],
                     'status' => $jr['StatusName'],
                     'lab' => $lab,
-                    'age' => $jr['DaysOld']
+                    'age' => $jr['DaysOld'],
                 ]
             );
 

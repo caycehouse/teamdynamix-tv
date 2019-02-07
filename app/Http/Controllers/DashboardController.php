@@ -2,15 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Device;
-use App\Ticket;
 use App\PapercutStatuses;
 use App\Printer;
 use App\Resolution;
-use App\Stats;
+use App\Ticket;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
@@ -37,7 +34,7 @@ class DashboardController extends Controller
             'papercutStatuses' => $papercutStatuses,
             'printers' => $printers,
             'resolutionsLastWeek' => $resolutionsLastWeek,
-            'resolutionsThisWeek' => $resolutionsThisWeek
+            'resolutionsThisWeek' => $resolutionsThisWeek,
         ]);
     }
 }

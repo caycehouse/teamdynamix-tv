@@ -4,12 +4,10 @@ namespace App\Events;
 
 use App\Resolution;
 use Illuminate\Broadcasting\Channel;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Broadcasting\PresenceChannel;
-use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Foundation\Events\Dispatchable;
+use Illuminate\Queue\SerializesModels;
 
 class ResolutionsChanged implements ShouldBroadcast
 {
@@ -21,6 +19,7 @@ class ResolutionsChanged implements ShouldBroadcast
      * Create a new event instance.
      *
      * @param $period
+     *
      * @return void
      */
     public function __construct($period)
@@ -35,7 +34,7 @@ class ResolutionsChanged implements ShouldBroadcast
      */
     public function broadcastWith()
     {
-        if ($this->period == 'last_week') {
+        if ('last_week' == $this->period) {
             $resolutions = Resolution::where('period', '=', 'last_week')->get();
         } else {
             $resolutions = Resolution::where('period', '=', 'this_week')->get();
@@ -49,11 +48,11 @@ class ResolutionsChanged implements ShouldBroadcast
     /**
      * The event to broadcast as.
      *
-     * @return String
+     * @return string
      */
     public function broadcastAs()
     {
-        return 'ResolutionsChanged\\\\' . $this->period;
+        return 'ResolutionsChanged\\\\'.$this->period;
     }
 
     /**

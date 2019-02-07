@@ -21,21 +21,21 @@ class PapercutStatuses extends Model
     {
         $client = new Client(['http_errors' => false]);
         $response = $client->request('GET', $url, [
-            'query' => ['Authorization' => config('labtechs.papercut_auth_token')]
+            'query' => ['Authorization' => config('labtechs.papercut_auth_token')],
         ])->getBody();
 
         $json_response = json_decode($response);
 
         $statusColor = 'text-success';
-        if ($json_response->status !== 'OK') {
+        if ('OK' !== $json_response->status) {
             $statusColor = 'text-danger';
         }
 
-        $ps = PapercutStatuses::firstOrNew(['status_name' => $name]);
+        $ps = self::firstOrNew(['status_name' => $name]);
 
         $ps->fill([
             'status' => $json_response->status,
-            'status_color' => $statusColor
+            'status_color' => $statusColor,
         ]);
 
         if ($ps->isDirty()) {

@@ -25,15 +25,14 @@ class BroadcastingModelEvent implements ShouldBroadcast
         $this->eventType = $eventType;
     }
 
-
     /**
      * The event to broadcast as.
      *
-     * @return String
+     * @return string
      */
     public function broadcastAs()
     {
-        return get_class($this->model);
+        return \get_class($this->model);
     }
 
     /**
@@ -55,7 +54,7 @@ class BroadcastingModelEvent implements ShouldBroadcast
     {
         return [
             'model' => $this->model,
-            'eventType' => $this->eventType
+            'eventType' => $this->eventType,
         ];
     }
 }

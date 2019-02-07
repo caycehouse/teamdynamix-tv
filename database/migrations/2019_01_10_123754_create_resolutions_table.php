@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateResolutionsTable extends Migration
 {
@@ -18,7 +18,7 @@ class CreateResolutionsTable extends Migration
             $table->timestamps();
             $table->string('name');
             $table->integer('closes');
-            $table->enum('period', array('this_week', 'last_week'));
+            $table->enum('period', ['this_week', 'last_week']);
         });
     }
 

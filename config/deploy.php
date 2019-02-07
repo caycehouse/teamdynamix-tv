@@ -1,7 +1,6 @@
 <?php
 
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Default deployment strategy
@@ -29,7 +28,6 @@ return [
      */
 
     'strategies' => [
-        //
     ],
 
     /*
@@ -46,7 +44,6 @@ return [
     'hooks' => [
         // Right before we start deploying.
         'start' => [
-            //
         ],
 
         // Code and composer vendors are ready but nothing is built.
@@ -66,17 +63,15 @@ return [
 
         // Deployment is done and live
         'done' => [
-            //
         ],
 
         // Deployment succeeded.
         'success' => [
-            'pm2:restart'
+            'pm2:restart',
         ],
 
         // Deployment failed.
         'fail' => [
-            //
         ],
     ],
 
@@ -94,7 +89,7 @@ return [
     'options' => [
         'application' => env('APP_NAME', 'Laravel'),
         'repository' => 'https://github.com/caycehouse/labtechs-tv-laravel.git',
-        'shared_files' => ['.env', 'laravel-echo-server.json']
+        'shared_files' => ['.env', 'laravel-echo-server.json'],
     ],
 
     /*
@@ -128,7 +123,6 @@ return [
      */
 
     'localhost' => [
-        //
     ],
 
     /*
@@ -143,7 +137,7 @@ return [
      */
 
     'include' => [
-        'recipe/pm2.php'
+        'recipe/pm2.php',
     ],
 
     /*
@@ -158,5 +152,4 @@ return [
      */
 
     'custom_deployer_file' => false,
-
 ];

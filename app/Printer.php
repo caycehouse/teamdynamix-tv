@@ -4,7 +4,6 @@ namespace App;
 
 use GuzzleHttp\Client;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Builder;
 
 class Printer extends Model
 {
@@ -19,6 +18,7 @@ class Printer extends Model
      * Scope a query to only include printers in error.
      *
      * @param \Illuminate\Database\Eloquent\Builder $query
+     *
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function scopeInError($query)
@@ -31,21 +31,21 @@ class Printer extends Model
         $client = new Client();
 
         $response = $client->request('GET', 'http://pirateprint.ecu.edu:9191/api/health/printers', [
-            'query' => ['Authorization' => config('labtechs.papercut_auth_token')]
+            'query' => ['Authorization' => config('labtechs.papercut_auth_token')],
         ])->getBody();
 
         $json_response = json_decode($response);
 
         foreach ($json_response->printers as $jr) {
-            $print_server = explode("\\", $jr->name)[0];
-            if (($print_server === 'uniprint' || $print_server === 'papercut')) {
-                $printer = Printer::firstOrNew([
-                    'name' => $jr->name
+            $print_server = explode('\\', $jr->name)[0];
+            if (('uniprint' === $print_server || 'papercut' === $print_server)) {
+                $printer = self::firstOrNew([
+                    'name' => $jr->name,
                 ]);
 
                 $printer->fill([
                     'print_server' => $print_server,
-                    'status' => $jr->status
+                    'status' => $jr->status,
                 ]);
 
                 if ($printer->isDirty()) {
