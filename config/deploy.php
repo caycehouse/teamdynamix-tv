@@ -93,7 +93,8 @@ return [
 
     'options' => [
         'application' => env('APP_NAME', 'Laravel'),
-        'repository' => 'https://github.com/caycehouse/labtechs-tv-laravel.git'
+        'repository' => 'https://github.com/caycehouse/labtechs-tv-laravel.git',
+        'shared_files' => ['.env', 'laravel-echo-server.json']
     ],
 
     /*
