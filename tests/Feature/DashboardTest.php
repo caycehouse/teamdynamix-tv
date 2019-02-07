@@ -4,14 +4,14 @@ namespace Tests\Feature;
 
 use Tests\TestCase;
 
-class ExampleTest extends TestCase
+class DashboardTest extends TestCase
 {
     /**
-     * A basic test example.
+     * A user can visit the dashboard.
      *
      * @return void
      */
-    public function testBasicTest()
+    public function testDashboard()
     {
         $response = $this->get('/');
 
