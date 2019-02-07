@@ -1,0 +1,19 @@
+<?php
+
+$finder = PhpCsFixer\Finder::create()
+    ->notPath('storage')
+    ->notPath('vendor')
+    ->in(__DIR__)
+    ->name('*.php')
+    ->notName('*.blade.php')
+;
+
+$rules = [
+    '@Symfony' => true,
+    'full_opening_tag' => false,
+];
+
+return PhpCsFixer\Config::create()
+    ->setRules($rules)
+    ->setFinder($finder)
+;
