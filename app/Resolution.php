@@ -39,7 +39,7 @@ class Resolution extends Model
         $json_response = json_decode($response, true);
 
         foreach ($json_response['DataRows'] as $jr) {
-            $ticket = self::create(
+            self::create(
                 [
                     'name' => $jr['ClosedByFullName'],
                     'closes' => $jr['CountTicketID'],
