@@ -13236,7 +13236,7 @@ window.Pusher = __webpack_require__(11);
 
 window.Echo = new __WEBPACK_IMPORTED_MODULE_0_laravel_echo__["a" /* default */]({
   broadcaster: "pusher",
-  key: "",
+  key: "389au8fuh398a",
   wsHost: window.location.hostname,
   wsPort: 6001,
   disableStats: true
@@ -57047,16 +57047,29 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       } else {
         return "Last Week";
       }
+    },
+    findWithAttr: function findWithAttr(array, attr, value) {
+      for (var i = 0; i < array.length; i += 1) {
+        if (array[i][attr] === value) {
+          return i;
+        }
+      }
+      return -1;
     }
   },
 
   mounted: function mounted() {
     var _this = this;
 
-    Echo.channel("resolutions").listen(".ResolutionsChanged\\\\" + this.period, function (e) {
+    Echo.channel("BroadcastingModelEvent").listen(".App\\Resolution", function (e) {
       var resp_group = _.replace(document.URL.split("/")[3], new RegExp("%20", "g"), " ");
       if (e.model.resp_group === resp_group) {
-        _this.resolutions = e.resolutions;
+        var index = _this.findWithAttr(_this.resolutions, "name", e.model.name);
+        if (index == -1) {
+          _this.resolutions.push(e.model);
+        } else {
+          _this.$set(_this.resolutions, index, e.model);
+        }
       }
     });
   }
