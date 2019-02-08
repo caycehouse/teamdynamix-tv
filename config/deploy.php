@@ -67,7 +67,6 @@ return [
 
         // Deployment succeeded.
         'success' => [
-            'artisan:websockets:serve',
         ],
 
         // Deployment failed.
