@@ -14,10 +14,10 @@
         @isset($resolutionsLastWeek)
             <div class="row">
                 <div class="col">
-                    <resolutions period='last_week' :resolutions-list="{{ $resolutionsLastWeek }}"></resolutions>
+                    <resolutions title='Last Week' :resolutions-list="{{ $resolutionsLastWeek }}"></resolutions>
                 </div>
                 <div class="col">
-                    <resolutions period='this_week' :resolutions-list="{{ $resolutionsThisWeek }}"></resolutions>
+                    <resolutions title='This Week' :resolutions-list="{{ $resolutionsThisWeek }}"></resolutions>
                 </div>
             </div>
         @endisset

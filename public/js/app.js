@@ -57018,7 +57018,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     ResolutionsList: null,
-    period: null
+    title: null
   },
 
   computed: {
@@ -57041,13 +57041,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
   methods: {
-    humanizePeriod: function humanizePeriod(period) {
-      if (period == "this_week") {
-        return "This Week";
-      } else {
-        return "Last Week";
-      }
-    },
     findWithAttr: function findWithAttr(array, attr, value) {
       for (var i = 0; i < array.length; i += 1) {
         if (array[i][attr] === value) {
@@ -57062,13 +57055,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     var _this = this;
 
     Echo.channel("BroadcastingModelEvent").listen(".App\\Resolution", function (e) {
-      var resp_group = _.replace(document.URL.split("/")[3], new RegExp("%20", "g"), " ");
-      if (e.model.resp_group === resp_group) {
-        var index = _this.findWithAttr(_this.resolutions, "name", e.model.name);
-        if (index == -1) {
-          _this.resolutions.push(e.model);
-        } else {
-          _this.$set(_this.resolutions, index, e.model);
+      if (_this.title == "This Week") {
+        var resp_group = _.replace(document.URL.split("/")[3], new RegExp("%20", "g"), " ");
+        if (e.model.resp_group === resp_group) {
+          var index = _this.findWithAttr(_this.resolutions, "name", e.model.name);
+          if (index == -1) {
+            _this.resolutions.push(e.model);
+          } else {
+            _this.$set(_this.resolutions, index, e.model);
+          }
         }
       }
     });
@@ -57087,7 +57082,7 @@ var render = function() {
     _c("h5", { staticClass: "text-warning" }, [
       _vm._v(
         "Ticket Resolutions " +
-          _vm._s(_vm.humanizePeriod(_vm.period)) +
+          _vm._s(_vm.title) +
           " (" +
           _vm._s(_vm.totalAll) +
           ")"
