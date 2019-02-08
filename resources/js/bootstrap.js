@@ -21,9 +21,12 @@ try {
 
 import Echo from "laravel-echo";
 
-window.io = require("socket.io-client");
+window.Pusher = require("pusher-js");
 
 window.Echo = new Echo({
-    broadcaster: "socket.io",
-    host: window.location.hostname + ":6001"
+    broadcaster: "pusher",
+    key: process.env.MIX_PUSHER_APP_KEY,
+    wsHost: window.location.hostname,
+    wsPort: 6001,
+    disableStats: true
 });

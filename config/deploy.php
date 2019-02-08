@@ -67,7 +67,7 @@ return [
 
         // Deployment succeeded.
         'success' => [
-            'pm2:restart',
+            'artisan:websockets:serve',
         ],
 
         // Deployment failed.
