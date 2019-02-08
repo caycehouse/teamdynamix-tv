@@ -28,27 +28,29 @@ class Device extends Model
 
     public static function getStats()
     {
-        $client = new Client();
+        if (null !== config('teamdynamix.papercut_auth_token')) {
+            $client = new Client();
 
-        $response = $client->request('GET', 'http://pirateprint.ecu.edu:9191/api/health/devices', [
+            $response = $client->request('GET', 'http://pirateprint.ecu.edu:9191/api/health/devices', [
             'query' => ['Authorization' => config('teamdynamix.papercut_auth_token')],
         ])->getBody();
 
-        $json_response = json_decode($response);
+            $json_response = json_decode($response);
 
-        foreach ($json_response->devices as $jr) {
-            // Get device or initialize new device.
-            $device = self::firstOrNew([
+            foreach ($json_response->devices as $jr) {
+                // Get device or initialize new device.
+                $device = self::firstOrNew([
                 'name' => $jr->name,
             ]);
 
-            // Set the device's status.
-            $device->status = $jr->state->status;
+                // Set the device's status.
+                $device->status = $jr->state->status;
 
-            // If device model is changed.
-            if ($device->isDirty()) {
-                // Save the data to the DB.
-                $device->save();
+                // If device model is changed.
+                if ($device->isDirty()) {
+                    // Save the data to the DB.
+                    $device->save();
+                }
             }
         }
     }

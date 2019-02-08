@@ -19,27 +19,29 @@ class PapercutStatuses extends Model
      */
     public static function getPapercutStatus($url, $name)
     {
-        $client = new Client(['http_errors' => false]);
-        $response = $client->request('GET', $url, [
+        if (null !== config('teamdynamix.papercut_auth_token')) {
+            $client = new Client(['http_errors' => false]);
+            $response = $client->request('GET', $url, [
             'query' => ['Authorization' => config('teamdynamix.papercut_auth_token')],
         ])->getBody();
 
-        $json_response = json_decode($response);
+            $json_response = json_decode($response);
 
-        $statusColor = 'text-success';
-        if ('OK' !== $json_response->status) {
-            $statusColor = 'text-danger';
-        }
+            $statusColor = 'text-success';
+            if ('OK' !== $json_response->status) {
+                $statusColor = 'text-danger';
+            }
 
-        $ps = self::firstOrNew(['status_name' => $name]);
+            $ps = self::firstOrNew(['status_name' => $name]);
 
-        $ps->fill([
+            $ps->fill([
             'status' => $json_response->status,
             'status_color' => $statusColor,
         ]);
 
-        if ($ps->isDirty()) {
-            $ps->save();
+            if ($ps->isDirty()) {
+                $ps->save();
+            }
         }
     }
 

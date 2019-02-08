@@ -28,28 +28,30 @@ class Printer extends Model
 
     public static function getStats()
     {
-        $client = new Client();
+        if (null !== config('teamdynamix.papercut_auth_token')) {
+            $client = new Client();
 
-        $response = $client->request('GET', 'http://pirateprint.ecu.edu:9191/api/health/printers', [
+            $response = $client->request('GET', 'http://pirateprint.ecu.edu:9191/api/health/printers', [
             'query' => ['Authorization' => config('teamdynamix.papercut_auth_token')],
         ])->getBody();
 
-        $json_response = json_decode($response);
+            $json_response = json_decode($response);
 
-        foreach ($json_response->printers as $jr) {
-            $print_server = explode('\\', $jr->name)[0];
-            if (('uniprint' === $print_server || 'papercut' === $print_server)) {
-                $printer = self::firstOrNew([
+            foreach ($json_response->printers as $jr) {
+                $print_server = explode('\\', $jr->name)[0];
+                if (('uniprint' === $print_server || 'papercut' === $print_server)) {
+                    $printer = self::firstOrNew([
                     'name' => $jr->name,
                 ]);
 
-                $printer->fill([
+                    $printer->fill([
                     'print_server' => $print_server,
                     'status' => $jr->status,
                 ]);
 
-                if ($printer->isDirty()) {
-                    $printer->save();
+                    if ($printer->isDirty()) {
+                        $printer->save();
+                    }
                 }
             }
         }
