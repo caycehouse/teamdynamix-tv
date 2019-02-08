@@ -13,7 +13,19 @@ class Resolution extends Model
      *
      * @var array
      */
-    protected $fillable = ['name', 'closes', 'period'];
+    protected $fillable = ['name', 'closes', 'period', 'resp_group'];
+
+    /**
+     * Scope a query to only include a responsible group's resolutions.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopebyResponsibleGroup($query, $resp_group)
+    {
+        return $query->where('resp_group', $resp_group);
+    }
 
     /**
      * Gets resolutions for week and url provided.
@@ -44,6 +56,7 @@ class Resolution extends Model
                     'name' => $jr['ClosedByFullName'],
                     'closes' => $jr['CountTicketID'],
                     'period' => $period,
+                    'resp_group' => $jr['ResponsibleGroupName'],
                 ]
             );
         }

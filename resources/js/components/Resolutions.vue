@@ -48,7 +48,14 @@ export default {
     Echo.channel("resolutions").listen(
       `.ResolutionsChanged\\\\${this.period}`,
       e => {
-        this.resolutions = e.resolutions;
+        let resp_group = _.replace(
+          document.URL.split("/")[3],
+          new RegExp("%20", "g"),
+          " "
+        );
+        if (e.model.resp_group === resp_group) {
+          this.resolutions = e.resolutions;
+        }
       }
     );
   }

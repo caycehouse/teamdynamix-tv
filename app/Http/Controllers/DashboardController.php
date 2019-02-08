@@ -19,6 +19,8 @@ class DashboardController extends Controller
     public function index($resp_group)
     {
         $tickets = Ticket::unresolved()->byResponsibleGroup($resp_group)->get();
+        $resolutionsLastWeek = Resolution::byResponsibleGroup($resp_group)->where('period', '=', 'last_week')->get();
+        $resolutionsThisWeek = Resolution::byResponsibleGroup($resp_group)->where('period', '=', 'this_week')->get();
 
         if ('+Student Computer Labs' == $resp_group) {
             $devices = Device::inError()->get();
@@ -27,8 +29,6 @@ class DashboardController extends Controller
 
             $fromDate = Carbon::now()->startOfWeek()->toDateTimeString();
             $tillDate = Carbon::now()->toDateTimeString();
-            $resolutionsLastWeek = Resolution::where('period', '=', 'last_week')->get();
-            $resolutionsThisWeek = Resolution::where('period', '=', 'this_week')->get();
 
             return view('dashboard.index', [
                 'devices' => $devices,
@@ -41,6 +41,8 @@ class DashboardController extends Controller
         } else {
             return view('dashboard.index', [
                 'tickets' => $tickets,
+                'resolutionsLastWeek' => $resolutionsLastWeek,
+                'resolutionsThisWeek' => $resolutionsThisWeek,
             ]);
         }
     }
