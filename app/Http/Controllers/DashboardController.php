@@ -19,8 +19,8 @@ class DashboardController extends Controller
     public function index($resp_group)
     {
         $tickets = Ticket::unresolved()->byResponsibleGroup($resp_group)->get();
-        $resolutionsLastWeek = Resolution::byResponsibleGroup($resp_group)->where('period', '=', 'last_week')->get();
-        $resolutionsThisWeek = Resolution::byResponsibleGroup($resp_group)->where('period', '=', 'this_week')->get();
+        $resolutionsLastWeek = Resolution::byResponsibleGroup($resp_group)->lastWeek()->get();
+        $resolutionsThisWeek = Resolution::byResponsibleGroup($resp_group)->thisWeek()->get();
 
         if ('+Student Computer Labs' == $resp_group) {
             $devices = Device::inError()->get();

@@ -45,19 +45,9 @@ export default {
   },
 
   mounted() {
-    Echo.channel("resolutions").listen(
-      `.ResolutionsChanged\\\\${this.period}`,
-      e => {
-        let resp_group = _.replace(
-          document.URL.split("/")[3],
-          new RegExp("%20", "g"),
-          " "
-        );
-        if (e.model.resp_group === resp_group) {
-          this.resolutions = e.resolutions;
-        }
-      }
-    );
+    Echo.channel("BroadcastingModelEvent").listen(".App\\Resolution", e => {
+      this.resolutions = e.resolutions;
+    });
   }
 };
 </script>

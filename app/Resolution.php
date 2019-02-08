@@ -2,7 +2,7 @@
 
 namespace App;
 
-use App\Events\ResolutionsChanged;
+use Carbon\Carbon;
 use GuzzleHttp\Client;
 use Illuminate\Database\Eloquent\Model;
 
@@ -13,7 +13,35 @@ class Resolution extends Model
      *
      * @var array
      */
-    protected $fillable = ['name', 'closes', 'period', 'resp_group'];
+    protected $fillable = ['name', 'closes', 'resp_group', 'period'];
+
+    /**
+     * Scope a query to only include last week's resolutions.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeLastWeek($query)
+    {
+        $lastSunday = Carbon::now()->subWeek()->startOfWeek()->subDay();
+
+        return $query->where('period', $lastSunday);
+    }
+
+    /**
+     * Scope a query to only include this week's resolutions.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeThisWeek($query)
+    {
+        $thisSunday = Carbon::now()->startOfWeek()->subDay();
+
+        return $query->where('period', $thisSunday);
+    }
 
     /**
      * Scope a query to only include a responsible group's resolutions.
@@ -22,17 +50,17 @@ class Resolution extends Model
      *
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopebyResponsibleGroup($query, $resp_group)
+    public function scopeByResponsibleGroup($query, $resp_group)
     {
         return $query->where('resp_group', $resp_group);
     }
 
     /**
-     * Gets resolutions for week and url provided.
+     * Gets new tickets from TeamDynamix.
      *
      * @return void
      */
-    public static function getResolutionForWeek($period, $url)
+    public static function getResolutions()
     {
         $client = new Client();
 
@@ -43,7 +71,7 @@ class Resolution extends Model
             ],
         ])->getBody();
 
-        $response = $client->request('GET', $url, [
+        $response = $client->request('GET', 'https://ecu.teamdynamix.com/TDWebApi/api/reports/118131', [
             'headers' => ['Authorization' => 'Bearer '.$authToken],
             'query' => ['withData' => 'true'],
         ])->getBody();
@@ -51,28 +79,16 @@ class Resolution extends Model
         $json_response = json_decode($response, true);
 
         foreach ($json_response['DataRows'] as $jr) {
-            self::create(
+            self::updateOrCreate(
                 [
                     'name' => $jr['ClosedByFullName'],
-                    'closes' => $jr['CountTicketID'],
-                    'period' => $period,
                     'resp_group' => $jr['ResponsibleGroupName'],
+                    'period' => Carbon::parse($jr['ClosedDate-WeekYear']),
+                ],
+                [
+                    'closes' => $jr['CountTicketID'],
                 ]
             );
         }
-
-        event(new ResolutionsChanged($period));
-    }
-
-    /**
-     * Gets new tickets from TeamDynamix.
-     *
-     * @return void
-     */
-    public static function getResolutions()
-    {
-        self::truncate();
-        self::getResolutionForWeek('last_week', 'https://ecu.teamdynamix.com/TDWebApi/api/reports/118131');
-        self::getResolutionForWeek('this_week', 'https://ecu.teamdynamix.com/TDWebApi/api/reports/117033');
     }
 }
