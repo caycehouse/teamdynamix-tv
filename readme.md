@@ -1,4 +1,4 @@
-# teamdynamix-tv
+# TeamDynamix TV
 
 The _unnoficial_ TeamDynamix TV web application
 
