@@ -36,6 +36,9 @@ class Kernel extends ConsoleKernel
         $schedule->job(new GetDeviceStatus())->everyMinute();
         $schedule->job(new GetPapercutStatuses())->everyMinute();
         $schedule->job(new GetPrinterStatus())->everyMinute();
+
+        // Clean out websocket stats daily.
+        $schedule->command('websockets:clean')->daily();
     }
 
     /**
