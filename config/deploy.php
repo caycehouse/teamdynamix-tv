@@ -137,7 +137,6 @@ return [
      */
 
     'include' => [
-        'recipe/pm2.php',
     ],
 
     /*
