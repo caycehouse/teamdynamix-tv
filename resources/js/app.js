@@ -14,14 +14,17 @@ window.Vue = require("vue");
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component("devices", require("./components/Devices.vue"));
-Vue.component("tickets", require("./components/Tickets.vue"));
-Vue.component(
-    "papercut-statuses",
-    require("./components/PapercutStatuses.vue")
-);
-Vue.component("printers", require("./components/Printers.vue"));
-Vue.component("resolutions", require("./components/Resolutions.vue"));
+import Devices from "./components/Devices.vue";
+import Tickets from "./components/Tickets.vue";
+import PapercutStatuses from "./components/PapercutStatuses.vue";
+import Printers from "./components/Printers.vue";
+import Reslutions from "./components/Resolutions.vue";
+
+Vue.component("devices", Devices);
+Vue.component("tickets", Tickets);
+Vue.component("papercut-statuses", PapercutStatuses);
+Vue.component("printers", Printers);
+Vue.component("resolutions", Resolutions);
 
 const app = new Vue({
     el: "#app"
