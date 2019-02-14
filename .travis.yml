@@ -25,4 +25,4 @@ cache:
     - vendor
 
 services:
-  - mysql
+  - mysql: "5.7"
