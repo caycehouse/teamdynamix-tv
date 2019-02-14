@@ -18,7 +18,7 @@ import Devices from "./components/Devices.vue";
 import Tickets from "./components/Tickets.vue";
 import PapercutStatuses from "./components/PapercutStatuses.vue";
 import Printers from "./components/Printers.vue";
-import Reslutions from "./components/Resolutions.vue";
+import Resolutions from "./components/Resolutions.vue";
 
 Vue.component("devices", Devices);
 Vue.component("tickets", Tickets);

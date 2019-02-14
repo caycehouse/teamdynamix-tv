@@ -57900,7 +57900,7 @@ Vue.component("devices", _components_Devices_vue__WEBPACK_IMPORTED_MODULE_0__["d
 Vue.component("tickets", _components_Tickets_vue__WEBPACK_IMPORTED_MODULE_1__["default"]);
 Vue.component("papercut-statuses", _components_PapercutStatuses_vue__WEBPACK_IMPORTED_MODULE_2__["default"]);
 Vue.component("printers", _components_Printers_vue__WEBPACK_IMPORTED_MODULE_3__["default"]);
-Vue.component("resolutions", Resolutions);
+Vue.component("resolutions", _components_Resolutions_vue__WEBPACK_IMPORTED_MODULE_4__["default"]);
 var app = new Vue({
   el: "#app"
 }); // Master Control Event for mass reloading of clients
