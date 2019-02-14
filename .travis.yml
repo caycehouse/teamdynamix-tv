@@ -1,3 +1,4 @@
+dist: xenial
 language: php
 
 matrix:
@@ -25,4 +26,4 @@ cache:
     - vendor
 
 services:
-  - mysql: "5.7"
+  - mysql
