@@ -24,10 +24,6 @@ class AppServiceProvider extends ServiceProvider
         Printer::observe(BroadcastingModelObserver::class);
         Ticket::observe(BroadcastingModelObserver::class);
         Resolution::observe(BroadcastingModelObserver::class);
-
-        if ($this->app->environment('local')) {
-            $this->app->register(TelescopeServiceProvider::class);
-        }
     }
 
     /**
