@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6dc68bdc6b3139bc29a124d99d88cc26",
+    "content-hash": "74ea5de1d20ab3c1662b04d976730ff9",
     "packages": [
         {
             "name": "beyondcode/laravel-websockets",
@@ -1033,16 +1033,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v5.7.24",
+            "version": "v5.7.26",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "2ede55db4b8201ed0450fa7e7a4d7220aa29bc34"
+                "reference": "ca3bc9769969e8af3bd9878a3e0242051c74dae4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/2ede55db4b8201ed0450fa7e7a4d7220aa29bc34",
-                "reference": "2ede55db4b8201ed0450fa7e7a4d7220aa29bc34",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/ca3bc9769969e8af3bd9878a3e0242051c74dae4",
+                "reference": "ca3bc9769969e8af3bd9878a3e0242051c74dae4",
                 "shasum": ""
             },
             "require": {
@@ -1175,7 +1175,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2019-01-29T22:13:46+00:00"
+            "time": "2019-02-12T14:52:21+00:00"
         },
         {
             "name": "laravel/nexmo-notification-channel",
@@ -4778,16 +4778,16 @@
         },
         {
             "name": "laravel/homestead",
-            "version": "v8.0.2",
+            "version": "v8.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/homestead.git",
-                "reference": "e56b86c5034621894d2b5d92db18207d379269f9"
+                "reference": "7a47985866dd13896a14883038bd1faf40702253"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/homestead/zipball/e56b86c5034621894d2b5d92db18207d379269f9",
-                "reference": "e56b86c5034621894d2b5d92db18207d379269f9",
+                "url": "https://api.github.com/repos/laravel/homestead/zipball/7a47985866dd13896a14883038bd1faf40702253",
+                "reference": "7a47985866dd13896a14883038bd1faf40702253",
                 "shasum": ""
             },
             "require": {
@@ -4824,20 +4824,20 @@
                 }
             ],
             "description": "A virtual machine for web artisans.",
-            "time": "2019-01-29T18:32:11+00:00"
+            "time": "2019-02-06T01:05:54+00:00"
         },
         {
             "name": "mockery/mockery",
-            "version": "1.2.0",
+            "version": "1.2.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mockery/mockery.git",
-                "reference": "100633629bf76d57430b86b7098cd6beb996a35a"
+                "reference": "0eb0b48c3f07b3b89f5169ce005b7d05b18cf1d2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mockery/mockery/zipball/100633629bf76d57430b86b7098cd6beb996a35a",
-                "reference": "100633629bf76d57430b86b7098cd6beb996a35a",
+                "url": "https://api.github.com/repos/mockery/mockery/zipball/0eb0b48c3f07b3b89f5169ce005b7d05b18cf1d2",
+                "reference": "0eb0b48c3f07b3b89f5169ce005b7d05b18cf1d2",
                 "shasum": ""
             },
             "require": {
@@ -4846,7 +4846,7 @@
                 "php": ">=5.6.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "~5.7.10|~6.5|~7.0"
+                "phpunit/phpunit": "~5.7.10|~6.5|~7.0|~8.0"
             },
             "type": "library",
             "extra": {
@@ -4889,7 +4889,7 @@
                 "test double",
                 "testing"
             ],
-            "time": "2018-10-02T21:52:37+00:00"
+            "time": "2019-02-13T09:37:52+00:00"
         },
         {
             "name": "myclabs/deep-copy",
