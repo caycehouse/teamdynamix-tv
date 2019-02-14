@@ -12,11 +12,21 @@ use Carbon\Carbon;
 class DashboardController extends Controller
 {
     /**
-     * Show the dashboard.
+     * Shows dashboard not found message.
      *
      * @return Response
      */
-    public function index($resp_group)
+    public function index()
+    {
+        return view('dashboard.index');
+    }
+
+    /**
+     * Show the dashboard for the provided group name.
+     *
+     * @return Response
+     */
+    public function byGroup($resp_group)
     {
         $tickets = Ticket::unresolved()->byResponsibleGroup($resp_group)->get();
         $resolutionsLastWeek = Resolution::byResponsibleGroup($resp_group)->lastWeek()->get();
@@ -30,7 +40,7 @@ class DashboardController extends Controller
             $fromDate = Carbon::now()->startOfWeek()->toDateTimeString();
             $tillDate = Carbon::now()->toDateTimeString();
 
-            return view('dashboard.index', [
+            return view('dashboard.byGroup', [
                 'devices' => $devices,
                 'tickets' => $tickets,
                 'papercutStatuses' => $papercutStatuses,
@@ -39,7 +49,7 @@ class DashboardController extends Controller
                 'resolutionsThisWeek' => $resolutionsThisWeek,
             ]);
         } else {
-            return view('dashboard.index', [
+            return view('dashboard.byGroup', [
                 'tickets' => $tickets,
                 'resolutionsLastWeek' => $resolutionsLastWeek,
                 'resolutionsThisWeek' => $resolutionsThisWeek,
