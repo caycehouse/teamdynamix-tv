@@ -16,9 +16,6 @@ before_script:
   - php artisan migrate
   - npm install
 
-before_install:
-  - mysql -e 'create database travis;'
-
 script:
   - vendor/bin/phpunit
 
