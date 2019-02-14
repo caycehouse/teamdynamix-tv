@@ -10,5 +10,6 @@ $factory->define(Ticket::class, function (Generator $faker) {
         'lab' => $faker->numerify($faker->word.' ###'),
         'status' => $faker->randomElement(['New', 'Work-in-Progress', 'On Hold', 'Closed', 'Cancelled']),
         'age' => $faker->numberBetween(0, 1000),
+        'resp_group' => $faker->sentence(3),
     ];
 });
