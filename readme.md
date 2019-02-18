@@ -8,7 +8,7 @@ Virtualbox, Vagrant, Composer, and PHP 7+.
 
 ## Installation
 
-```
+```bash
 git clone https://github.com/caycehouse/teamdynamix-tv.git
 composer install
 php vendor/bin/homestead make
