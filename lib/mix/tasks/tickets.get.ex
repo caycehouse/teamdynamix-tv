@@ -8,8 +8,7 @@ defmodule Mix.Tasks.Tickets.Get do
     auth_token = get_auth_token()
 
     # Then get new tickets with our auth token.
-    r = get_new_tickets(auth_token)
-    Mix.shell.info r
+    get_new_tickets(auth_token)
   end
 
   def get_new_tickets(auth_token) do
