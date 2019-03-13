@@ -18,15 +18,16 @@ defmodule Mix.Tasks.Tickets.Get do
     # Make our request for new tickets.
     url = Application.get_env(:teamdynamix_tv, :teamdynamix_settings)[:new_tickets_url]
     headers = ["Authorization": "Bearer #{auth_token}"]
-    {:ok, %HTTPoison.Response{body: body}} = HTTPoison.get url, headers, params: %{withData: true}
+    {:ok, %HTTPoison.Response{body: body}} = HTTPoison.get(url, headers, params: %{withData: true})
 
     body
-    |> Poison.decode!
+    |> Jason.decode!
     |> Map.take(~w(DataRows))
     |> Enum.map(fn({k, v}) -> {String.to_atom(k), v} end)
     |> Enum.each(fn ticket ->
       IO.inspect ticket
     end)
+
   end
 
   def get_auth_token() do
@@ -39,7 +40,7 @@ defmodule Mix.Tasks.Tickets.Get do
     password = Application.get_env(:teamdynamix_tv, :teamdynamix_settings)[:password]
 
     # Make our request for an auth token.
-    body = Poison.encode!(%{"username" => username, "password" => password})
+    body = Jason.encode!(%{"username" => username, "password" => password})
     headers = [{"Content-Type", "application/json"}]
     {:ok, %HTTPoison.Response{body: body}} = HTTPoison.post url, body, headers
 
