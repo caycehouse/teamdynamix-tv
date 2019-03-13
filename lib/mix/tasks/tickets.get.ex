@@ -18,15 +18,19 @@ defmodule Mix.Tasks.Tickets.Get do
     # Make our request for new tickets.
     url = Application.get_env(:teamdynamix_tv, :teamdynamix_settings)[:new_tickets_url]
     headers = ["Authorization": "Bearer #{auth_token}"]
-    {:ok, %HTTPoison.Response{body: body}} = HTTPoison.get(url, headers, params: %{withData: true})
-
-    body
+    HTTPoison.get!(url, headers, params: %{withData: true}).body
     |> Jason.decode!
-    |> Map.take(~w(DataRows))
-    |> Enum.map(fn({k, v}) -> {String.to_atom(k), v} end)
+    |> Map.get("DataRows")
     |> Enum.each(fn ticket ->
-      IO.inspect ticket
+      # Map our ticket string values into atoms.
+      ticket = Enum.map(ticket, fn({k, v}) -> {String.to_atom(k), v} end)
     end)
+
+    #decoded = Jason.decode!(body)
+    #mapped = Map.take(decoded, ~w(DataRows))
+    #enumed = Enum.map(mapped, fn({k, v}) -> {String.to_atom(k), v} end)
+    #IO.inspect enumed[:DataRows]
+
 
   end
 
