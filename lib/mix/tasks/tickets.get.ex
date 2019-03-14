@@ -49,9 +49,6 @@ defmodule Mix.Tasks.Tickets.Get do
     # Make our request for an auth token.
     body = Jason.encode!(%{"username" => username, "password" => password})
     headers = [{"Content-Type", "application/json"}]
-    {:ok, %HTTPoison.Response{body: body}} = HTTPoison.post url, body, headers
-
-    # Return our auth token.
-    body
+    HTTPoison.post!(url, body, headers).body
   end
 end

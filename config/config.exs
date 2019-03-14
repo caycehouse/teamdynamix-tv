@@ -25,6 +25,13 @@ config :logger, :console,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
+# Configures quantum
+config :teamdynamix_tv, TeamdynamixTv.Scheduler,
+  jobs: [
+    # Every minute
+    {"* * * * *", fn -> Mix.Tasks.Tickets.Get.run([]) end}
+  ]
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env()}.exs"

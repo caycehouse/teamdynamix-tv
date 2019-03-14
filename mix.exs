@@ -44,7 +44,9 @@ defmodule TeamdynamixTv.MixProject do
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
       {:httpoison, "~> 1.5"},
-      {:ecto_conditionals, "~> 0.1.0"}
+      {:ecto_conditionals, "~> 0.1.0"},
+      {:quantum, "~> 2.3"},
+      {:timex, "~> 3.0"}
     ]
   end
 
