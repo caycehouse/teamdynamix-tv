@@ -1,5 +1,6 @@
 defmodule Mix.Tasks.Tickets.Get do
   use Mix.Task
+  use EctoConditionals, repo: TeamdynamixTv.Repo
 
   @shortdoc "Gets all new tickets from TeamDynamix"
 
@@ -23,15 +24,17 @@ defmodule Mix.Tasks.Tickets.Get do
     |> Map.get("DataRows")
     |> Enum.each(fn ticket ->
       # Map our ticket string values into atoms.
-      ticket = Enum.map(ticket, fn({k, v}) -> {String.to_atom(k), v} end)
+      ticket_data = Enum.map(ticket, fn({k, v}) -> {String.to_atom(k), v} end)
+
+      # Start up our app before we access the database.
+      Mix.Task.run("app.start")
+
+      # Upsert our ticket.
+      %TeamdynamixTv.Ticket{days_old: ticket_data[:DaysOld],
+        resp_group: ticket_data[:ResponsibleGroupName], status: ticket_data[:StatusName],
+        ticket_id: ticket_data[:TicketID], title: ticket_data[:Title]}
+      |> upsert_by(:ticket_id)
     end)
-
-    #decoded = Jason.decode!(body)
-    #mapped = Map.take(decoded, ~w(DataRows))
-    #enumed = Enum.map(mapped, fn({k, v}) -> {String.to_atom(k), v} end)
-    #IO.inspect enumed[:DataRows]
-
-
   end
 
   def get_auth_token() do
