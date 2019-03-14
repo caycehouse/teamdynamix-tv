@@ -12,5 +12,6 @@ defmodule TeamdynamixTv.Repo.Migrations.CreateTickets do
       timestamps()
     end
 
+    create unique_index(:tickets, [:ticket_id])
   end
 end
