@@ -22,7 +22,6 @@
         "beyondcode/laravel-dump-server": "^1.2",
         "filp/whoops": "^2.3",
         "fzaninotto/faker": "^1.8",
-        "laravel/homestead": "^8.1",
         "mockery/mockery": "^1.2",
         "nunomaduro/collision": "^2.1",
         "phpunit/phpunit": "^7.0"

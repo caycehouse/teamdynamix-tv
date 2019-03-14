@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "74ea5de1d20ab3c1662b04d976730ff9",
+    "content-hash": "d87651766ed9de817b5d3b048f42e819",
     "packages": [
         {
             "name": "beyondcode/laravel-websockets",
@@ -3268,16 +3268,16 @@
         },
         {
             "name": "symfony/console",
-            "version": "v4.2.3",
+            "version": "v4.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "1f0ad51dfde4da8a6070f06adc58b4e37cbb37a4"
+                "reference": "9dc2299a016497f9ee620be94524e6c0af0280a9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/1f0ad51dfde4da8a6070f06adc58b4e37cbb37a4",
-                "reference": "1f0ad51dfde4da8a6070f06adc58b4e37cbb37a4",
+                "url": "https://api.github.com/repos/symfony/console/zipball/9dc2299a016497f9ee620be94524e6c0af0280a9",
+                "reference": "9dc2299a016497f9ee620be94524e6c0af0280a9",
                 "shasum": ""
             },
             "require": {
@@ -3336,7 +3336,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2019-01-25T14:35:16+00:00"
+            "time": "2019-02-23T15:17:42+00:00"
         },
         {
             "name": "symfony/contracts",
@@ -3945,7 +3945,7 @@
         },
         {
             "name": "symfony/process",
-            "version": "v4.2.3",
+            "version": "v4.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/process.git",
@@ -4281,16 +4281,16 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "v4.2.3",
+            "version": "v4.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "d461670ee145092b7e2a56c1da7118f19cadadb0"
+                "reference": "761fa560a937fd7686e5274ff89dcfa87a5047df"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/d461670ee145092b7e2a56c1da7118f19cadadb0",
-                "reference": "d461670ee145092b7e2a56c1da7118f19cadadb0",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/761fa560a937fd7686e5274ff89dcfa87a5047df",
+                "reference": "761fa560a937fd7686e5274ff89dcfa87a5047df",
                 "shasum": ""
             },
             "require": {
@@ -4336,7 +4336,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2019-01-16T20:35:37+00:00"
+            "time": "2019-02-23T15:17:42+00:00"
         },
         {
             "name": "tijsverkoyen/css-to-inline-styles",
@@ -4775,56 +4775,6 @@
                 "test"
             ],
             "time": "2016-01-20T08:20:44+00:00"
-        },
-        {
-            "name": "laravel/homestead",
-            "version": "v8.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/laravel/homestead.git",
-                "reference": "7a47985866dd13896a14883038bd1faf40702253"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/laravel/homestead/zipball/7a47985866dd13896a14883038bd1faf40702253",
-                "reference": "7a47985866dd13896a14883038bd1faf40702253",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^7.1",
-                "symfony/console": "~4.0",
-                "symfony/process": "~4.0",
-                "symfony/yaml": "~4.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^6.0"
-            },
-            "bin": [
-                "bin/homestead"
-            ],
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "4.0-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Laravel\\Homestead\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Taylor Otwell",
-                    "email": "taylorotwell@gmail.com"
-                }
-            ],
-            "description": "A virtual machine for web artisans.",
-            "time": "2019-02-06T01:05:54+00:00"
         },
         {
             "name": "mockery/mockery",
