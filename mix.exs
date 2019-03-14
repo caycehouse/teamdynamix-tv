@@ -43,7 +43,8 @@ defmodule TeamdynamixTv.MixProject do
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
-      {:httpoison, "~> 1.5"}
+      {:httpoison, "~> 1.5"},
+      {:ecto_conditionals, "~> 0.1.0"}
     ]
   end
 
