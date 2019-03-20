@@ -17,7 +17,7 @@ defmodule TeamdynamixTvWeb.Router do
   scope "/", TeamdynamixTvWeb do
     pipe_through :browser
 
-    get "/", DashboardController, :index
+    get "/:resp_group", DashboardController, :index
   end
 
   # Other scopes may use custom stacks.

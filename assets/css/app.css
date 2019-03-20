@@ -16,3 +16,7 @@ body {
 .text-warning {
   color: #ffed4a !important;
 }
+
+.table {
+  color: #fff;
+}

@@ -1,6 +1,13 @@
-<div>
-  <h1>Value: <%= @val %></h1>
-  <button phx-click="dec">-</button>
-  <button phx-click="res">Reset</button>
-  <button phx-click="inc">+</button>
-</div>
+<h5 class="text-warning">Unresolved Tickets (<%= Enum.count(@tickets) %>)</h5>
+<table class="table table-sm">
+  <tbody>
+    <%= for t <- @tickets do %>
+      <tr>
+        <td><%= t.ticket_id %></td>
+        <td><%= t.title %></td>
+        <td><%= t.status %></td>
+        <td><%= t.days_old %>d</td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

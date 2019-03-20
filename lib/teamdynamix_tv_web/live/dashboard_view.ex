@@ -5,19 +5,35 @@ defmodule TeamdynamixTvWeb.DashboardView do
     TeamdynamixTvWeb.PageView.render("index.html", assigns)
   end
 
-  def mount(_session, socket) do
-    {:ok, assign(socket, val: 0)}
+  def mount(%{resp_group: resp_group}, socket) do
+    # Imports only from/2 of Ecto.Query
+    import Ecto.Query, only: [from: 2]
+
+    # Create a query
+    query = from t in "tickets",
+              where: t.resp_group == type(^resp_group, :string),
+              select: [:ticket_id, :title, :status, :days_old]
+
+    tickets = TeamdynamixTv.Repo.all(query)
+
+    if connected?(socket), do: Process.send_after(self(), :tick, 1000)
+    {:ok, assign(socket, tickets: tickets, resp_group: resp_group)}
   end
 
-  def handle_event("inc", _, socket) do
-    {:noreply, update(socket, :val, &(&1 + 1))}
-  end
+  def handle_info(:tick, socket) do
+    resp_group = socket.assigns.resp_group
 
-  def handle_event("res", _, socket) do
-    {:noreply, assign(socket, val: 0)}
-  end
+    # Imports only from/2 of Ecto.Query
+    import Ecto.Query, only: [from: 2]
 
-  def handle_event("dec", _, socket) do
-    {:noreply, update(socket, :val, &(&1 - 1))}
+    # Create a query
+    query = from t in "tickets",
+              where: t.resp_group == type(^resp_group, :string),
+              select: [:ticket_id, :title, :status, :days_old]
+
+    tickets = TeamdynamixTv.Repo.all(query)
+
+    Process.send_after(self(), :tick, 1000)
+    {:noreply, assign(socket, tickets: tickets)}
   end
 end
