@@ -3,6 +3,11 @@
 @import "../node_modules/bootstrap/dist/css/bootstrap.css";
 @import "../../deps/phoenix_live_view/assets/css/live_view.css";
 
+body {
+  background-color: #343a40;
+  color: #fff;
+}
+
 /* Don't show alert if content is empty */
 .alert:empty {
   display: none;
