@@ -7,3 +7,7 @@
 .alert:empty {
   display: none;
 }
+
+.text-warning {
+  color: #ffed4a !important;
+}
