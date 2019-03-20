@@ -51,6 +51,7 @@ defmodule Mix.Tasks.Tickets.Get do
     # Make our request for the ticket.
     url = Application.get_env(:teamdynamix_tv, :teamdynamix_settings)[:ticket_url] <> Integer.to_string(t.ticket_id)
     headers = ["Authorization": "Bearer #{auth_token}"]
+
     ticket_data = HTTPoison.get!(url, headers).body
     |> Jason.decode!
     |> Enum.map(fn({k, v}) -> {String.to_atom(k), v} end)
@@ -63,6 +64,9 @@ defmodule Mix.Tasks.Tickets.Get do
       resp_group: ticket_data[:ResponsibleGroupName], status: ticket_data[:StatusName],
       ticket_id: t.ticket_id, title: ticket_data[:Title]}
     |> upsert_by(:ticket_id)
+
+    # Sleep to prevent going over the rate limit.
+    Process.sleep(1000)
   end
 
   def get_auth_token() do
