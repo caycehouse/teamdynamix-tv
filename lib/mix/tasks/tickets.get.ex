@@ -1,6 +1,7 @@
 defmodule Mix.Tasks.Tickets.Get do
   use Mix.Task
   use EctoConditionals, repo: TeamdynamixTv.Repo
+  alias TeamdynamixTv.Ticket
 
   @shortdoc "Gets all new tickets from TeamDynamix"
 
@@ -10,6 +11,12 @@ defmodule Mix.Tasks.Tickets.Get do
 
     # Then get new tickets with our auth token.
     get_new_tickets(auth_token)
+
+    # Finally update every ticket one by one.
+    tickets = TeamdynamixTv.Repo.all(Ticket)
+    for t <- tickets do
+      update_ticket(auth_token, t)
+    end
   end
 
   def get_new_tickets(auth_token) do
@@ -35,6 +42,27 @@ defmodule Mix.Tasks.Tickets.Get do
         ticket_id: ticket_data[:TicketID], title: ticket_data[:Title]}
       |> upsert_by(:ticket_id)
     end)
+  end
+
+  def update_ticket(auth_token, t) do
+    # Start up HTTPoison so we can make requests.
+    HTTPoison.start
+
+    # Make our request for the ticket.
+    url = Application.get_env(:teamdynamix_tv, :teamdynamix_settings)[:ticket_url] <> Integer.to_string(t.ticket_id)
+    headers = ["Authorization": "Bearer #{auth_token}"]
+    ticket_data = HTTPoison.get!(url, headers).body
+    |> Jason.decode!
+    |> Enum.map(fn({k, v}) -> {String.to_atom(k), v} end)
+
+    # Start up our app before we access the database.
+    Mix.Task.run("app.start")
+
+    # Upsert our ticket.
+    %TeamdynamixTv.Ticket{days_old: ticket_data[:DaysOld],
+      resp_group: ticket_data[:ResponsibleGroupName], status: ticket_data[:StatusName],
+      ticket_id: t.ticket_id, title: ticket_data[:Title]}
+    |> upsert_by(:ticket_id)
   end
 
   def get_auth_token() do
