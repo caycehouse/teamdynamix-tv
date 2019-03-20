@@ -35,8 +35,8 @@ config :phoenix,
 # Configures quantum
 config :teamdynamix_tv, TeamdynamixTv.Scheduler,
   jobs: [
-    # Every minute
-    {"* * * * *", fn -> Mix.Tasks.Tickets.Get.run([]) end}
+    # Every five minutes
+    {"*/5 * * * *", fn -> Mix.Tasks.Tickets.Get.run([]) end}
   ]
 
 # Import environment specific config. This must remain at the bottom
