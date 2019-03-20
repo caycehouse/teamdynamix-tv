@@ -34,6 +34,7 @@ config :phoenix,
 
 # Configures quantum
 config :teamdynamix_tv, TeamdynamixTv.Scheduler,
+  overlap: false,
   jobs: [
     # Every five minutes
     {"* * * * *", fn -> Mix.Tasks.Tickets.Get.run([]) end}
