@@ -29,7 +29,8 @@ defmodule TeamdynamixTvWeb.DashboardView do
     # Create a query
     query = from t in "tickets",
               where: t.resp_group == type(^resp_group, :string),
-              select: [:ticket_id, :title, :status, :days_old]
+              select: [:ticket_id, :title, :status, :days_old],
+              order_by: t.days_old
 
     tickets = TeamdynamixTv.Repo.all(query)
 
