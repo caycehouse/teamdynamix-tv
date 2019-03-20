@@ -36,7 +36,7 @@ config :phoenix,
 config :teamdynamix_tv, TeamdynamixTv.Scheduler,
   jobs: [
     # Every five minutes
-    {"*/5 * * * *", fn -> Mix.Tasks.Tickets.Get.run([]) end}
+    {"* * * * *", fn -> Mix.Tasks.Tickets.Get.run([]) end}
   ]
 
 # Import environment specific config. This must remain at the bottom
