@@ -1,4 +1,9 @@
 /* This file is for your main application css. */
 
-@import "./phoenix.css";
+@import "../node_modules/bootstrap/dist/css/bootstrap.css";
 @import "../../deps/phoenix_live_view/assets/css/live_view.css";
+
+/* Don't show alert if content is empty */
+.alert:empty {
+  display: none;
+}
