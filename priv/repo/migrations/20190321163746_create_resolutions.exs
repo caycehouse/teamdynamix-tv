@@ -11,6 +11,5 @@ defmodule TeamdynamixTv.Repo.Migrations.CreateResolutions do
       timestamps()
     end
 
-    create unique_index(:resolutions, [:name, :resp_group, :resolved_date], name: :name_per_resolved_date_index)
   end
 end

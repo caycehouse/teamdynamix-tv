@@ -11,3 +11,14 @@
     <% end %>
   </tbody>
 </table>
+<h5 class="text-warning">Ticket Resolutions This Week (<%= Enum.reduce(@resolutions, 0, fn r, acc -> acc + r.closes end) %>)</h5>
+<table class="table table-sm">
+  <tbody>
+    <%= for r <- @resolutions do %>
+      <tr>
+        <td><%= r.name %></td>
+        <td><%= r.closes %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
