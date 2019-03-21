@@ -36,7 +36,7 @@ config :phoenix,
 config :teamdynamix_tv, TeamdynamixTv.Scheduler,
   overlap: false,
   jobs: [
-    # Every five minutes
+    # Every minute
     {"* * * * *", fn -> Mix.Tasks.Tickets.Get.run([]) end}
   ]
 
