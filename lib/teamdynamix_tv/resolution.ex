@@ -16,6 +16,5 @@ defmodule TeamdynamixTv.Resolution do
     resolution
     |> cast(attrs, [:name, :closes, :resp_group, :resolved_date])
     |> validate_required([:name, :closes, :resp_group, :resolved_date])
-    |> unique_constraint(:name_per_resolved_date_index)
   end
 end
