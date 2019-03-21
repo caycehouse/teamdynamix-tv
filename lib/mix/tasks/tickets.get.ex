@@ -36,10 +36,13 @@ defmodule Mix.Tasks.Tickets.Get do
       # Start up our app before we access the database.
       Mix.Task.run("app.start")
 
+      # Get our ticket url.
+      ticket_url = Application.get_env(:teamdynamix_tv, :teamdynamix_settings)[:ticket_url] <> "?TicketID=" <> Integer.to_string(ticket_data[:TicketID])
+
       # Upsert our ticket.
       %TeamdynamixTv.Ticket{days_old: ticket_data[:DaysOld],
         resp_group: ticket_data[:ResponsibleGroupName], status: ticket_data[:StatusName],
-        ticket_id: ticket_data[:TicketID], title: ticket_data[:Title]}
+        ticket_id: ticket_data[:TicketID], title: ticket_data[:Title], url: ticket_url}
       |> upsert_by(:ticket_id)
     end)
   end
@@ -49,7 +52,7 @@ defmodule Mix.Tasks.Tickets.Get do
     HTTPoison.start
 
     # Make our request for the ticket.
-    url = Application.get_env(:teamdynamix_tv, :teamdynamix_settings)[:ticket_url] <> Integer.to_string(t.ticket_id)
+    url = Application.get_env(:teamdynamix_tv, :teamdynamix_settings)[:api_ticket_url] <> Integer.to_string(t.ticket_id)
     headers = ["Authorization": "Bearer #{auth_token}"]
 
     ticket_data = HTTPoison.get!(url, headers).body
