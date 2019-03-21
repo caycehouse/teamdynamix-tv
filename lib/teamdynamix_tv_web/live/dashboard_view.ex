@@ -12,6 +12,7 @@ defmodule TeamdynamixTvWeb.DashboardView do
     # Query for our tickets.
     query = from t in "tickets",
               where: t.resp_group == type(^resp_group, :string),
+              where: t.status != "Closed",
               select: [:ticket_id, :title, :status, :days_old],
               order_by: t.days_old
 

@@ -2,7 +2,18 @@
 <table class="table table-sm">
   <tbody>
     <%= for t <- @tickets do %>
-      <tr>
+      <%= cond do %>
+        <%= t.status == "New" -> %>
+          <%= if t.days_old > 1 do %>
+            <tr class="text-danger">
+          <% else %>
+            <tr class="text-warning">
+          <% end %>
+        <%= t.status == "On Hold" -> %>
+          <tr class="text-muted">
+        <%= true -> %>
+          <tr>
+      <% end %>
         <td><%= t.ticket_id %></td>
         <td><%= t.title %></td>
         <td><%= t.status %></td>
