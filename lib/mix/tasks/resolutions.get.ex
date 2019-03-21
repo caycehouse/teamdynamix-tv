@@ -37,7 +37,7 @@ defmodule Mix.Tasks.Resolutions.Get do
       case TeamdynamixTv.Repo.get_by(Resolution, [name: resolution_data[:ClosedByFullName],
         resp_group: resolution_data[:ResponsibleGroupName], resolved_date: parsed_date]) do
             nil -> %Resolution{}
-            Resolution -> Resolution
+            resolution -> resolution
         end
       |> Resolution.changeset(%{name: resolution_data[:ClosedByFullName],
         closes: resolution_data[:CountTicketID], resp_group: resolution_data[:ResponsibleGroupName],
