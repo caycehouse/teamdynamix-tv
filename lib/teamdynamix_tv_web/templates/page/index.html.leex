@@ -2,12 +2,7 @@
 <table class="table table-sm">
   <tbody>
     <%= for t <- @tickets do %>
-      <%= cond do %>
-        <% t.status == "New" && t.days_old > 1 -> %> <tr class="text-danger" onclick="window.open('<%= t.url %>');">
-        <% t.status == "New"-> %> <tr class="text-warning" onclick="window.open('<%= t.url %>');">
-        <% t.status == "On Hold" -> %> <tr class="text-muted" onclick="window.open('<%= t.url %>');">
-        <% true -> %> <tr phx-click="open-ticket" onclick="window.open('<%= t.url %>');">
-      <% end %>
+      <tr onclick="window.open('<%= t.url %>');" class="<%= t.status_color %>">
         <td><%= t.ticket_id %></td>
         <td><%= t.title %></td>
         <td><%= t.status %></td>
