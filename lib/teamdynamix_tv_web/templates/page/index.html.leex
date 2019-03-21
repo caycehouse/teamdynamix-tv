@@ -11,14 +11,31 @@
     <% end %>
   </tbody>
 </table>
-<h5 class="text-warning">Ticket Resolutions This Week (<%= Enum.reduce(@resolutions, 0, fn r, acc -> acc + r.closes end) %>)</h5>
-<table class="table table-sm">
-  <tbody>
-    <%= for r <- @resolutions do %>
-      <tr>
-        <td><%= r.name %></td>
-        <td><%= r.closes %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<div class="row">
+  <div class="col">
+    <h5 class="text-warning">Ticket Resolutions Last Week (<%= Enum.reduce(@old_resolutions, 0, fn r, acc -> acc + r.closes end) %>)</h5>
+    <table class="table table-sm">
+      <tbody>
+        <%= for r <- @old_resolutions do %>
+          <tr>
+            <td><%= r.name %></td>
+            <td><%= r.closes %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    </div>
+  <div class="col">
+    <h5 class="text-warning">Ticket Resolutions This Week (<%= Enum.reduce(@new_resolutions, 0, fn r, acc -> acc + r.closes end) %>)</h5>
+    <table class="table table-sm">
+      <tbody>
+        <%= for r <- @new_resolutions do %>
+          <tr>
+            <td><%= r.name %></td>
+            <td><%= r.closes %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
