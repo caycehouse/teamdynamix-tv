@@ -41,7 +41,9 @@ config :teamdynamix_tv, TeamdynamixTv.Scheduler,
     # Every 5 minutes
     {"*/5 * * * *", fn -> Mix.Tasks.Resolutions.Get.run([]) end},
     # Every 5 minutes
-    {"*/5 * * * *", fn -> Mix.Tasks.Printers.Get.run([]) end}
+    {"*/5 * * * *", fn -> Mix.Tasks.Printers.Get.run([]) end},
+    # Every 5 minutes
+    {"*/5 * * * *", fn -> Mix.Tasks.Devices.Get.run([]) end}
   ]
 
 # Import environment specific config. This must remain at the bottom

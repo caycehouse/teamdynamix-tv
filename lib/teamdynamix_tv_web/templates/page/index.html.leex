@@ -12,6 +12,17 @@
           <% end %>
         </tbody>
       </table>
+      <h5 class="text-warning">Devices in Error (<%= Enum.count(@devices) %>)</h5>
+      <table class="table table-sm">
+        <tbody>
+          <%= for d <- @devices do %>
+            <tr class="text-danger">
+              <td><%= d.name %></td>
+              <td><%= d.status %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
     </div>
   <% end %>
   <div class="col">

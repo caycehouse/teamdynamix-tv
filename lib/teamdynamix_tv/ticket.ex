@@ -2,7 +2,6 @@ defmodule TeamdynamixTv.Ticket do
   use Ecto.Schema
   import Ecto.Changeset
 
-
   schema "tickets" do
     field :days_old, :integer
     field :resp_group, :string
