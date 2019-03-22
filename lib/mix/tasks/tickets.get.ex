@@ -44,7 +44,7 @@ defmodule Mix.Tasks.Tickets.Get do
         ticket_data[:StatusName] == "New" && ticket_data[:DaysOld] > 1 -> "text-danger"
         ticket_data[:StatusName] == "New" -> "text-warning"
         ticket_data[:StatusName] == "On Hold" -> "text-muted"
-        true -> ""
+        true -> "text-white"
       end
 
       # Upsert our ticket.
@@ -75,7 +75,7 @@ defmodule Mix.Tasks.Tickets.Get do
       ticket_data[:StatusName] == "New" && ticket_data[:DaysOld] > 1 -> "text-danger"
       ticket_data[:StatusName] == "New" -> "text-warning"
       ticket_data[:StatusName] == "On Hold" -> "text-muted"
-      true -> ""
+      true -> "text-white"
     end
 
     # Upsert our ticket.
