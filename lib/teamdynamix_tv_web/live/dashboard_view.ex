@@ -54,7 +54,7 @@ defmodule TeamdynamixTvWeb.DashboardView do
     # Query for our printers.
     query = from p in "printers",
               where: p.status != "OK",
-              select: [:name, :status],
+              select: [:name, :status, :status_color],
               order_by: [desc: p.name]
 
     TeamdynamixTv.Repo.all(query) 

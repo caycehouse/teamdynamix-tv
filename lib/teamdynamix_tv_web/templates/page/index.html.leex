@@ -5,7 +5,7 @@
       <table class="table table-sm">
         <tbody>
           <%= for p <- @printers do %>
-            <tr>
+            <tr class="<%= p.status_color %>">
               <td><%= p.name %></td>
               <td><%= p.status %></td>
             </tr>

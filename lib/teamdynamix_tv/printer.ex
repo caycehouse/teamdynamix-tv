@@ -6,6 +6,7 @@ defmodule TeamdynamixTv.Printer do
     field :name, :string
     field :print_server, :string
     field :status, :string
+    field :status_color, :string
 
     timestamps()
   end
@@ -13,8 +14,8 @@ defmodule TeamdynamixTv.Printer do
   @doc false
   def changeset(printer, attrs) do
     printer
-    |> cast(attrs, [:name, :status, :print_server])
-    |> validate_required([:name, :status, :print_server])
+    |> cast(attrs, [:name, :status, :print_server, :status_color])
+    |> validate_required([:name, :status, :print_server, :status_color])
     |> unique_constraint(:name)
   end
 end

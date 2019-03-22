@@ -22,12 +22,19 @@ defmodule Mix.Tasks.Printers.Get do
       # Start up our app before we access the database.
       Mix.Task.run("app.start")
 
+      # Get our print server.
       print_server = String.split(printer_data[:name], "\\")
       |> Enum.at(0)
 
+      # Calculate our status color.
+      status_color = cond do
+        print_server == "papercut" -> "text-danger"
+        true -> "text-white"
+      end
+
       # Upsert our printer.
       %TeamdynamixTv.Printer{name: printer_data[:name], print_server: print_server,
-        status: printer_data[:status]}
+        status: printer_data[:status], status_color: status_color}
       |> upsert_by(:name)
     end)
   end
