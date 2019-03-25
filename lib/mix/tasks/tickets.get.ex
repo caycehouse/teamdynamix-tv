@@ -15,6 +15,10 @@ defmodule Mix.Tasks.Tickets.Get do
     # Finally update every ticket one by one.
     tickets = TeamdynamixTv.Repo.all(Ticket)
     for t <- tickets do
+      # Sleep to prevent going over the rate limit.
+      Process.sleep(1100)
+
+      # Update our ticket.
       update_ticket(auth_token, t)
     end
   end
@@ -83,9 +87,6 @@ defmodule Mix.Tasks.Tickets.Get do
       resp_group: ticket_data[:ResponsibleGroupName], status: ticket_data[:StatusName],
       ticket_id: t.ticket_id, title: ticket_data[:Title], status_color: status_color}
     |> upsert_by(:ticket_id)
-
-    # Sleep to prevent going over the rate limit.
-    Process.sleep(1000)
   end
 
   def get_auth_token() do
