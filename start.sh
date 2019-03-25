@@ -14,4 +14,4 @@ MIX_ENV=prod mix phx.digest
 MIX_ENV=prod mix ecto.migrate
 
 # Finally run the server
-MIX_ENV=prod mix phx.server
+PORT=80 MIX_ENV=prod mix phx.server
