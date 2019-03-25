@@ -24,8 +24,14 @@ defmodule Mix.Tasks.PapercutSummary.Get do
     # Start up our app before we access the database.
     Mix.Task.run("app.start")
 
+    # Calculate our status color.
+    status_color = cond do
+      status != "OK" -> "text-danger"
+      true -> "text-success"
+    end
+
     # Upsert our papercut summary.
-    %TeamdynamixTv.PapercutSummary{name: name, status: status}
+    %TeamdynamixTv.PapercutSummary{name: name, status: status, status_color: status_color}
     |> upsert_by(:name)
   end
 end

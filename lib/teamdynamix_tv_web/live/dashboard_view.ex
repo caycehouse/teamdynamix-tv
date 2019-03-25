@@ -73,10 +73,23 @@ defmodule TeamdynamixTvWeb.DashboardView do
     TeamdynamixTv.Repo.all(query) 
   end
 
+  def get_summary() do
+    # Imports only from/2 of Ecto.Query.
+    import Ecto.Query, only: [from: 2]
+
+    # Query for our summary.
+    query = from s in "papercutsummary",
+              select: [:name, :status, :status_color],
+              order_by: [desc: s.name]
+
+    TeamdynamixTv.Repo.all(query) 
+  end
+
   def mount(%{resp_group: resp_group}, socket) do
     if connected?(socket), do: Process.send_after(self(), :tick, 1000)
     {:ok, assign(socket, tickets: get_tickets(resp_group), printers: get_printers,
       devices: get_devices, resp_group: resp_group,
+      summary: get_summary,
       old_resolutions: get_old_resolutions(resp_group),
       new_resolutions: get_new_resolutions(resp_group))}
   end
@@ -86,7 +99,7 @@ defmodule TeamdynamixTvWeb.DashboardView do
 
     Process.send_after(self(), :tick, 1000)
     {:noreply, assign(socket, tickets: get_tickets(resp_group), printers: get_printers,
-      devices: get_devices,
+      devices: get_devices, summary: get_summary,
       old_resolutions: get_old_resolutions(resp_group),
       new_resolutions: get_new_resolutions(resp_group))}
   end

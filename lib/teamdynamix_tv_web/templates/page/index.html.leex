@@ -1,6 +1,17 @@
 <div class="row">
   <%= if @resp_group == "+Student Computer Labs" do %>
     <div class="col-lg-3">
+      <h5 class="text-warning">Papercut Summary</h5>
+      <table class="table table-sm">
+        <tbody>
+          <%= for s <- @summary do %>
+            <tr>
+              <td><%= s.name %></td>
+              <td class="<%= s.status_color %>"><%= s.status %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
       <h5 class="text-warning">Printers in Error (<%= Enum.count(@printers) %>)</h5>
       <table class="table table-sm">
         <tbody>
