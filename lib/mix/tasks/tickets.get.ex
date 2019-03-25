@@ -75,7 +75,7 @@ defmodule Mix.Tasks.Tickets.Get do
     Mix.Task.run("app.start")
 
     # Get our ticket url.
-    ticket_url = Application.get_env(:teamdynamix_tv, :teamdynamix_settings)[:ticket_url] <> "?TicketID=" <> Integer.to_string(ticket_data[:TicketID])
+    ticket_url = Application.get_env(:teamdynamix_tv, :teamdynamix_settings)[:ticket_url] <> "?TicketID=" <> Integer.to_string(t.ticket_id)
 
 
     # Calculate our status color.
