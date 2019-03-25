@@ -87,9 +87,9 @@ defmodule TeamdynamixTvWeb.DashboardView do
 
   def mount(%{resp_group: resp_group}, socket) do
     if connected?(socket), do: Process.send_after(self(), :tick, 1000)
-    {:ok, assign(socket, tickets: get_tickets(resp_group), printers: get_printers,
-      devices: get_devices, resp_group: resp_group,
-      summary: get_summary,
+    {:ok, assign(socket, tickets: get_tickets(resp_group), printers: get_printers(),
+      devices: get_devices(), resp_group: resp_group,
+      summary: get_summary(),
       old_resolutions: get_old_resolutions(resp_group),
       new_resolutions: get_new_resolutions(resp_group))}
   end
@@ -98,8 +98,8 @@ defmodule TeamdynamixTvWeb.DashboardView do
     resp_group = socket.assigns.resp_group
 
     Process.send_after(self(), :tick, 1000)
-    {:noreply, assign(socket, tickets: get_tickets(resp_group), printers: get_printers,
-      devices: get_devices, summary: get_summary,
+    {:noreply, assign(socket, tickets: get_tickets(resp_group), printers: get_printers(),
+      devices: get_devices(), summary: get_summary(),
       old_resolutions: get_old_resolutions(resp_group),
       new_resolutions: get_new_resolutions(resp_group))}
   end
