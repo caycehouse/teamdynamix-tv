@@ -74,6 +74,10 @@ defmodule Mix.Tasks.Tickets.Get do
     # Start up our app before we access the database.
     Mix.Task.run("app.start")
 
+    # Get our ticket url.
+    ticket_url = Application.get_env(:teamdynamix_tv, :teamdynamix_settings)[:ticket_url] <> "?TicketID=" <> Integer.to_string(ticket_data[:TicketID])
+
+
     # Calculate our status color.
     status_color = cond do
       ticket_data[:StatusName] == "New" && ticket_data[:DaysOld] > 1 -> "text-danger"
@@ -85,7 +89,7 @@ defmodule Mix.Tasks.Tickets.Get do
     # Upsert our ticket.
     %TeamdynamixTv.Ticket{days_old: ticket_data[:DaysOld],
       resp_group: ticket_data[:ResponsibleGroupName], status: ticket_data[:StatusName],
-      ticket_id: t.ticket_id, title: ticket_data[:Title], status_color: status_color}
+      ticket_id: t.ticket_id, title: ticket_data[:Title], url: ticket_url, status_color: status_color}
     |> upsert_by(:ticket_id)
   end
 
