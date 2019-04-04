@@ -19,7 +19,7 @@ defmodule Mix.Tasks.Tickets.Get do
     query = from t in "tickets",
               where: t.status != "Closed",
               where: t.status != "Cancelled",
-              select: [:ticket_id, :resp_group]
+              select: [:id, :ticket_id, :resp_group]
 
     tickets = TeamdynamixTv.Repo.all(query)
 
