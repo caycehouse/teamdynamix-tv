@@ -1,6 +1,7 @@
 defmodule Mix.Tasks.Tickets.Get do
   use Mix.Task
   use EctoConditionals, repo: TeamdynamixTv.Repo
+  alias TeamdynamixTv.Ticket
 
   @shortdoc "Gets all new tickets from TeamDynamix"
 
