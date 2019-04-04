@@ -1,7 +1,6 @@
 defmodule Mix.Tasks.Tickets.Get do
   use Mix.Task
   use EctoConditionals, repo: TeamdynamixTv.Repo
-  alias TeamdynamixTv.Ticket
 
   @shortdoc "Gets all new tickets from TeamDynamix"
 
@@ -12,11 +11,21 @@ defmodule Mix.Tasks.Tickets.Get do
     # Then get new tickets with our auth token.
     get_new_tickets(auth_token)
 
-    # Finally update every ticket one by one.
-    tickets = TeamdynamixTv.Repo.all(Ticket)
+    # Finally update every unresolved ticket one by one.
+    # Imports only from/2 of Ecto.Query.
+    import Ecto.Query, only: [from: 2]
+
+    # Query for our tickets.
+    query = from t in "tickets",
+              where: t.status != "Closed",
+              where: t.status != "Cancelled",
+              select: [:ticket_id]
+
+    tickets = TeamdynamixTv.Repo.all(query) 
+
     for t <- tickets do
       # Sleep to prevent going over the rate limit.
-      Process.sleep(1100)
+      Process.sleep(1001)
 
       # Update our ticket.
       update_ticket(auth_token, t)
