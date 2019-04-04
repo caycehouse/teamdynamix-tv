@@ -19,7 +19,7 @@ defmodule Mix.Tasks.Tickets.Get do
     query = from t in "tickets",
               where: t.status != "Closed",
               where: t.status != "Cancelled",
-              select: [:ticket_id]
+              select: [:ticket_id, :resp_group]
 
     tickets = TeamdynamixTv.Repo.all(query)
 
@@ -96,7 +96,7 @@ defmodule Mix.Tasks.Tickets.Get do
     end
 
     # If the ticket no longer belongs to the group delete it.
-    if ticket_data[:ResponsibleGroupName] != t.responsible_group do
+    if ticket_data[:ResponsibleGroupName] != t.resp_group do
       TeamdynamixTv.Repo.delete!(t)
     else
       # Upsert our ticket.
