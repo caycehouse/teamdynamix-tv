@@ -15,7 +15,7 @@ defmodule TeamdynamixTvWeb.DashboardView do
               where: t.status != "Closed",
               where: t.status != "Cancelled",
               select: [:ticket_id, :title, :status, :days_old, :url, :status_color],
-              order_by: t.days_old
+              order_by: [desc: t.ticket_id]
 
     TeamdynamixTv.Repo.all(query)   
   end
