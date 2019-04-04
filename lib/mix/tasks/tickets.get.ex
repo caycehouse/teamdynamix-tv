@@ -97,7 +97,8 @@ defmodule Mix.Tasks.Tickets.Get do
 
     # If the ticket no longer belongs to the group delete it.
     if ticket_data[:ResponsibleGroupName] != t.resp_group do
-      TeamdynamixTv.Repo.delete!(t)
+      ticket = TeamdynamixTv.Repo.get!(Ticket, t.id)
+      TeamdynamixTv.Repo.delete!(ticket)
     else
       # Upsert our ticket.
       %TeamdynamixTv.Ticket{days_old: ticket_data[:DaysOld],
