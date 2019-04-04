@@ -28,6 +28,7 @@ defmodule TeamdynamixTvWeb.DashboardView do
     query = from r in "resolutions",
               where: r.resp_group == type(^resp_group, :string),
               where: r.resolved_date < ago(1, "week"),
+              where: r.resolved_date > ago(2, "week"),
               select: [:name, :closes],
               order_by: [desc: r.closes]
 
