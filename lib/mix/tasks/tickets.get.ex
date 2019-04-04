@@ -21,7 +21,7 @@ defmodule Mix.Tasks.Tickets.Get do
               where: t.status != "Cancelled",
               select: [:ticket_id]
 
-    tickets = TeamdynamixTv.Repo.all(query) 
+    tickets = TeamdynamixTv.Repo.all(query)
 
     for t <- tickets do
       # Sleep to prevent going over the rate limit.
@@ -95,11 +95,16 @@ defmodule Mix.Tasks.Tickets.Get do
       true -> "text-white"
     end
 
-    # Upsert our ticket.
-    %TeamdynamixTv.Ticket{days_old: ticket_data[:DaysOld],
-      resp_group: ticket_data[:ResponsibleGroupName], status: ticket_data[:StatusName],
-      ticket_id: t.ticket_id, title: ticket_data[:Title], url: ticket_url, status_color: status_color}
-    |> upsert_by(:ticket_id)
+    # If the ticket no longer belongs to the group delete it.
+    if ticket_data[:ResponsibleGroupName] != t.responsible_group do
+      TeamdynamixTv.Repo.delete!(t)
+    else
+      # Upsert our ticket.
+      %TeamdynamixTv.Ticket{days_old: ticket_data[:DaysOld],
+        resp_group: ticket_data[:ResponsibleGroupName], status: ticket_data[:StatusName],
+        ticket_id: t.ticket_id, title: ticket_data[:Title], url: ticket_url, status_color: status_color}
+      |> upsert_by(:ticket_id)
+    end
   end
 
   def get_auth_token() do
