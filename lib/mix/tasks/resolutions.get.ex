@@ -31,7 +31,7 @@ defmodule Mix.Tasks.Resolutions.Get do
       Mix.Task.run("app.start")
 
       # Parse our closed date into the correct format.
-      parsed_date = Timex.parse!(resolution_data[:'ClosedDate-WeekYear'], "%B %d, %Y", :strftime)
+      parsed_date = Timex.parse!(resolution_data[:'ClosedDate-WeekYear'], "%B %-d, %Y", :strftime)
 
       # Upsert our resolution.
       case TeamdynamixTv.Repo.get_by(Resolution, [name: resolution_data[:ClosedByFullName],
