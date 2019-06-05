@@ -37,7 +37,7 @@
     </div>
   <% end %>
   <div class="col">
-    <h5 class="text-warning">Unresolved Tickets (<%= Enum.count(@tickets) %>)</h5>
+    <h5 class="text-warning">Unresolved Tickets (<%= @ticket_count %>)</h5>
     <table class="table table-sm">
       <tbody>
         <%= for t <- @tickets do %>

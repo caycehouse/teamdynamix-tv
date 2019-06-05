@@ -15,9 +15,24 @@ defmodule TeamdynamixTvWeb.DashboardView do
               where: t.status != "Closed",
               where: t.status != "Cancelled",
               select: [:ticket_id, :title, :status, :days_old, :url, :status_color],
-              order_by: [desc: t.ticket_id]
+              order_by: [desc: t.ticket_id],
+              limit: 20
 
-    TeamdynamixTv.Repo.all(query)   
+    TeamdynamixTv.Repo.all(query)
+  end
+
+  def get_ticket_count(resp_group) do
+    # Imports only from/2 of Ecto.Query.
+    import Ecto.Query, only: [from: 2]
+
+    # Query for our tickets.
+    query = from t in "tickets",
+              where: t.resp_group == type(^resp_group, :string),
+              where: t.status != "Closed",
+              where: t.status != "Cancelled",
+              select: count(t.id)
+
+    TeamdynamixTv.Repo.one(query)     
   end
 
   def get_old_resolutions(resp_group) do
@@ -89,9 +104,9 @@ defmodule TeamdynamixTvWeb.DashboardView do
 
   def mount(%{resp_group: resp_group}, socket) do
     if connected?(socket), do: Process.send_after(self(), :tick, 1000)
-    {:ok, assign(socket, tickets: get_tickets(resp_group), printers: get_printers(),
-      devices: get_devices(), resp_group: resp_group,
-      summary: get_summary(),
+    {:ok, assign(socket, tickets: get_tickets(resp_group),
+      ticket_count: get_ticket_count(resp_group), printers: get_printers(),
+      devices: get_devices(), resp_group: resp_group, summary: get_summary(),
       old_resolutions: get_old_resolutions(resp_group),
       new_resolutions: get_new_resolutions(resp_group))}
   end
@@ -100,7 +115,8 @@ defmodule TeamdynamixTvWeb.DashboardView do
     resp_group = socket.assigns.resp_group
 
     Process.send_after(self(), :tick, 1000)
-    {:noreply, assign(socket, tickets: get_tickets(resp_group), printers: get_printers(),
+    {:noreply, assign(socket, tickets: get_tickets(resp_group),
+      ticket_count: get_ticket_count(resp_group), printers: get_printers(),
       devices: get_devices(), summary: get_summary(),
       old_resolutions: get_old_resolutions(resp_group),
       new_resolutions: get_new_resolutions(resp_group))}
