@@ -33,10 +33,10 @@ defmodule TeamdynamixTv.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:phoenix, "~> 1.4.2"},
+      {:phoenix, "~> 1.4.9"},
       {:phoenix_pubsub, "~> 1.1"},
       {:phoenix_ecto, "~> 4.0"},
-      {:ecto_sql, "~> 3.0"},
+      {:ecto_sql, "~> 3.1"},
       {:postgrex, ">= 0.0.0"},
       {:phoenix_html, "~> 2.11"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
@@ -46,7 +46,7 @@ defmodule TeamdynamixTv.MixProject do
       {:httpoison, "~> 1.5"},
       {:ecto_conditionals, "~> 0.1.0"},
       {:quantum, "~> 2.3"},
-      {:timex, "~> 3.0"},
+      {:timex, "~> 3.6"},
       {:phoenix_live_view, github: "phoenixframework/phoenix_live_view"}
     ]
   end
