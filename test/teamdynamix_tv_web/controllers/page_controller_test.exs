@@ -2,7 +2,7 @@ defmodule TeamdynamixTvWeb.PageControllerTest do
   use TeamdynamixTvWeb.ConnCase
 
   test "GET /", %{conn: conn} do
-    conn = get(conn, "/")
-    assert html_response(conn, 200) =~ "Welcome to Phoenix!"
+    conn = get(conn, "/+Student%20Computer%20Labs")
+    assert html_response(conn, 200) =~ "Teamdynamix TV"
   end
 end
