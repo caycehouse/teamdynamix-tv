@@ -1,11 +1,11 @@
 #!/bin/bash
-
+  
 # Initial setup
 MIX_ENV=prod mix deps.get --only prod
 MIX_ENV=prod mix compile
 
 # Compile assets
-cd assets && webpack --mode production && cd ..
+cd assets && npm i && webpack --mode production && cd ..
 
 # Create our digest
 MIX_ENV=prod mix phx.digest
