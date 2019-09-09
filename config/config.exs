@@ -39,11 +39,11 @@ config :teamdynamix_tv, TeamdynamixTv.Scheduler,
     # Every minute
     {"* * * * *", {TeamdynamixTv.Ticket, :get, []}},
     # Every 5 minutes
-    {"*/5 * * * *", {TeamdynamixTv.Resolutions, :get, []}},
+    {"*/5 * * * *", {TeamdynamixTv.Resolution, :get, []}},
     # Every 5 minutes
-    {"*/5 * * * *", {TeamdynamixTv.Printers, :get, []}},
+    {"*/5 * * * *", {TeamdynamixTv.Printer, :get, []}},
     # Every 5 minutes
-    {"*/5 * * * *", {TeamdynamixTv.Devices, :get, []}},
+    {"*/5 * * * *", {TeamdynamixTv.Device, :get, []}},
     # Every 5 minutes
     {"*/5 * * * *", {TeamdynamixTv.PapercutSummary, :get, []}}
   ]
