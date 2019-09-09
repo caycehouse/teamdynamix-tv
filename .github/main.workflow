@@ -46,7 +46,6 @@ action "mix test" {
     "mix deps.compile (test)",
     "yarn install",
   ]
-  secrets = ["XXX", "YYY"]
 }
 
 action "branch master" {
@@ -96,7 +95,7 @@ action "github release" {
   uses = "moomerman/actions/bin/ghr@master"
   env = {
     RELEASE_PATH = "_build/prod/rel"
-    APPLICATION = "<< your app >>"
+    APPLICATION = "TeamdynamixTV"
   }
   needs = ["mix release", "mix test"]
   secrets = ["ACTIONS_TOKEN"]
