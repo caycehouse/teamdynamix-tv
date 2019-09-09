@@ -67,6 +67,8 @@ action "mix deps.compile (prod)" {
   args = "deps.compile"
   env = {
     MIX_ENV = "prod"
+    SECRET_KEY_BASE = "ZZXaCt5zThveoP1WYYZZl38Nycr0yjjLrm7dDDbSRxbaDV2rWy1rtwi94xEL6NRN"
+    DATABASE_URL = "ecto://postgres:postgres@localhost/teamdynamix_tv"
   }
   needs = ["branch master"]
 }
@@ -98,5 +100,7 @@ action "github release" {
     APPLICATION = "TeamdynamixTV"
   }
   needs = ["mix release", "mix test"]
-  secrets = ["ACTIONS_TOKEN"]
+  secrets = [
+    "GITHUB_TOKEN",
+  ]
 }
