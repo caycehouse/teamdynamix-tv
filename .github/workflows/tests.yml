@@ -1,15 +1,13 @@
 name: GitHub Actions CI
-
-on: push, pull_request
-
+on:
+  push:
+    branches: master
+  pull_request: []
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     container:
       image: elixir:1.9.1-slim
-
     steps:
     - uses: actions/checkout@v1
     - name: Install Dependencies
