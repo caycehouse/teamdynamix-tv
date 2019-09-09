@@ -37,15 +37,15 @@ config :teamdynamix_tv, TeamdynamixTv.Scheduler,
   overlap: false,
   jobs: [
     # Every minute
-    {"* * * * *", fn -> Mix.Tasks.Tickets.Get.run([]) end},
+    {"* * * * *", {TeamdynamixTv.Ticket, :get, []}},
     # Every 5 minutes
-    {"*/5 * * * *", fn -> Mix.Tasks.Resolutions.Get.run([]) end},
+    {"*/5 * * * *", {TeamdynamixTv.Resolutions, :get, []}},
     # Every 5 minutes
-    {"*/5 * * * *", fn -> Mix.Tasks.Printers.Get.run([]) end},
+    {"*/5 * * * *", {TeamdynamixTv.Printers, :get, []}},
     # Every 5 minutes
-    {"*/5 * * * *", fn -> Mix.Tasks.Devices.Get.run([]) end},
+    {"*/5 * * * *", {TeamdynamixTv.Devices, :get, []}},
     # Every 5 minutes
-    {"*/5 * * * *", fn -> Mix.Tasks.PapercutSummary.Get.run([]) end}
+    {"*/5 * * * *", {TeamdynamixTv.PapercutSummary, :get, []}}
   ]
 
 # Import environment specific config. This must remain at the bottom
