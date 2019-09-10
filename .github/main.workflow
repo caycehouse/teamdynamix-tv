@@ -66,11 +66,10 @@ action "mix deps.compile (prod)" {
   runs = "mix"
   args = "deps.compile"
   env = {
-    MIX_ENV = "prod"
-    SECRET_KEY_BASE = "ZZXaCt5zThveoP1WYYZZl38Nycr0yjjLrm7dDDbSRxbaDV2rWy1rtwi94xEL6NRN"
     DATABASE_URL = "ecto://postgres:postgres@localhost/teamdynamix_tv"
   }
   needs = ["branch master"]
+  secrets = ["SECRET_KEY_BASE", "DATABASE_URL"]
 }
 
 action "mix phx.digest" {
@@ -81,6 +80,7 @@ action "mix phx.digest" {
     MIX_ENV = "prod"
   }
   needs = ["yarn deploy", "mix deps.compile (prod)"]
+  secrets = ["SECRET_KEY_BASE", "DATABASE_URL"]
 }
 
 action "mix release" {
@@ -91,6 +91,7 @@ action "mix release" {
     MIX_ENV = "prod"
   }
   needs = ["mix phx.digest"]
+  secrets = ["SECRET_KEY_BASE", "DATABASE_URL"]
 }
 
 action "github release" {
