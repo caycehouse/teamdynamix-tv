@@ -7,13 +7,13 @@ workflow "Test and publish release" {
 }
 
 action "mix deps.get" {
-  uses = "moomerman/actions/elixir/1.9.0@master"
+  uses = "caycehouse/actions/elixir/1.9.0@master"
   runs = "mix"
   args = "deps.get"
 }
 
 action "mix format.check" {
-  uses = "moomerman/actions/elixir/1.9.0@master"
+  uses = "caycehouse/actions/elixir/1.9.0@master"
   runs = "mix"
   args = "format --check-formatted"
   needs = ["mix deps.get"]
@@ -27,7 +27,7 @@ action "yarn install" {
 }
 
 action "mix deps.compile (test)" {
-  uses = "moomerman/actions/elixir/1.8.2-postgres@master"
+  uses = "caycehouse/actions/elixir/1.8.2-postgres@master"
   runs = "mix"
   args = "deps.compile"
   env = {
@@ -37,7 +37,7 @@ action "mix deps.compile (test)" {
 }
 
 action "mix test" {
-  uses = "moomerman/actions/elixir/1.8.2-postgres@master"
+  uses = "caycehouse/actions/elixir/1.8.2-postgres@master"
   args = "test"
   env = {
     MIX_ENV = "test"
@@ -62,7 +62,7 @@ action "yarn deploy" {
 }
 
 action "mix deps.compile (prod)" {
-  uses = "moomerman/actions/elixir/1.9.0@master"
+  uses = "caycehouse/actions/elixir/1.9.0@master"
   runs = "mix"
   args = "deps.compile"
   needs = ["branch master"]
@@ -70,7 +70,7 @@ action "mix deps.compile (prod)" {
 }
 
 action "mix phx.digest" {
-  uses = "moomerman/actions/elixir/1.9.0@master"
+  uses = "caycehouse/actions/elixir/1.9.0@master"
   runs = "mix"
   args = "phx.digest"
   env = {
@@ -81,7 +81,7 @@ action "mix phx.digest" {
 }
 
 action "mix release" {
-  uses = "moomerman/actions/elixir/1.9.0@master"
+  uses = "caycehouse/actions/elixir/1.9.0@master"
   runs = "mix"
   args = "release"
   env = {
@@ -92,7 +92,7 @@ action "mix release" {
 }
 
 action "github release" {
-  uses = "moomerman/actions/bin/ghr@master"
+  uses = "caycehouse/actions/bin/ghr@master"
   env = {
     RELEASE_PATH = "_build/prod/rel"
     APPLICATION = "teamdynamix_tv"
