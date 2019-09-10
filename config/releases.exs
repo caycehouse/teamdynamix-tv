@@ -36,3 +36,23 @@ config :teamdynamix_tv, TeamdynamixTvWeb.Endpoint, server: true
 #
 # Then you can assemble a release by calling `mix release`.
 # See `mix help release` for more information.
+
+# Configure teamdynamix settings
+config :teamdynamix_tv, :teamdynamix_settings,
+    auth_url: "",
+    new_tickets_url: "",
+    ticket_url: "",
+    api_ticket_url: "",
+    resolutions_url: "",
+    username: "",
+    password: ""
+
+# Configure papercut settings
+config :teamdynamix_tv, :papercut_settings,
+    api_token: "",
+    printers_url: "",
+    devices_url: "",
+    system_url: "",
+    print_provider_url: "",
+    webprint_url: "",
+    mobilityprint_url: ""
