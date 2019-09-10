@@ -65,9 +65,6 @@ action "mix deps.compile (prod)" {
   uses = "moomerman/actions/elixir/1.9.0@master"
   runs = "mix"
   args = "deps.compile"
-  env = {
-    DATABASE_URL = "ecto://postgres:postgres@localhost/teamdynamix_tv"
-  }
   needs = ["branch master"]
   secrets = ["SECRET_KEY_BASE", "DATABASE_URL"]
 }
