@@ -95,7 +95,7 @@ action "github release" {
   uses = "moomerman/actions/bin/ghr@master"
   env = {
     RELEASE_PATH = "_build/prod/rel"
-    APPLICATION = "TeamdynamixTV"
+    APPLICATION = "teamdynamix_tv"
   }
   needs = ["mix release", "mix test"]
   secrets = [
