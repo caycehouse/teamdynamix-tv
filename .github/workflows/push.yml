@@ -1,0 +1,72 @@
+on: push
+name: Test and publish release
+jobs:
+  branchMaster:
+    name: branch master
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: branch master
+      uses: actions/bin/filter@master
+      with:
+        args: branch master
+    - name: mix deps.compile (prod)
+      uses: caycehouse/actions/elixir/1.9.0@master
+      env:
+        DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        SECRET_KEY_BASE: ${{ secrets.SECRET_KEY_BASE }}
+      with:
+        entrypoint: mix
+        args: deps.compile
+    - name: yarn deploy
+      uses: docker://node:latest
+      with:
+        entrypoint: yarn
+        args: --cwd assets deploy
+    - name: mix phx.digest
+      uses: caycehouse/actions/elixir/1.9.0@master
+      env:
+        DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        MIX_ENV: prod
+        SECRET_KEY_BASE: ${{ secrets.SECRET_KEY_BASE }}
+      with:
+        entrypoint: mix
+        args: phx.digest
+    - name: mix deps.get
+      uses: caycehouse/actions/elixir/1.9.0@master
+      with:
+        entrypoint: mix
+        args: deps.get
+    - name: mix release
+      uses: caycehouse/actions/elixir/1.9.0@master
+      env:
+        DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        MIX_ENV: prod
+        SECRET_KEY_BASE: ${{ secrets.SECRET_KEY_BASE }}
+      with:
+        entrypoint: mix
+        args: release
+    - name: yarn install
+      uses: docker://node:latest
+      with:
+        entrypoint: yarn
+        args: --cwd assets install
+    - name: mix deps.compile (test)
+      uses: caycehouse/actions/elixir/1.8.2-postgres@master
+      env:
+        MIX_ENV: test
+      with:
+        entrypoint: mix
+        args: deps.compile
+    - name: github release
+      uses: caycehouse/actions/bin/ghr@master
+      env:
+        APPLICATION: teamdynamix_tv
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        RELEASE_PATH: _build/prod/rel
+    - name: mix test
+      uses: caycehouse/actions/elixir/1.8.2-postgres@master
+      env:
+        MIX_ENV: test
+      with:
+        args: test
