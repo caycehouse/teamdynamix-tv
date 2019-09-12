@@ -18,8 +18,13 @@ jobs:
       with:
         entrypoint: mix
         args: deps.compile
+    - name: yarn install
+      uses: docker://node:lts-alpine
+      with:
+        entrypoint: yarn
+        args: --cwd assets install
     - name: yarn deploy
-      uses: docker://node:latest
+      uses: docker://node:lts-alpine
       with:
         entrypoint: yarn
         args: --cwd assets deploy
@@ -46,11 +51,6 @@ jobs:
       with:
         entrypoint: mix
         args: release
-    - name: yarn install
-      uses: docker://node:latest
-      with:
-        entrypoint: yarn
-        args: --cwd assets install
     - name: mix deps.compile (test)
       uses: caycehouse/actions/elixir/1.8.2-postgres@master
       env:
