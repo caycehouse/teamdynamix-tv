@@ -10,6 +10,5 @@ defmodule TeamdynamixTv.Repo.Migrations.CreateResolutions do
 
       timestamps()
     end
-
   end
 end

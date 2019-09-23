@@ -19,7 +19,15 @@ defmodule TeamdynamixTv.Ticket do
   def changeset(ticket, attrs) do
     ticket
     |> cast(attrs, [:ticket_id, :title, :status, :days_old, :resp_group, :url, :status_color])
-    |> validate_required([:ticket_id, :title, :status, :days_old, :resp_group, :url, :status_color])
+    |> validate_required([
+      :ticket_id,
+      :title,
+      :status,
+      :days_old,
+      :resp_group,
+      :url,
+      :status_color
+    ])
     |> unique_constraint(:ticket_id)
   end
 
@@ -36,10 +44,11 @@ defmodule TeamdynamixTv.Ticket do
     import Ecto.Query, only: [from: 2]
 
     # Query for our tickets.
-    query = from t in "tickets",
-              where: t.status != "Closed",
-              where: t.status != "Cancelled",
-              select: [:id, :ticket_id, :resp_group]
+    query =
+      from t in "tickets",
+        where: t.status != "Closed",
+        where: t.status != "Cancelled",
+        select: [:id, :ticket_id, :resp_group]
 
     tickets = TeamdynamixTv.Repo.all(query)
 
@@ -54,60 +63,76 @@ defmodule TeamdynamixTv.Ticket do
 
   def get_new_tickets(auth_token) do
     # Start up HTTPoison so we can make requests.
-    HTTPoison.start
+    HTTPoison.start()
 
     # Make our request for new tickets.
     url = Application.get_env(:teamdynamix_tv, :teamdynamix_settings)[:new_tickets_url]
-    headers = ["Authorization": "Bearer #{auth_token}"]
+    headers = [Authorization: "Bearer #{auth_token}"]
+
     HTTPoison.get!(url, headers, params: %{withData: true}).body
-    |> Jason.decode!
+    |> Jason.decode!()
     |> Map.get("DataRows")
     |> Enum.each(fn ticket ->
       # Map our ticket string values into atoms.
-      ticket_data = Enum.map(ticket, fn({k, v}) -> {String.to_atom(k), v} end)
+      ticket_data = Enum.map(ticket, fn {k, v} -> {String.to_atom(k), v} end)
 
       # Get our ticket url.
-      ticket_url = Application.get_env(:teamdynamix_tv, :teamdynamix_settings)[:ticket_url] <> "?TicketID=" <> Integer.to_string(ticket_data[:TicketID])
+      ticket_url =
+        Application.get_env(:teamdynamix_tv, :teamdynamix_settings)[:ticket_url] <>
+          "?TicketID=" <> Integer.to_string(ticket_data[:TicketID])
 
       # Calculate our status color.
-      status_color = cond do
-        ticket_data[:StatusName] == "New" && ticket_data[:DaysOld] > 1 -> "text-danger"
-        ticket_data[:StatusName] == "New" -> "text-warning"
-        ticket_data[:StatusName] == "On Hold" -> "text-muted"
-        true -> "text-white"
-      end
+      status_color =
+        cond do
+          ticket_data[:StatusName] == "New" && ticket_data[:DaysOld] > 1 -> "text-danger"
+          ticket_data[:StatusName] == "New" -> "text-warning"
+          ticket_data[:StatusName] == "On Hold" -> "text-muted"
+          true -> "text-white"
+        end
 
       # Upsert our ticket.
-      %TeamdynamixTv.Ticket{days_old: ticket_data[:DaysOld],
-        resp_group: ticket_data[:ResponsibleGroupName], status: ticket_data[:StatusName],
-        ticket_id: ticket_data[:TicketID], title: ticket_data[:Title], url: ticket_url, status_color: status_color}
+      %TeamdynamixTv.Ticket{
+        days_old: ticket_data[:DaysOld],
+        resp_group: ticket_data[:ResponsibleGroupName],
+        status: ticket_data[:StatusName],
+        ticket_id: ticket_data[:TicketID],
+        title: ticket_data[:Title],
+        url: ticket_url,
+        status_color: status_color
+      }
       |> upsert_by(:ticket_id)
     end)
   end
 
   def update_ticket(auth_token, t) do
     # Start up HTTPoison so we can make requests.
-    HTTPoison.start
+    HTTPoison.start()
 
     # Make our request for the ticket.
-    url = Application.get_env(:teamdynamix_tv, :teamdynamix_settings)[:api_ticket_url] <> Integer.to_string(t.ticket_id)
-    headers = ["Authorization": "Bearer #{auth_token}"]
+    url =
+      Application.get_env(:teamdynamix_tv, :teamdynamix_settings)[:api_ticket_url] <>
+        Integer.to_string(t.ticket_id)
 
-    ticket_data = HTTPoison.get!(url, headers).body
-    |> Jason.decode!
-    |> Enum.map(fn({k, v}) -> {String.to_atom(k), v} end)
+    headers = [Authorization: "Bearer #{auth_token}"]
+
+    ticket_data =
+      HTTPoison.get!(url, headers).body
+      |> Jason.decode!()
+      |> Enum.map(fn {k, v} -> {String.to_atom(k), v} end)
 
     # Get our ticket url.
-    ticket_url = Application.get_env(:teamdynamix_tv, :teamdynamix_settings)[:ticket_url] <> "?TicketID=" <> Integer.to_string(t.ticket_id)
-
+    ticket_url =
+      Application.get_env(:teamdynamix_tv, :teamdynamix_settings)[:ticket_url] <>
+        "?TicketID=" <> Integer.to_string(t.ticket_id)
 
     # Calculate our status color.
-    status_color = cond do
-      ticket_data[:StatusName] == "New" && ticket_data[:DaysOld] > 1 -> "text-danger"
-      ticket_data[:StatusName] == "New" -> "text-warning"
-      ticket_data[:StatusName] == "On Hold" -> "text-muted"
-      true -> "text-white"
-    end
+    status_color =
+      cond do
+        ticket_data[:StatusName] == "New" && ticket_data[:DaysOld] > 1 -> "text-danger"
+        ticket_data[:StatusName] == "New" -> "text-warning"
+        ticket_data[:StatusName] == "On Hold" -> "text-muted"
+        true -> "text-white"
+      end
 
     # If the ticket no longer belongs to the group delete it.
     if ticket_data[:ResponsibleGroupName] != t.resp_group do
@@ -115,16 +140,22 @@ defmodule TeamdynamixTv.Ticket do
       TeamdynamixTv.Repo.delete!(ticket)
     else
       # Upsert our ticket.
-      %TeamdynamixTv.Ticket{days_old: ticket_data[:DaysOld],
-        resp_group: ticket_data[:ResponsibleGroupName], status: ticket_data[:StatusName],
-        ticket_id: t.ticket_id, title: ticket_data[:Title], url: ticket_url, status_color: status_color}
+      %TeamdynamixTv.Ticket{
+        days_old: ticket_data[:DaysOld],
+        resp_group: ticket_data[:ResponsibleGroupName],
+        status: ticket_data[:StatusName],
+        ticket_id: t.ticket_id,
+        title: ticket_data[:Title],
+        url: ticket_url,
+        status_color: status_color
+      }
       |> upsert_by(:ticket_id)
     end
   end
 
   def get_auth_token() do
     # Start up HTTPoison so we can make requests.
-    HTTPoison.start
+    HTTPoison.start()
 
     # Get our TeamDynamix auth secrets.
     url = Application.get_env(:teamdynamix_tv, :teamdynamix_settings)[:auth_url]

@@ -5,7 +5,7 @@ defmodule Mix.Tasks.Printers.Get do
   def run(_args) do
     # Start up our app before we access the database.
     Mix.Task.run("app.start")
-    
+
     TeamdynamixTv.Printer.get()
   end
 end

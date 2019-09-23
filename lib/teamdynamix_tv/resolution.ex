@@ -30,37 +30,44 @@ defmodule TeamdynamixTv.Resolution do
 
   def get_resolutions(auth_token) do
     # Start up HTTPoison so we can make requests.
-    HTTPoison.start
+    HTTPoison.start()
 
     # Make our request for resolutions.
     url = Application.get_env(:teamdynamix_tv, :teamdynamix_settings)[:resolutions_url]
-    headers = ["Authorization": "Bearer #{auth_token}"]
+    headers = [Authorization: "Bearer #{auth_token}"]
+
     HTTPoison.get!(url, headers, params: %{withData: true}).body
-    |> Jason.decode!
+    |> Jason.decode!()
     |> Map.get("DataRows")
     |> Enum.each(fn resolution ->
       # Map our resolution string values into atoms.
-      resolution_data = Enum.map(resolution, fn({k, v}) -> {String.to_atom(k), v} end)
+      resolution_data = Enum.map(resolution, fn {k, v} -> {String.to_atom(k), v} end)
 
       # Parse our closed date into the correct format.
-      parsed_date = Timex.parse!(resolution_data[:'ClosedDate-WeekYear'], "%B %-d, %Y", :strftime)
+      parsed_date = Timex.parse!(resolution_data[:"ClosedDate-WeekYear"], "%B %-d, %Y", :strftime)
 
       # Upsert our resolution.
-      case TeamdynamixTv.Repo.get_by(TeamdynamixTv.Resolution, [name: resolution_data[:ClosedByFullName],
-        resp_group: resolution_data[:ResponsibleGroupName], resolved_date: parsed_date]) do
-            nil -> %TeamdynamixTv.Resolution{}
-            resolution -> resolution
-        end
-      |> TeamdynamixTv.Resolution.changeset(%{name: resolution_data[:ClosedByFullName],
-        closes: resolution_data[:CountTicketID], resp_group: resolution_data[:ResponsibleGroupName],
-        resolved_date: parsed_date})
-      |> TeamdynamixTv.Repo.insert_or_update
+      case TeamdynamixTv.Repo.get_by(TeamdynamixTv.Resolution,
+             name: resolution_data[:ClosedByFullName],
+             resp_group: resolution_data[:ResponsibleGroupName],
+             resolved_date: parsed_date
+           ) do
+        nil -> %TeamdynamixTv.Resolution{}
+        resolution -> resolution
+      end
+      |> TeamdynamixTv.Resolution.changeset(%{
+        name: resolution_data[:ClosedByFullName],
+        closes: resolution_data[:CountTicketID],
+        resp_group: resolution_data[:ResponsibleGroupName],
+        resolved_date: parsed_date
+      })
+      |> TeamdynamixTv.Repo.insert_or_update()
     end)
   end
 
   def get_auth_token() do
     # Start up HTTPoison so we can make requests.
-    HTTPoison.start
+    HTTPoison.start()
 
     # Get our TeamDynamix auth secrets.
     url = Application.get_env(:teamdynamix_tv, :teamdynamix_settings)[:auth_url]

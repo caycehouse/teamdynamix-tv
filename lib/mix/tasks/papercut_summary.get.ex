@@ -5,7 +5,7 @@ defmodule Mix.Tasks.PapercutSummary.Get do
   def run(_args) do
     # Start up our app before we access the database.
     Mix.Task.run("app.start")
-    
+
     TeamdynamixTv.PapercutSummary.get()
   end
 end
