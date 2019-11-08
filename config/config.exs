@@ -38,14 +38,14 @@ config :teamdynamix_tv, TeamdynamixTv.Scheduler,
   jobs: [
     # Every minute
     {"* * * * *", {TeamdynamixTv.Ticket, :get, []}},
-    # Every 5 minutes
-    {"*/5 * * * *", {TeamdynamixTv.Resolution, :get, []}},
-    # Every 5 minutes
-    {"*/5 * * * *", {TeamdynamixTv.Printer, :get, []}},
-    # Every 5 minutes
-    {"*/5 * * * *", {TeamdynamixTv.Device, :get, []}},
-    # Every 5 minutes
-    {"*/5 * * * *", {TeamdynamixTv.PapercutSummary, :get, []}}
+    # Every minute
+    {"* * * * *", {TeamdynamixTv.Resolution, :get, []}},
+    # Every minute
+    {"* * * * *", {TeamdynamixTv.Printer, :get, []}},
+    # Every minute
+    {"* * * * *", {TeamdynamixTv.Device, :get, []}},
+    # Every minute
+    {"* * * * *", {TeamdynamixTv.PapercutSummary, :get, []}}
   ]
 
 # Import environment specific config. This must remain at the bottom
