@@ -31,7 +31,7 @@ check_origin =
 
 config :teamdynamix_tv, TeamdynamixTvWeb.Endpoint,
   http: [:inet6, port: String.to_integer(System.get_env("PORT") || "4000")],
-  check_origin: [check_origin_url],
+  check_origin: [check_origin],
   secret_key_base: secret_key_base
 
 # ## Using releases (Elixir v1.9+)
