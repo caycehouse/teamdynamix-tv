@@ -15,3 +15,5 @@ mix phx.digest
 
 # Create release
 MIX_ENV=prod mix release
+VERSION=$(cat mix.exs | grep version | awk -F\" '{print $2}')
+cd _build/prod/rel && zip -r teamdynamix_tv-v$VERSION.zip -r teamdynamix_tv
