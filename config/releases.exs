@@ -37,22 +37,106 @@ config :teamdynamix_tv, TeamdynamixTvWeb.Endpoint, server: true
 # Then you can assemble a release by calling `mix release`.
 # See `mix help release` for more information.
 
+td_auth_url =
+  System.get_env("TD_AUTH_URL") ||
+    raise """
+    environment variable TD_AUTH_URL is missing.
+    """
+
+td_new_tickets_url =
+  System.get_env("TD_NEW_TICKETS_URL") ||
+    raise """
+    environment variable TD_NEW_TICKETS_URL is missing.
+    """
+
+td_ticket_url =
+  System.get_env("TD_TICKET_URL") ||
+    raise """
+    environment variable TD_TICKET_URL is missing.
+    """
+
+td_api_ticket_url =
+  System.get_env("TD_API_TICKET_URL") ||
+    raise """
+    environment variable TD_API_TICKET_URL is missing.
+    """
+
+td_resolutions_url =
+  System.get_env("TD_RESOLUTIONS_URL") ||
+    raise """
+    environment variable TD_RESOLUTIONS_URL is missing.
+    """
+
+td_username =
+  System.get_env("TD_USERNAME") ||
+    raise """
+    environment variable TD_USERNAME is missing.
+    """
+
+td_password =
+  System.get_env("TD_PASSWORD") ||
+    raise """
+    environment variable TD_PASSWORD is missing.
+    """
+
 # Configure teamdynamix settings
 config :teamdynamix_tv, :teamdynamix_settings,
-  auth_url: "",
-  new_tickets_url: "",
-  ticket_url: "",
-  api_ticket_url: "",
-  resolutions_url: "",
-  username: "",
-  password: ""
+  auth_url: td_auth_url,
+  new_tickets_url: td_new_tickets_url,
+  ticket_url: td_ticket_url,
+  api_ticket_url: td_api_ticket_url,
+  resolutions_url: td_resolutions_url,
+  username: td_username,
+  password: td_password
+
+pc_api_token =
+  System.get_env("PC_API_TOKEN") ||
+    raise """
+    environment variable PC_API_TOKEN is missing.
+    """
+
+pc_printers_url =
+  System.get_env("PC_PRINTERS_URL") ||
+    raise """
+    environment variable PC_PRINTERS_URL is missing.
+    """
+
+pc_devices_url =
+  System.get_env("PC_DEVICES_URL") ||
+    raise """
+    environment variable PC_DEVICES_URL is missing.
+    """
+
+pc_system_url =
+  System.get_env("PC_SYSTEM_URL") ||
+    raise """
+    environment variable PC_SYSTEM_URL is missing.
+    """
+
+pc_print_provider_url =
+  System.get_env("PC_PRINT_PROVIDER_URL") ||
+    raise """
+    environment variable PC_PRINT_PROVIDER_URL is missing.
+    """
+
+pc_webprint_url =
+  System.get_env("PC_WEBPRINT_URL") ||
+    raise """
+    environment variable PC_WEBPRINT_URL is missing.
+    """
+
+pc_mobilityprint_url =
+  System.get_env("PC_MOBILITYPRINT_URL") ||
+    raise """
+    environment variable PC_MOBILITYPRINT_URL is missing.
+    """
 
 # Configure papercut settings
 config :teamdynamix_tv, :papercut_settings,
-  api_token: "",
-  printers_url: "",
-  devices_url: "",
-  system_url: "",
-  print_provider_url: "",
-  webprint_url: "",
-  mobilityprint_url: ""
+  api_token: pc_api_token,
+  printers_url: pc_printers_url,
+  devices_url: pc_devices_url,
+  system_url: pc_system_url,
+  print_provider_url: pc_print_provider_url,
+  webprint_url: pc_webprint_url,
+  mobilityprint_url: pc_mobilityprint_url
