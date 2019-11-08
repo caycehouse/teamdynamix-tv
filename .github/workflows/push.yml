@@ -1,5 +1,5 @@
 on: push
-name: Test and publish release
+name: Github Actions CI
 jobs:
   branchMaster:
     name: branch master
@@ -39,7 +39,6 @@ jobs:
         with:
           entrypoint: yarn
           args: --cwd assets deploy
-        if: github.ref == 'refs/heads/master'
       - name: mix deps.compile (prod)
         uses: caycehouse/actions/elixir/1.9.0@master
         env:
@@ -48,7 +47,6 @@ jobs:
         with:
           entrypoint: mix
           args: deps.compile
-        if: github.ref == 'refs/heads/master'
       - name: mix phx.digest
         uses: caycehouse/actions/elixir/1.9.0@master
         env:
@@ -58,7 +56,6 @@ jobs:
         with:
           entrypoint: mix
           args: phx.digest
-        if: github.ref == 'refs/heads/master'
       - name: mix release
         uses: caycehouse/actions/elixir/1.9.0@master
         env:
@@ -68,11 +65,3 @@ jobs:
         with:
           entrypoint: mix
           args: release
-        if: github.ref == 'refs/heads/master'
-      - name: github release
-        uses: caycehouse/actions/bin/ghr@master
-        env:
-          APPLICATION: teamdynamix_tv
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          RELEASE_PATH: _build/prod/rel
-        if: github.ref == 'refs/heads/master'
