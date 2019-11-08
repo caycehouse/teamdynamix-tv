@@ -4,7 +4,7 @@ defmodule TeamdynamixTv.MixProject do
   def project do
     [
       app: :teamdynamix_tv,
-      version: "1.1.0",
+      version: "1.1.1",
       elixir: "~> 1.5",
       elixirc_paths: elixirc_paths(Mix.env()),
       compilers: [:phoenix, :gettext] ++ Mix.compilers(),
