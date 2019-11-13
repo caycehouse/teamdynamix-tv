@@ -2,6 +2,7 @@ defmodule TeamdynamixTv.Ticket do
   use Ecto.Schema
   use EctoConditionals, repo: TeamdynamixTv.Repo
   import Ecto.Changeset
+  alias TeamdynamixTv.Ticket
 
   schema "tickets" do
     field :days_old, :integer
