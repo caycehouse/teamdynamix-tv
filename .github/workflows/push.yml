@@ -8,11 +8,15 @@ jobs:
       - uses: actions/checkout@master
       - name: mix deps.get
         uses: caycehouse/actions/elixir/1.9.0@master
+        env:
+          MIX_ENV: test
         with:
           entrypoint: mix
           args: deps.get
       - name: "mix format.check"
         uses: "caycehouse/actions/elixir/1.9.0@master"
+        env:
+          MIX_ENV: test
         with:
           entrypoint: mix
           args: format --check-formatted
