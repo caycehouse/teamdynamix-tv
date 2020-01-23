@@ -47,6 +47,7 @@ jobs:
         uses: caycehouse/actions/elixir/1.9.0@master
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          MIX_ENV: prod
           SECRET_KEY_BASE: ${{ secrets.SECRET_KEY_BASE }}
         with:
           entrypoint: mix
