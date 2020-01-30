@@ -109,7 +109,7 @@ defmodule TeamdynamixTvWeb.DashboardView do
     TeamdynamixTv.Repo.all(query)
   end
 
-  def mount(%{resp_group: resp_group}, socket) do
+  def mount(_params, %{"resp_group" => resp_group}, socket) do
     if connected?(socket), do: Process.send_after(self(), :tick, 1000)
 
     {:ok,

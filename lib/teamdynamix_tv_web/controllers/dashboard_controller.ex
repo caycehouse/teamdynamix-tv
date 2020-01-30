@@ -5,7 +5,7 @@ defmodule TeamdynamixTvWeb.DashboardController do
   def index(conn, %{"resp_group" => resp_group}) do
     LiveView.Controller.live_render(conn, TeamdynamixTvWeb.DashboardView,
       session: %{
-        resp_group: resp_group
+        "resp_group" => resp_group
       }
     )
   end
