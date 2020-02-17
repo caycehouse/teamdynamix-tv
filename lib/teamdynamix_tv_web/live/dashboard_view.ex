@@ -121,7 +121,8 @@ defmodule TeamdynamixTvWeb.DashboardView do
        resp_group: resp_group,
        summary: get_summary(),
        old_resolutions: get_old_resolutions(resp_group),
-       new_resolutions: get_new_resolutions(resp_group)
+       new_resolutions: get_new_resolutions(resp_group),
+       time: Timex.now |> Timex.to_datetime("America/New_York") |> Timex.format!("{RFC1123}")
      )}
   end
 
@@ -138,7 +139,8 @@ defmodule TeamdynamixTvWeb.DashboardView do
        devices: get_devices(),
        summary: get_summary(),
        old_resolutions: get_old_resolutions(resp_group),
-       new_resolutions: get_new_resolutions(resp_group)
+       new_resolutions: get_new_resolutions(resp_group),
+       time: Timex.now |> Timex.to_datetime("America/New_York") |> Timex.format!("{RFC1123}")
      )}
   end
 end
