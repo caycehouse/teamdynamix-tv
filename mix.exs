@@ -45,7 +45,7 @@ defmodule TeamdynamixTv.MixProject do
       {:plug_cowboy, "~> 2.0"},
       {:httpoison, "~> 1.5"},
       {:ecto_conditionals, "~> 0.1.0"},
-      {:quantum, "~> 2.3"},
+      {:quantum, "~> 3.0"},
       {:timex, "~> 3.6"},
       {:phoenix_live_view, "~> 0.13.3"}
     ]
