@@ -20,5 +20,11 @@ import "phoenix_html";
 import LiveSocket from "phoenix_live_view";
 import { Socket } from "phoenix";
 
+import NProgress from "nprogress";
+
+// Show progress bar on live navigation and form submits
+window.addEventListener("phx:page-loading-start", (info) => NProgress.start());
+window.addEventListener("phx:page-loading-stop", (info) => NProgress.done());
+
 let liveSocket = new LiveSocket("/live", Socket);
 liveSocket.connect();
