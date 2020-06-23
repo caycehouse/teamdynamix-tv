@@ -7,7 +7,7 @@ defmodule TeamdynamixTvWeb.Router do
     plug :fetch_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
-    plug Phoenix.LiveView.Flash
+    plug :fetch_live_flash
   end
 
   pipeline :api do
