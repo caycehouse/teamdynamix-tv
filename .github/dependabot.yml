@@ -7,6 +7,10 @@ updates:
     time: "04:00"
     timezone: America/New_York
   open-pull-requests-limit: 10
+  labels:
+    - dependencies
+    - javascript
+    - automerge
 - package-ecosystem: mix
   directory: "/"
   schedule:
@@ -14,3 +18,7 @@ updates:
     time: "04:00"
     timezone: America/New_York
   open-pull-requests-limit: 10
+  labels:
+    - dependencies
+    - elixir
+    - automerge
