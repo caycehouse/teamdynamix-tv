@@ -11,13 +11,14 @@ defmodule TeamdynamixTvWeb.DashboardView do
 
     # Query for our tickets.
     query =
-      from t in "tickets",
+      from(t in "tickets",
         where: t.resp_group == type(^resp_group, :string),
         where: t.status != "Closed",
         where: t.status != "Cancelled",
         select: [:ticket_id, :title, :status, :days_old, :url, :status_color],
         order_by: [desc: t.ticket_id],
         limit: 20
+      )
 
     TeamdynamixTv.Repo.all(query)
   end
@@ -28,11 +29,12 @@ defmodule TeamdynamixTvWeb.DashboardView do
 
     # Query for our tickets.
     query =
-      from t in "tickets",
+      from(t in "tickets",
         where: t.resp_group == type(^resp_group, :string),
         where: t.status != "Closed",
         where: t.status != "Cancelled",
         select: count(t.id)
+      )
 
     TeamdynamixTv.Repo.one(query)
   end
@@ -43,12 +45,13 @@ defmodule TeamdynamixTvWeb.DashboardView do
 
     # Query for our resolutions.
     query =
-      from r in "resolutions",
+      from(r in "resolutions",
         where: r.resp_group == type(^resp_group, :string),
         where: r.resolved_date < ago(1, "week"),
         where: r.resolved_date > ago(2, "week"),
         select: [:name, :closes],
         order_by: [desc: r.closes]
+      )
 
     TeamdynamixTv.Repo.all(query)
   end
@@ -59,11 +62,12 @@ defmodule TeamdynamixTvWeb.DashboardView do
 
     # Query for our resolutions.
     query =
-      from r in "resolutions",
+      from(r in "resolutions",
         where: r.resp_group == type(^resp_group, :string),
         where: r.resolved_date > ago(1, "week"),
         select: [:name, :closes],
         order_by: [desc: r.closes]
+      )
 
     TeamdynamixTv.Repo.all(query)
   end
@@ -74,10 +78,11 @@ defmodule TeamdynamixTvWeb.DashboardView do
 
     # Query for our printers.
     query =
-      from p in "printers",
+      from(p in "printers",
         where: p.status != "OK",
         select: [:name, :status, :status_color],
         order_by: [desc: p.name]
+      )
 
     TeamdynamixTv.Repo.all(query)
   end
@@ -88,10 +93,11 @@ defmodule TeamdynamixTvWeb.DashboardView do
 
     # Query for our devices.
     query =
-      from d in "devices",
+      from(d in "devices",
         where: d.status != "OK",
         select: [:name, :status],
         order_by: [desc: d.name]
+      )
 
     TeamdynamixTv.Repo.all(query)
   end
@@ -102,9 +108,10 @@ defmodule TeamdynamixTvWeb.DashboardView do
 
     # Query for our summary.
     query =
-      from s in "papercutsummary",
+      from(s in "papercutsummary",
         select: [:name, :status, :status_color],
         order_by: [desc: s.name]
+      )
 
     TeamdynamixTv.Repo.all(query)
   end
@@ -122,7 +129,7 @@ defmodule TeamdynamixTvWeb.DashboardView do
        summary: get_summary(),
        old_resolutions: get_old_resolutions(resp_group),
        new_resolutions: get_new_resolutions(resp_group),
-       time: Timex.now |> Timex.to_datetime("America/New_York") |> Timex.format!("{RFC1123}")
+       time: Timex.now() |> Timex.to_datetime("America/New_York") |> Timex.format!("{RFC1123}")
      )}
   end
 
@@ -140,7 +147,7 @@ defmodule TeamdynamixTvWeb.DashboardView do
        summary: get_summary(),
        old_resolutions: get_old_resolutions(resp_group),
        new_resolutions: get_new_resolutions(resp_group),
-       time: Timex.now |> Timex.to_datetime("America/New_York") |> Timex.format!("{RFC1123}")
+       time: Timex.now() |> Timex.to_datetime("America/New_York") |> Timex.format!("{RFC1123}")
      )}
   end
 end
