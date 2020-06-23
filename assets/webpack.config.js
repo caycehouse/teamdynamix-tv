@@ -10,15 +10,15 @@ module.exports = (env, options) => ({
   optimization: {
     minimizer: [
       new TerserPlugin({ cache: true, parallel: true, sourceMap: devMode }),
-      new OptimizeCSSAssetsPlugin({})
-    ]
+      new OptimizeCSSAssetsPlugin({}),
+    ],
   },
   entry: {
-    "./js/app.js": glob.sync("./vendor/**/*.js").concat(["./js/app.js"])
+    "./js/app.js": glob.sync("./vendor/**/*.js").concat(["./js/app.js"]),
   },
   output: {
     filename: "app.js",
-    path: path.resolve(__dirname, "../priv/static/js")
+    path: path.resolve(__dirname, "../priv/static/js"),
   },
   devtool: devMode ? "source-map" : undefined,
   module: {
@@ -27,8 +27,8 @@ module.exports = (env, options) => ({
         test: /\.js$/,
         exclude: /node_modules/,
         use: {
-          loader: "babel-loader"
-        }
+          loader: "babel-loader",
+        },
       },
       {
         test: /\.css$/,
@@ -37,15 +37,15 @@ module.exports = (env, options) => ({
           {
             loader: "css-loader",
             options: {
-              sourceMap: devMode
-            }
-          }
-        ]
-      }
-    ]
+              sourceMap: devMode,
+            },
+          },
+        ],
+      },
+    ],
   },
   plugins: [
     new MiniCssExtractPlugin({ filename: "../css/app.css" }),
-    new CopyWebpackPlugin([{ from: "static/", to: "../" }])
-  ]
+    new CopyWebpackPlugin({ patterns: [{ from: "static/", to: "../" }] }),
+  ],
 });
