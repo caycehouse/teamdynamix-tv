@@ -47,7 +47,7 @@ defmodule TeamdynamixTv.MixProject do
       {:ecto_conditionals, "~> 0.1.0"},
       {:quantum, "~> 3.0"},
       {:timex, "~> 3.6"},
-      {:phoenix_live_view, "~> 0.13.3"}
+      {:phoenix_live_view, "~> 0.14.0"}
     ]
   end
 
