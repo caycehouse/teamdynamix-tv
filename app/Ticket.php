@@ -60,6 +60,19 @@ class Ticket extends Model
         return $query->where('resp_group', $resp_group);
     }
 
+    public function getStatusColorAttribute()
+    {
+        if ($this->status == "New") {
+            if ($this->age > 1) {
+                return "bg-red-100 border border-red-400 text-red-700";
+            } else {
+                return "bg-yellow-100 border border-yellow-400 text-yellow-700";
+            }
+        } else if ($this->status == "On Hold") {
+            return "text-gray-400";
+        }
+    }
+
     /**
      * Gets new tickets from TeamDynamix.
      *
@@ -77,7 +90,7 @@ class Ticket extends Model
         ])->getBody();
 
         $response = $client->request('GET', 'https://ecu.teamdynamix.com/TDWebApi/api/reports/118331', [
-            'headers' => ['Authorization' => 'Bearer '.$authToken],
+            'headers' => ['Authorization' => 'Bearer ' . $authToken],
             'query' => ['withData' => 'true'],
         ])->getBody();
 
@@ -86,17 +99,17 @@ class Ticket extends Model
         foreach ($json_response['DataRows'] as $jr) {
             if ($jr['ResponsibleGroupName']) {
                 $ticket = self::withTrashed()->firstOrCreate(
-                [
-                    'ticket_id' => $jr['TicketID'],
-                ],
-                [
-                    'title' => $jr['Title'],
-                    'lab' => empty($jr['18375']) ? '' : $jr['18375'],
-                    'status' => $jr['StatusName'],
-                    'age' => $jr['DaysOld'],
-                    'resp_group' => $jr['ResponsibleGroupName'],
-                ]
-            );
+                    [
+                        'ticket_id' => $jr['TicketID'],
+                    ],
+                    [
+                        'title' => $jr['Title'],
+                        'lab' => empty($jr['18375']) ? '' : $jr['18375'],
+                        'status' => $jr['StatusName'],
+                        'age' => $jr['DaysOld'],
+                        'resp_group' => $jr['ResponsibleGroupName'],
+                    ]
+                );
 
                 // Restore deleted ticket if it has become unresolved again.
                 if ($ticket->trashed()) {
@@ -123,7 +136,7 @@ class Ticket extends Model
         ])->getBody();
 
         $response = $client->request('GET', "https://ecu.teamdynamix.com/TDWebApi/api/217/tickets/{$this->ticket_id}", [
-            'headers' => ['Authorization' => 'Bearer '.$authToken],
+            'headers' => ['Authorization' => 'Bearer ' . $authToken],
         ])->getBody();
 
         $jr = json_decode($response, true);

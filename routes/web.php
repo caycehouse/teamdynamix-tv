@@ -11,5 +11,4 @@
 |
 */
 
-Route::get('/', 'DashboardController@index');
-Route::get('/{resp_group}', 'DashboardController@byGroup');
+Route::livewire('/', 'dashboard')->name('home');
