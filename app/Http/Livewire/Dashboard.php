@@ -14,9 +14,9 @@ class Dashboard extends Component
     public function render()
     {
         $resp_group = '+Labs & Advanced Technologies';
-        $tickets = Ticket::unresolved()->byResponsibleGroup($resp_group)->get();
-        $resolutionsLastWeek = Resolution::byResponsibleGroup($resp_group)->lastWeek()->get();
-        $resolutionsThisWeek = Resolution::byResponsibleGroup($resp_group)->thisWeek()->get();
+        $tickets = Ticket::unresolved()->byResponsibleGroup($resp_group)->orderByRaw("CAST(age as UNSIGNED) ASC")->get();
+        $resolutionsLastWeek = Resolution::byResponsibleGroup($resp_group)->orderBy('closes', 'desc')->lastWeek()->get();
+        $resolutionsThisWeek = Resolution::byResponsibleGroup($resp_group)->orderBy('closes', 'desc')->thisWeek()->get();
 
         $devices = Device::inError()->get();
         $papercutStatuses = PapercutStatuses::all();
