@@ -19,7 +19,7 @@
 
     <!-- Styles -->
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
-    @livewireStyles
+    <livewire:styles />
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -29,7 +29,7 @@
     @include('components.navbar')
     @yield('body')
 
-    @livewireScripts
+    <livewire:scripts />
 </body>
 
 </html>
