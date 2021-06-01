@@ -1,24 +1,14 @@
+---
 version: 2
 updates:
-- package-ecosystem: npm
-  directory: "/assets"
-  schedule:
-    interval: daily
-    time: "04:00"
-    timezone: America/New_York
-  open-pull-requests-limit: 10
-  labels:
-    - dependencies
-    - javascript
-    - automerge
-- package-ecosystem: mix
-  directory: "/"
-  schedule:
-    interval: daily
-    time: "04:00"
-    timezone: America/New_York
-  open-pull-requests-limit: 10
-  labels:
-    - dependencies
-    - elixir
-    - automerge
+  - package-ecosystem: mix
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 10
+    
+  - package-ecosystem: npm
+    directory: /assets
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 10
