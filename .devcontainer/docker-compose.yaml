@@ -1,0 +1,31 @@
+version: "3.9"
+services:
+  cli:
+    build: cli
+    volumes:
+      - ..:/workspaces/laravel
+
+  fpm:
+    build: fpm
+    volumes:
+      - ..:/workspaces/laravel
+    user: 1000:1000
+
+  nginx:
+    build: nginx
+    volumes:
+      - ..:/workspaces/laravel
+    ports:
+      - 80:80
+    depends_on:
+      - fpm
+
+  mysql:
+    image: mariadb:10
+    environment:
+      MYSQL_DATABASE: laravel
+      MYSQL_ALLOW_EMPTY_PASSWORD: affirm
+
+  redis:
+    image: redis:6.2-alpine
+
