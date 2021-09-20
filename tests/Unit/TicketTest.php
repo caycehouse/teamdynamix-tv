@@ -2,8 +2,7 @@
 
 namespace Tests\Unit;
 
-use App\Ticket;
-use Faker\Factory;
+use App\Models\Ticket;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -18,16 +17,14 @@ class TicketTest extends TestCase
      */
     public function testGettingOnlyResolvedTickets()
     {
-        $faker = Factory::create();
-
         // Resolved Tickets
-        factory(Ticket::class)->create(['status' => 'Closed']);
-        factory(Ticket::class)->create(['status' => 'Cancelled']);
+        Ticket::factory()->create(['status' => 'Closed']);
+        Ticket::factory()->create(['status' => 'Cancelled']);
 
         // Unresolved Tickets
-        factory(Ticket::class)->create(['status' => 'Work-in-Progress']);
-        factory(Ticket::class)->create(['status' => 'New']);
-        factory(Ticket::class)->create(['status' => 'On Hold']);
+        Ticket::factory()->create(['status' => 'Work-in-Progress']);
+        Ticket::factory()->create(['status' => 'New']);
+        Ticket::factory()->create(['status' => 'On Hold']);
 
         $isResolved = true;
         foreach (Ticket::resolved()->get() as $ticket) {
@@ -49,16 +46,14 @@ class TicketTest extends TestCase
      */
     public function testGettingOnlyUnresolvedTickets()
     {
-        $faker = Factory::create();
-
         // Resolved Tickets
-        factory(Ticket::class)->create(['status' => 'Closed']);
-        factory(Ticket::class)->create(['status' => 'Cancelled']);
+        Ticket::factory()->create(['status' => 'Closed']);
+        Ticket::factory()->create(['status' => 'Cancelled']);
 
         // Unresolved Tickets
-        factory(Ticket::class)->create(['status' => 'Work-in-Progress']);
-        factory(Ticket::class)->create(['status' => 'New']);
-        factory(Ticket::class)->create(['status' => 'On Hold']);
+        Ticket::factory()->create(['status' => 'Work-in-Progress']);
+        Ticket::factory()->create(['status' => 'New']);
+        Ticket::factory()->create(['status' => 'On Hold']);
 
         $isUnresolved = true;
         foreach (Ticket::unresolved()->get() as $ticket) {
