@@ -50,7 +50,7 @@
             </tbody>
         </table>
         <div class="grid grid-cols-2 gap-4">
-            <div class="col-span-2 md:co-span-1">
+            <div class="col-span-2 md:col-span-1">
                 <h5 class="text-yellow-300">Ticket Resolutions Last Week
                     ({{ $resolutionsLastWeek->sum('closes') }})</h5>
                 <table class="min-w-full divide-y divide-gray-200 mb-4">
