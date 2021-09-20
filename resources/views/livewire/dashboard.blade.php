@@ -1,5 +1,5 @@
-<div class="flex flex-wrap" wire:poll>
-    <div class="w-3/12">
+<div class="grid grid-cols-3 gap-4" wire:poll>
+    <div class="col-span-3 md:col-span-1">
         <h5 class="text-yellow-300">Papercut Summary</h5>
         <table class="min-w-full divide-y divide-gray-200 mb-4">
             <tbody>
@@ -34,7 +34,7 @@
             </tbody>
         </table>
     </div>
-    <div class="w-9/12">
+    <div class="col-span-3 md:col-span-2">
         <h5 class="text-yellow-300">Unresolved Tickets ({{ $tickets->count() }})</h5>
         <table class="min-w-full divide-y divide-gray-200 mb-4">
             <tbody>
@@ -49,8 +49,8 @@
                 @endforeach
             </tbody>
         </table>
-        <div class="flex">
-            <div class="w-1/2">
+        <div class="grid grid-cols-2 gap-4">
+            <div class="col-span-2 md:co-span-1">
                 <h5 class="text-yellow-300">Ticket Resolutions Last Week
                     ({{ $resolutionsLastWeek->sum('closes') }})</h5>
                 <table class="min-w-full divide-y divide-gray-200 mb-4">
@@ -64,7 +64,7 @@
                     </tbody>
                 </table>
             </div>
-            <div class="w-1/2">
+            <div class="col-span-2 md:col-span-1">
                 <h5 class="text-yellow-300">Ticket Resolutions This Week
                     ({{ $resolutionsThisWeek->sum('closes') }})</h5>
                 <table class="min-w-full divide-y divide-gray-200 mb-4">
@@ -80,7 +80,7 @@
             </div>
         </div>
     </div>
-    <div class="w-full text-right text-yellow-300">
+    <div class="col-span-3 w-full text-right text-yellow-300">
         Last Checked {{ now()->format('h:i:s T') }}
     </div>
 </div>

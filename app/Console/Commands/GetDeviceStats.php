@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Device;
+use App\Models\Device;
 use Illuminate\Console\Command;
 
 class GetDeviceStats extends Command

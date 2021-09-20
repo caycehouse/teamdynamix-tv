@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\PapercutStatuses;
+use App\Models\PapercutStatuses;
 use Illuminate\Console\Command;
 
 class GetPapercutStats extends Command

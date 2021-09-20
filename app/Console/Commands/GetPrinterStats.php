@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Printer;
+use App\Models\Printer;
 use Illuminate\Console\Command;
 
 class GetPrinterStats extends Command

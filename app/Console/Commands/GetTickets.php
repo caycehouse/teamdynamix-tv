@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Ticket;
+use App\Models\Ticket;
 use Illuminate\Console\Command;
 
 class GetTickets extends Command

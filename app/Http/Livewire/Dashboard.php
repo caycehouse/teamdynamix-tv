@@ -2,11 +2,11 @@
 
 namespace App\Http\Livewire;
 
-use App\Device;
-use App\PapercutStatuses;
-use App\Printer;
-use App\Resolution;
-use App\Ticket;
+use App\Models\Device;
+use App\Models\PapercutStatuses;
+use App\Models\Printer;
+use App\Models\Resolution;
+use App\Models\Ticket;
 use Livewire\Component;
 
 class Dashboard extends Component

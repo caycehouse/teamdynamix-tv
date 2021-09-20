@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,4 +13,4 @@
 |
 */
 
-Route::livewire('/', 'dashboard')->name('home');
+Route::get('/', \App\Http\Livewire\Dashboard::class);
