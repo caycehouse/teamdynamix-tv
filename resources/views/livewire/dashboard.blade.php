@@ -52,7 +52,7 @@
             @error('name') <p class="text-red-500 text-xs italic">{{ $message }}</p> @enderror
             </div>
               <div class="w-full md:w-1/2 px-3">
-                <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" wire:model="user" type="text" placeholder="Jane Doe">
+                <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" wire:model="user" type="text" placeholder="Swipe your 1 Card">
                 @error('user') <p class="text-red-500 text-xs italic">{{ $message }}</p> @enderror
                 </div>
             </div>
