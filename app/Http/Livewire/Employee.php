@@ -11,7 +11,7 @@ class Employee extends Component
 
     public function render()
     {
-        $this->employees = \App\Models\Employee::all();
+        $this->employees = \App\Models\Employee::all()->sortBy('name');
         return view('employee.index');
     }
 

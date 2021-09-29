@@ -11,7 +11,7 @@ class Van extends Component
 
     public function render()
     {
-        $this->vans = \App\Models\Van::all();
+        $this->vans = \App\Models\Van::all()->sortBy('name');
         return view('van.index');
     }
 
