@@ -20,22 +20,25 @@ class Dashboard extends Component
     public function submit()
     {
         $van = Van::find($this->van_id);
-        $employee = Employee::where('banner_id', $this->employee_id)->firstOrFail();
+        $employee = Employee::where('banner_id', substr($this->employee_id, 0, strlen($this->employee_id)-2))->first();
 
-        $this->validate([
-            'employee_id' => 'required',
-            'van_id' => 'required'
-        ]);
+        if($employee) {
+            $this->validate([
+                'employee_id' => 'required',
+                'van_id' => 'required'
+            ]);
 
-        $van_log = new VanLog;
-        $van_log->van()->associate($van);
-        $van_log->employee()->associate($employee);
+            $van_log = new VanLog;
+            $van_log->van()->associate($van);
+            $van_log->employee()->associate($employee);
 
-        if($van_log->save()) {
-            $van->available = false;
-            $van->save();
+            if($van_log->save()) {
+                $van->available = false;
+                $van->save();
+            }
+        } else {
+            $this->addError('employee_id', 'Employee not found.');
         }
-
         $this->reset(['van_id', 'employee_id']);
     }
 

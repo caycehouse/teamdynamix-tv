@@ -58,7 +58,7 @@
                 @foreach($van_logs as $van_log)
                 <tr>
                     <td>{{ $van_log->van->name }}</td>
-                    <td>{{ $van_log->user->name }}</td>
+                    <td>{{ $van_log->employee->name }}</td>
                     <td>
                         <button class="bg-transparent hover:bg-purple-900 text-yellow-300 font-semibold hover:text-white py-2 px-4 border border-purple-500 hover:border-transparent rounded" wire:click="vanCheckIn({{ $van_log->id }})">
                             Check In
