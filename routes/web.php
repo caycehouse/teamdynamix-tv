@@ -14,28 +14,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', \App\Http\Livewire\Dashboard::class);
+Route::get('/employees', \App\Http\Livewire\Employee::class);
+Route::get('/vans', \App\Http\Livewire\Van::class);
 
-Route::get('/van', function () {
-    $headers = [
-        'Cache-Control'       => 'must-revalidate, post-check=0, pre-check=0',
-        'Content-type'        => 'text/csv',
-        'Content-Disposition' => 'attachment; filename=vans.csv',
-        'Expires'             => '0',
-        'Pragma'              => 'public'
-    ];
-
-    $list = \App\Models\VanLog::withTrashed()->get()->toArray();
-
-    # add headers for each column in the CSV download
-    array_unshift($list, array_keys($list[0]));
-
-    $callback = function () use ($list) {
-        $FH = fopen('php://output', 'w');
-        foreach ($list as $row) {
-            fputcsv($FH, $row);
-        }
-        fclose($FH);
-    };
-
-    return response()->stream($callback, 200, $headers);
+Route::get('/vanlog', function () {
+    return Maatwebsite\Excel\Facades\Excel::download(new App\Exports\VanLogsExport, 'vanlogs.xlsx');
 });

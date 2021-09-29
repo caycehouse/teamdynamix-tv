@@ -17,7 +17,7 @@ class CreateEmployeesTable extends Migration
             $table->id();
             $table->timestamps();
             $table->string('name');
-            $table->string('banner_id');
+            $table->string('banner_id')->unique();
         });
     }
 

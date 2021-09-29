@@ -63,7 +63,7 @@ class Dashboard extends Component
         $van_logs = VanLog::all();
         $vans = Van::where('available', true)->get()->sortBy('name');
 
-        return view('livewire.dashboard', [
+        return view('dashboard.dashboard', [
             'tickets' => $tickets,
             'devices' => $devices,
             'van_logs' => $van_logs,

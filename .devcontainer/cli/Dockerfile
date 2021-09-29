@@ -14,12 +14,13 @@ RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - \
     git \
     default-mysql-client \
     libzip-dev \
+    libpng-dev \
     gnupg \
     nodejs \
     poppler-utils \
     && mkdir -p /usr/src/php/ext/redis \
     && curl -fsSL --ipv4 https://github.com/phpredis/phpredis/archive/5.3.4.tar.gz | tar xvz -C "/usr/src/php/ext/redis" --strip 1 \
-    && docker-php-ext-install pdo_mysql zip redis \
+    && docker-php-ext-install pdo_mysql zip redis gd \
     && apt -y autoremove \
     && apt clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
