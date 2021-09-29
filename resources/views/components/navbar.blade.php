@@ -3,7 +3,9 @@
         <div class="flex items-center justify-between h-16">
             <div class="flex items-center">
                 <div class="flex-shrink-0">
-                    <x-logo class="w-auto h-8 mx-auto text-white" />
+                    <a href="/">
+                        <x-logo class="w-auto h-8 mx-auto text-white" />
+                    </a>
                 </div>
             </div>
             <div class="hidden md:block">

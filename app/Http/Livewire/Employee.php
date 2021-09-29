@@ -50,7 +50,7 @@ class Employee extends Component
         $this->validate([
             'selected_id' => 'required|numeric',
             'name' => 'required|min:5',
-            'banner_id' => 'required|unique:employees'
+            'banner_id' => 'required|unique:employees',
         ]);
 
         if ($this->selected_id) {
