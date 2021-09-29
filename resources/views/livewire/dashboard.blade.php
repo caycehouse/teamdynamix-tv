@@ -33,7 +33,7 @@
                 @endforeach
             </tbody>
         </table>
-        <h5 class="text-yellow-300">Vans Checked Out ({{ $vans->count() }})</h5>
+        <h5 class="text-yellow-300">Vans Checked Out ({{ $van_logs->count() }})</h5>
         <form class="w-full max-w-lg" wire:submit.prevent="submit">
             <div class="flex flex-wrap -mx-3 mb-6">
               <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
@@ -59,12 +59,12 @@
         </form>
         <table class="min-w-full divide-y divide-gray-200 mb-4">
             <tbody>
-                @foreach($vans as $van)
+                @foreach($van_logs as $van_log)
                 <tr>
-                    <td>{{ $van->name }}</td>
-                    <td>{{ $van->user }}</td>
+                    <td>{{ $van_log->name }}</td>
+                    <td>{{ $van_log->user }}</td>
                     <td>
-                        <button class="bg-transparent hover:bg-purple-900 text-yellow-300 font-semibold hover:text-white py-2 px-4 border border-purple-500 hover:border-transparent rounded" wire:click="vanCheckIn({{ $van->id }})">
+                        <button class="bg-transparent hover:bg-purple-900 text-yellow-300 font-semibold hover:text-white py-2 px-4 border border-purple-500 hover:border-transparent rounded" wire:click="vanCheckIn({{ $van_log->id }})">
                             Check In
                         </button>
                     </td>

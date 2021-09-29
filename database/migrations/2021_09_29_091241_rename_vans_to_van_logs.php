@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddColorCodeToTickets extends Migration
+class RenameVansToVanLogs extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,7 @@ class AddColorCodeToTickets extends Migration
      */
     public function up()
     {
-        Schema::table('tickets', function (Blueprint $table) {
-            $table->string('color_code');
-        });
+        Schema::rename('vans', 'van_logs');
     }
 
     /**
@@ -25,8 +23,6 @@ class AddColorCodeToTickets extends Migration
      */
     public function down()
     {
-        Schema::table('tickets', function (Blueprint $table) {
-            $table->dropColumn('color_code');
-        });
+        Schema::rename('van_logs', 'vans');
     }
 }

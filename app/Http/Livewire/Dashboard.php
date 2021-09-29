@@ -7,7 +7,7 @@ use App\Models\PapercutStatuses;
 use App\Models\Printer;
 use App\Models\Resolution;
 use App\Models\Ticket;
-use App\Models\Van;
+use App\Models\VanLog;
 use Livewire\Component;
 
 class Dashboard extends Component
@@ -22,14 +22,14 @@ class Dashboard extends Component
             'user' => 'required',
         ]);
 
-        Van::create($validatedData);
+        VanLog::create($validatedData);
 
         $this->reset(['name', 'user']);
     }
 
     public function vanCheckIn($van)
     {
-        $van = Van::find($van)->delete();
+        VanLog::find($van)->delete();
     }
 
     public function render()
@@ -42,12 +42,12 @@ class Dashboard extends Component
         $devices = Device::inError()->get();
         $papercutStatuses = PapercutStatuses::all();
         $printers = Printer::inError()->get();
-        $vans = Van::all();
+        $van_logs = VanLog::all();
 
         return view('livewire.dashboard', [
             'tickets' => $tickets,
             'devices' => $devices,
-            'vans' => $vans,
+            'van_logs' => $van_logs,
             'papercutStatuses' => $papercutStatuses,
             'printers' => $printers,
             'resolutionsLastWeek' => $resolutionsLastWeek,
