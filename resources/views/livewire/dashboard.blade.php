@@ -39,21 +39,17 @@
               <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                 <select
                 class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                type="text" placeholder="Name" wire:model="name">
+                wire:model="van_id">
                 <option value="">Select a Van</option>
-                <option value="A19">A17</option>
-                <option value="A19">A19</option>
-                <option value="A22">A22</option>
-                <option value="A48">A48</option>
-                <option value="A49">A49</option>
-                <option value="A77">A77</option>
-                <option value="A83">A83</option>
+                @foreach($vans as $van)
+                    <option value="{{ $van->id }}">{{ $van->name }}</option>
+                @endforeach
             </select>
-            @error('name') <p class="text-red-500 text-xs italic">{{ $message }}</p> @enderror
+            @error('van_id') <p class="text-red-500 text-xs italic">{{ $message }}</p> @enderror
             </div>
               <div class="w-full md:w-1/2 px-3">
-                <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" wire:model="user" type="text" placeholder="Swipe your 1 Card">
-                @error('user') <p class="text-red-500 text-xs italic">{{ $message }}</p> @enderror
+                <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" wire:model="employee_id" type="text" placeholder="Swipe your 1 Card">
+                @error('employee_id') <p class="text-red-500 text-xs italic">{{ $message }}</p> @enderror
                 </div>
             </div>
         </form>
@@ -61,8 +57,8 @@
             <tbody>
                 @foreach($van_logs as $van_log)
                 <tr>
-                    <td>{{ $van_log->name }}</td>
-                    <td>{{ $van_log->user }}</td>
+                    <td>{{ $van_log->van->name }}</td>
+                    <td>{{ $van_log->user->name }}</td>
                     <td>
                         <button class="bg-transparent hover:bg-purple-900 text-yellow-300 font-semibold hover:text-white py-2 px-4 border border-purple-500 hover:border-transparent rounded" wire:click="vanCheckIn({{ $van_log->id }})">
                             Check In
