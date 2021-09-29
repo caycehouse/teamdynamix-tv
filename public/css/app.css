@@ -1,4 +1,4 @@
-/*! tailwindcss v2.2.15 | MIT License | https://tailwindcss.com *//*! modern-normalize v1.1.0 | MIT License | https://github.com/sindresorhus/modern-normalize */
+/*! tailwindcss v2.2.16 | MIT License | https://tailwindcss.com *//*! modern-normalize v1.1.0 | MIT License | https://github.com/sindresorhus/modern-normalize */
 
 /*
 Document
@@ -879,14 +879,14 @@ select {
 .-mt-px {
 	margin-top: -1px;
 }
+.mt-5 {
+	margin-top: 1.25rem;
+}
 .-mr-2 {
 	margin-right: -0.5rem;
 }
 .mt-1 {
 	margin-top: 0.25rem;
-}
-.mt-5 {
-	margin-top: 1.25rem;
 }
 .block {
 	display: block;
@@ -1102,13 +1102,13 @@ select {
 	--tw-bg-opacity: 1;
 	background-color: rgba(243, 244, 246, var(--tw-bg-opacity));
 }
-.bg-purple-900 {
-	--tw-bg-opacity: 1;
-	background-color: rgba(76, 29, 149, var(--tw-bg-opacity));
-}
 .bg-gray-50 {
 	--tw-bg-opacity: 1;
 	background-color: rgba(249, 250, 251, var(--tw-bg-opacity));
+}
+.bg-purple-900 {
+	--tw-bg-opacity: 1;
+	background-color: rgba(76, 29, 149, var(--tw-bg-opacity));
 }
 .bg-indigo-600 {
 	--tw-bg-opacity: 1;
@@ -1346,13 +1346,13 @@ select {
 	--tw-text-opacity: 1;
 	color: rgba(255, 255, 255, var(--tw-text-opacity));
 }
-.hover\:text-yellow-300:hover {
-	--tw-text-opacity: 1;
-	color: rgba(252, 211, 77, var(--tw-text-opacity));
-}
 .hover\:text-indigo-900:hover {
 	--tw-text-opacity: 1;
 	color: rgba(49, 46, 129, var(--tw-text-opacity));
+}
+.hover\:text-yellow-300:hover {
+	--tw-text-opacity: 1;
+	color: rgba(252, 211, 77, var(--tw-text-opacity));
 }
 .focus\:z-10:focus {
 	z-index: 10;
