@@ -82,7 +82,7 @@ class Ticket extends Model
             ],
         ])->getBody();
 
-        $response = $client->request('GET', 'https://ecu.teamdynamix.com/TDWebApi/api/reports/118331', [
+        $response = $client->request('GET', 'https://ecu.teamdynamix.com/TDWebApi/api/reports/120636', [
             'headers' => ['Authorization' => 'Bearer ' . $authToken],
             'query' => ['withData' => 'true'],
         ])->getBody();

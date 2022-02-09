@@ -71,8 +71,8 @@ class Resolution extends Model
             ],
         ])->getBody();
 
-        $response = $client->request('GET', 'https://ecu.teamdynamix.com/TDWebApi/api/reports/118131', [
-            'headers' => ['Authorization' => 'Bearer '.$authToken],
+        $response = $client->request('GET', 'https://ecu.teamdynamix.com/TDWebApi/api/reports/120639', [
+            'headers' => ['Authorization' => 'Bearer ' . $authToken],
             'query' => ['withData' => 'true'],
         ])->getBody();
 
