@@ -11,7 +11,7 @@
     },
     "devDependencies": {
         "@tailwindcss/forms": "^0.3.4",
-        "autoprefixer": "^10.3.4",
+        "autoprefixer": "^10.4.11",
         "laravel-mix": "^6.0.6",
         "npx": "^10.2.2",
         "postcss": "^8.1.14",
